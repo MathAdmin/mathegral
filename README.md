@@ -58,4 +58,4 @@ Main concepts can be found in [ProblemApi](src/problem/ProblemApi.ts).
 ### Adding a `ProblemGenerator`
 
 1. Implement a `ProblemGenerator` in `src/problem/generator`
-2. Register the `ProblemGenerator` in the [problemGeneratorIndex](src/problem/problemGeneratorIndex.ts]
+2. Register the `ProblemGenerator` in the [problemGeneratorIndex](src/problem/problemGeneratorIndex.ts)
