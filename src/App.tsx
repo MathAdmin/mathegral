@@ -8,6 +8,7 @@ import {
   IconButton,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import {
   BrowserRouter as Router,
   Route,
@@ -53,7 +54,21 @@ const Header = () => {
         >
           <HomeIcon />
         </IconButton>
-        <Typography variant="h4">Matherhorn</Typography>
+        <Typography variant="h4" sx={{ flexGrow: 1 }}>
+          Matherhorn
+        </Typography>
+        <IconButton
+          size="large"
+          color="inherit"
+          onClick={() =>
+            window.open(
+              "https://github.com/alimfeld/matherhorn",
+              "_matherhorn_github"
+            )
+          }
+        >
+          <GitHubIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

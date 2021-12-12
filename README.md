@@ -1,6 +1,12 @@
 # Matherhorn
 
-Simple application generating mathematical problems.
+Generate mathematical problems and show their solution.
+
+## Deployment
+
+This application is deployed to [Cloudflare Pages](https://pages.cloudflare.com/).
+
+You can find the live version of this application [here](https://matherhorn.pages.dev/).
 
 ## Development
 
