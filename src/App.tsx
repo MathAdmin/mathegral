@@ -49,6 +49,7 @@ const Header = () => {
           size="large"
           edge="start"
           color="inherit"
+          aria-label="home"
           sx={{ mr: 2 }}
           onClick={() => navigate("/")}
         >
@@ -60,6 +61,7 @@ const Header = () => {
         <IconButton
           size="large"
           color="inherit"
+          aria-label="goto GitHub"
           onClick={() =>
             window.open(
               "https://github.com/alimfeld/matherhorn",

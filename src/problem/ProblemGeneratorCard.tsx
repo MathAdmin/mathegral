@@ -55,10 +55,10 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
         </Box>
       </CardContent>
       <CardActions>
-        <IconButton onClick={refresh}>
+        <IconButton aria-label="refresh" onClick={refresh}>
           <RefreshIcon />
         </IconButton>
-        <IconButton onClick={toggleSolution}>
+        <IconButton aria-label="toggle solution" onClick={toggleSolution}>
           {solutionVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </IconButton>
       </CardActions>
