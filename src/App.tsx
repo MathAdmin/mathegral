@@ -62,12 +62,7 @@ const Header = () => {
           size="large"
           color="inherit"
           aria-label="goto GitHub"
-          onClick={() =>
-            window.open(
-              "https://github.com/alimfeld/matherhorn",
-              "_matherhorn_github"
-            )
-          }
+          onClick={() => window.open("https://github.com/alimfeld/matherhorn")}
         >
           <GitHubIcon />
         </IconButton>
