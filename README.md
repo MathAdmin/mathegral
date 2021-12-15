@@ -35,27 +35,21 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Technology Choices
 
-- [React Framework](https://reactjs.org/)
-- [Typescript JS Flavor](https://www.typescriptlang.org/)
-- [MUI UI Library](https://mui.com/)
-- [react-katex for rendering math expressions](https://github.com/talyssonoc/react-katex)
+- [React](https://reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [MUI](https://mui.com/)
+- [KaTeX](https://katex.org)
 
 ## Concepts
 
 Main concepts can be found in [ProblemApi](src/problem/ProblemApi.ts).
 
-- A `ProblemGenerator` generates a mathematical problem.
-- Every problem belongs to a `ProblemCategory`.
-- Every `ProblemCategory` can be rendered to a `Card` (using the visitor pattern).
+- A `ProblemGenerator` generates a mathematical `Problem`.
+- A `Problem` consists of a `description` and a `soltion` (both KaTeX strings).
 
 ## Cookbook
 
-### Adding a `ProblemCategory`
-
-1. Add a `ProblemCategory` implementation in [ProblemApi](src/problem/ProblemApi.ts) and extend the `ProblemCategoryVisitor`
-2. Extend the renderers in [ProblemGeneratorCard](src/problem/ProblemGeneratorCard.tsx)
-
 ### Adding a `ProblemGenerator`
 
-1. Implement a `ProblemGenerator` in `src/problem/generator`
+1. Add a `ProblemGenerator` in `src/problem/generator`
 2. Register the `ProblemGenerator` in the [problemGeneratorIndex](src/problem/problemGeneratorIndex.ts)

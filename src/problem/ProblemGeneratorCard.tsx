@@ -6,13 +6,9 @@ import {
   IconButton,
   CardHeader,
   Box,
+  Divider,
 } from "@mui/material";
-import {
-  EquationSolving,
-  ProblemGenerator,
-  ProblemCategory,
-  ProblemCategoryVisitor,
-} from "../problem/ProblemApi";
+import { Problem, ProblemGenerator } from "../problem/ProblemApi";
 import "katex/dist/katex.min.css";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -21,19 +17,13 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { BlockMath } from "react-katex";
 
 interface ProblemGeneratorCardProps {
-  generator: ProblemGenerator<ProblemCategory>;
-}
-
-interface EquationSolvingProps {
-  problem: EquationSolving;
+  generator: ProblemGenerator;
 }
 
 const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const generator = props.generator;
 
-  const [problem, setProblem] = React.useState<ProblemCategory>(
-    generator.generate()
-  );
+  const [problem, setProblem] = React.useState<Problem>(generator.generate());
   const [solutionVisible, setSolutionVisible] = React.useState(false);
 
   const refresh = () => {
@@ -49,9 +39,10 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
     <Card>
       <CardHeader title={generator.name} subheader={generator.description} />
       <CardContent>
-        {problem.accept(problemRenderer)}
+        <BlockMath math={problem.description} />
+        <Divider variant="middle" />
         <Box sx={{ visibility: solutionVisible ? "visible" : "hidden" }}>
-          {problem.accept(solutionRenderer)}
+          <BlockMath math={problem.solution} />
         </Box>
       </CardContent>
       <CardActions>
@@ -64,26 +55,6 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
       </CardActions>
     </Card>
   );
-};
-
-const problemRenderer: ProblemCategoryVisitor = {
-  visitEquationSolving: (problem: EquationSolving) => {
-    return <EquationSolvingProblem problem={problem} />;
-  },
-};
-
-const solutionRenderer: ProblemCategoryVisitor = {
-  visitEquationSolving: (problem: EquationSolving) => {
-    return <EquationSolvingSolution problem={problem} />;
-  },
-};
-
-const EquationSolvingProblem = (props: EquationSolvingProps) => {
-  return <BlockMath math={props.problem.equation} />;
-};
-
-const EquationSolvingSolution = (props: EquationSolvingProps) => {
-  return <BlockMath math={props.problem.solution} />;
 };
 
 export default ProblemGeneratorCard;
