@@ -1,21 +1,12 @@
-export interface ProblemGenerator<C extends ProblemCategory> {
+export interface ProblemGenerator {
   key: string;
   name: string;
   description: string;
-  generate(): C;
+  generate: () => Problem;
 }
 
-export interface ProblemCategory {
-  accept(visitor: ProblemCategoryVisitor, args?: any): any;
+export interface Problem {
+  description: string;
+  solution: string;
 }
 
-export class EquationSolving implements ProblemCategory {
-  constructor(readonly equation: string, readonly solution: string) {}
-  accept(visitor: ProblemCategoryVisitor, args: any): any {
-    return visitor.visitEquationSolving(this, args);
-  }
-}
-
-export interface ProblemCategoryVisitor {
-  visitEquationSolving: (problem: EquationSolving, args: any) => any;
-}

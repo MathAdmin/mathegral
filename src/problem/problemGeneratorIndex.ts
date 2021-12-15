@@ -1,6 +1,5 @@
 import QuadraticEquation from "./generator/QuadraticEquation";
-import { ProblemCategory, ProblemGenerator } from "./ProblemApi";
 
-const index: ProblemGenerator<ProblemCategory>[] = [new QuadraticEquation()];
+const index = [QuadraticEquation];
 
 export default index;
