@@ -8,19 +8,21 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import { Problem, ProblemGenerator } from "../problem/ProblemApi";
+import { Problem, ProblemGenerator } from "../ProblemGeneratorSpi";
 import "katex/dist/katex.min.css";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 // @ts-ignore
 import { BlockMath } from "react-katex";
+import { useTranslation } from "react-i18next";
 
 interface ProblemGeneratorCardProps {
   generator: ProblemGenerator;
 }
 
 const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
+  const { t } = useTranslation();
   const generator = props.generator;
 
   const [problem, setProblem] = React.useState<Problem>(generator.generate());
@@ -37,7 +39,10 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
 
   return (
     <Card>
-      <CardHeader title={generator.name} subheader={generator.description} />
+      <CardHeader
+        title={t(`generator.${generator.key}.name`)}
+        subheader={t(`generator.${generator.key}.description`)}
+      />
       <CardContent>
         <BlockMath math={problem.description} />
         <Divider variant="middle" />

@@ -8,9 +8,11 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import index from "./problemGeneratorIndex";
+import index from "../problemGeneratorIndex";
+import { useTranslation } from "react-i18next";
 
 const ProblemGeneratorList = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <List>
@@ -23,7 +25,7 @@ const ProblemGeneratorList = () => {
             <ListItemIcon>
               <ArrowForwardIcon />
             </ListItemIcon>
-            <ListItemText>{generator.name}</ListItemText>
+            <ListItemText>{t(`generator.${generator.key}.name`)}</ListItemText>
           </ListItemButton>
         </ListItem>
       ))}

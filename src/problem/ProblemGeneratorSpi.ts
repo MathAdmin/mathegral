@@ -1,7 +1,5 @@
 export interface ProblemGenerator {
   key: string;
-  name: string;
-  description: string;
   generate: () => Problem;
 }
 

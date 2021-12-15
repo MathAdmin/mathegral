@@ -42,14 +42,15 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Concepts
 
-Main concepts can be found in [ProblemApi](src/problem/ProblemApi.ts).
+Main concepts can be found in [ProblemGeneratorSpi](src/problem/ProblemGeneratorSpi.ts).
 
-- A `ProblemGenerator` generates a mathematical `Problem`.
-- A `Problem` consists of a `description` and a `solution` (both KaTeX strings).
+- A `ProblemGenerator` generates a mathematical `Problem`
+- A `Problem` consists of a `description` and a `solution` (both KaTeX strings)
 
 ## Cookbook
 
 ### Adding a `ProblemGenerator`
 
-1. Add a `ProblemGenerator` in `src/problem/generator`
+1. Add a `ProblemGenerator` in [src/problem/generator](src/problem/generator)
 2. Register the `ProblemGenerator` in the [problemGeneratorIndex](src/problem/problemGeneratorIndex.ts)
+3. Add translations in [public/locales](public/locales)

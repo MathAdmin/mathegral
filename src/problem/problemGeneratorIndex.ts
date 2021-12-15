@@ -1,5 +1,5 @@
-import QuadraticEquation from "./generator/QuadraticEquation";
+import quadraticEquation from "./generator/quadraticEquation";
 
-const index = [QuadraticEquation];
+const index = [quadraticEquation];
 
 export default index;

@@ -1,0 +1,8 @@
+{
+  "generator": {
+    "quadratic-equation": {
+      "name": "Quadratische Gleichung",
+      "description": "Löse nach x auf."
+    }
+  }
+}
