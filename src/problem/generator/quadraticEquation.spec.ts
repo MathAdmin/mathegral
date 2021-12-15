@@ -1,4 +1,4 @@
-import { generateEquation, generateFactorization } from "./QuadraticEquation";
+import { generateEquation, generateFactorization } from "./quadraticEquation";
 
 it("generates quadratic equation from solution", () => {
   expect(generateEquation(1, 2)).toEqual("x^2-3x+2=0");

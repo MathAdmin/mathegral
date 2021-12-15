@@ -42,7 +42,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Concepts
 
-Main concepts can be found in [ProblemApi](src/problem/ProblemApi.ts).
+Main concepts can be found in [ProblemApi](src/problem/ProblemGeneratorSpi.ts).
 
 - A `ProblemGenerator` generates a mathematical `Problem`.
 - A `Problem` consists of a `description` and a `solution` (both KaTeX strings).

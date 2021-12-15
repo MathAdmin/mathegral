@@ -1,4 +1,4 @@
-import { ProblemGenerator } from "../ProblemApi";
+import { ProblemGenerator } from "../ProblemGeneratorSpi";
 
 const randomInt = (min: number, max: number) => {
   min = Math.ceil(min);
@@ -23,10 +23,8 @@ export const generateFactorization = (s1: number, s2: number) => {
   return (`(x-${s1})(x-${s2})=0`).replaceAll("+-", "-").replaceAll("--", "+");
 };
 
-const QuadraticEquation: ProblemGenerator = {
+const quadraticEquation: ProblemGenerator = {
   key: "quadratic-equation",
-  name: "Quadratic Equation",
-  description: "Solve for x.",
   generate: () => {
     const s1 = randomSolution([0]);
     const s2 = randomSolution([0, s1, -s1]);
@@ -43,4 +41,4 @@ const QuadraticEquation: ProblemGenerator = {
   },
 };
 
-export default QuadraticEquation;
+export default quadraticEquation;

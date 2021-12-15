@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
   CssBaseline,
   Container,
@@ -6,6 +6,7 @@ import {
   Typography,
   Toolbar,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -15,8 +16,8 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
-import ProblemGeneratorList from "./problem/ProblemGeneratorList";
-import ProblemGeneratorCard from "./problem/ProblemGeneratorCard";
+import ProblemGeneratorList from "./problem/component/ProblemGeneratorList";
+import ProblemGeneratorCard from "./problem/component/ProblemGeneratorCard";
 import index from "./problem/problemGeneratorIndex";
 
 function App() {
@@ -25,16 +26,18 @@ function App() {
       <CssBaseline />
       <Header />
       <Container sx={{ mt: 3 }}>
-        <Routes>
-          <Route path="/" element={<ProblemGeneratorList />} />
-          {index.map((generator) => (
-            <Route
-              key={`problems.${generator.key}`}
-              path={`/problems/${generator.key}`}
-              element={<ProblemGeneratorCard generator={generator} />}
-            />
-          ))}
-        </Routes>
+        <Suspense fallback={<CircularProgress />}>
+          <Routes>
+            <Route path="/" element={<ProblemGeneratorList />} />
+            {index.map((generator) => (
+              <Route
+                key={`problems.${generator.key}`}
+                path={`/problems/${generator.key}`}
+                element={<ProblemGeneratorCard generator={generator} />}
+              />
+            ))}
+          </Routes>
+        </Suspense>
       </Container>
     </Router>
   );
