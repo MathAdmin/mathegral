@@ -25,7 +25,9 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const { t } = useTranslation();
   const generator = props.generator;
 
-  const [problem, setProblem] = React.useState<Problem>(generator.generate());
+  const [problem, setProblem] = React.useState<Problem>(() =>
+    generator.generate()
+  );
   const [solutionVisible, setSolutionVisible] = React.useState(false);
 
   const refresh = () => {

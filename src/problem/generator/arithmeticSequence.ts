@@ -34,7 +34,7 @@ const arithmeticSequence: ProblemGenerator = {
     const a1 = randomInt(1, 10);
     const d = randomInt(1, 10);
     const n = randomInt(5, 10);
-    const an = calculateAn(a1, d, n);
+    const an = calculateAn(a1, n, d);
     const Sn = calculateSn(a1, n, an);
 
     const h1 = randomInt(0, 5);
