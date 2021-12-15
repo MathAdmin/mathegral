@@ -3,6 +3,10 @@
     "quadratic-equation": {
       "name": "Quadratische Gleichung",
       "description": "Löse nach x auf."
+    },
+    "arithmetic-sequence": {
+      "name": "Arithmetische Reihe",
+      "description": "Bestimme die fehlenden Werte."
     }
   }
 }

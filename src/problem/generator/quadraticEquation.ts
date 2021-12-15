@@ -1,39 +1,27 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
+import { randomInt } from "../util/randomNumber";
 
-const randomInt = (min: number, max: number) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+export const renderEquation = (s1: number, s2: number) => {
+  return `x^2+${-s1 - s2}x+${s1 * s2}=0`
+    .replaceAll("+-", "-")
+    .replace(/([+-])1x/, "$1x");
 };
 
-const randomSolution = (exclude: number[]) => {
-  const excluded = new Set(exclude);
-  let solution;
-  while (!solution || excluded.has(solution)) {
-    solution = randomInt(-9, 10);
-  }
-  return solution;
-};
-
-export const generateEquation = (s1: number, s2: number) => {
-  return (`x^2+${-s1-s2}x+${s1*s2}=0`).replaceAll("+-", "-").replace(/([+-])1x/, "$1x");
-};
-
-export const generateFactorization = (s1: number, s2: number) => {
-  return (`(x-${s1})(x-${s2})=0`).replaceAll("+-", "-").replaceAll("--", "+");
+export const renderFactorization = (s1: number, s2: number) => {
+  return `(x-${s1})(x-${s2})=0`.replaceAll("+-", "-").replaceAll("--", "+");
 };
 
 const quadraticEquation: ProblemGenerator = {
   key: "quadratic-equation",
   generate: () => {
-    const s1 = randomSolution([0]);
-    const s2 = randomSolution([0, s1, -s1]);
+    const s1 = randomInt(-9, 10, (value) => value !== 0);
+    const s2 = randomInt(-9, 10, (value) => ![0, s1, -s1].includes(value));
 
     return {
-      description: generateEquation(s1, s2),
+      description: renderEquation(s1, s2),
       solution: `
         \\begin{aligned}
-          ${generateFactorization(s1, s2).replace('=', '&=')} \\\\
+          ${renderFactorization(s1, s2).replace("=", "&=")} \\\\
           x&=\\begin{cases} ${s1} \\\\ ${s2} \\end{cases}
         \\end{aligned}
       `,
