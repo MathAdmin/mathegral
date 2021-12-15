@@ -45,7 +45,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 Main concepts can be found in [ProblemApi](src/problem/ProblemApi.ts).
 
 - A `ProblemGenerator` generates a mathematical `Problem`.
-- A `Problem` consists of a `description` and a `soltion` (both KaTeX strings).
+- A `Problem` consists of a `description` and a `solution` (both KaTeX strings).
 
 ## Cookbook
 
