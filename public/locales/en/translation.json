@@ -3,6 +3,10 @@
     "quadratic-equation": {
       "name": "Quadratic Equation",
       "description": "Solve for x."
+    },
+    "arithmetic-sequence": {
+      "name": "Arithmetic Sequence",
+      "description": "Determine the missing values."
     }
   }
 }
