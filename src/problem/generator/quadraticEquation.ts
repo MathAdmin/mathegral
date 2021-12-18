@@ -1,5 +1,5 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
-import { randomInt } from "../util/randomNumber";
+import { randomInt } from "../util/randomizer";
 
 export const renderEquation = (s1: number, s2: number) => {
   return `x^2+${-s1 - s2}x+${s1 * s2}=0`

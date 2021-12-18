@@ -4,7 +4,7 @@
       "name": "Quadratische Gleichung",
       "description": "Löse die Gleichung nach [[x]] auf."
     },
-    "arithmetic-sequence": {
+    "arithmetic-series": {
       "name": "Arithmetische Reihe",
       "description": "Bestimme die Werte der arithmetischen Reihe [[S_n=\\sum_{i=1}^n a_i]] und der zugehörigen Folge [[a_i=a_{i-1}+d]]."
     }
