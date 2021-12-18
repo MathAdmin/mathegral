@@ -2,11 +2,11 @@
   "generator": {
     "quadratic-equation": {
       "name": "Quadratic Equation",
-      "description": "Solve for x."
+      "description": "Solve the equation for [[x]]."
     },
     "arithmetic-sequence": {
-      "name": "Arithmetic Sequence",
-      "description": "Determine the missing values."
+      "name": "Arithmetic Series",
+      "description": "Determine the values of the arithmetic series [[S_n=\\sum_{i=1}^n a_i]] and the corresponding sequence [[a_i=a_{i-1}+d]]."
     }
   }
 }

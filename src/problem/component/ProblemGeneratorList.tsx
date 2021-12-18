@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 import {
   List,
   ListItem,
@@ -6,10 +8,9 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { useNavigate } from "react-router";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import index from "../problemGeneratorIndex";
-import { useTranslation } from "react-i18next";
+import MathText from "./MathText";
 
 const ProblemGeneratorList = () => {
   const { t } = useTranslation();
@@ -25,7 +26,9 @@ const ProblemGeneratorList = () => {
             <ListItemIcon>
               <ArrowForwardIcon />
             </ListItemIcon>
-            <ListItemText>{t(`generator.${generator.key}.name`)}</ListItemText>
+            <ListItemText>
+              <MathText markup={t(`generator.${generator.key}.name`)} />
+            </ListItemText>
           </ListItemButton>
         </ListItem>
       ))}

@@ -1,5 +1,11 @@
 import React, { Suspense } from "react";
 import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
+import {
   CssBaseline,
   Container,
   AppBar,
@@ -10,12 +16,7 @@ import {
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import 'katex/dist/katex.min.css';
 import ProblemGeneratorList from "./problem/component/ProblemGeneratorList";
 import ProblemGeneratorCard from "./problem/component/ProblemGeneratorCard";
 import index from "./problem/problemGeneratorIndex";

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   Card,
   CardContent,
@@ -8,14 +9,12 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import { Problem, ProblemGenerator } from "../ProblemGeneratorSpi";
-import "katex/dist/katex.min.css";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-// @ts-ignore
-import { BlockMath } from "react-katex";
-import { useTranslation } from "react-i18next";
+import TeX from "@matejmazur/react-katex";
+import { Problem, ProblemGenerator } from "../ProblemGeneratorSpi";
+import MathText from "./MathText";
 
 interface ProblemGeneratorCardProps {
   generator: ProblemGenerator;
@@ -43,13 +42,15 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
     <Card>
       <CardHeader
         title={t(`generator.${generator.key}.name`)}
-        subheader={t(`generator.${generator.key}.description`)}
+        subheader={
+          <MathText markup={t(`generator.${generator.key}.description`)} />
+        }
       />
       <CardContent>
-        <BlockMath math={problem.description} />
+        <TeX math={problem.description} block />
         <Divider variant="middle" />
         <Box sx={{ visibility: solutionVisible ? "visible" : "hidden" }}>
-          <BlockMath math={problem.solution} />
+          <TeX math={problem.solution} block />
         </Box>
       </CardContent>
       <CardActions>
