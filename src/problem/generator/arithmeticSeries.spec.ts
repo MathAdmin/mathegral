@@ -1,4 +1,4 @@
-import { calculateAn, calculateSn } from "./arithmeticSequence";
+import { calculateAn, calculateSn } from "./arithmeticSeries";
 
 it("calculates an", () => {
   expect(calculateAn(1, 4, 5)).toEqual(16);

@@ -1,6 +1,6 @@
-import arithmeticSequence from "./generator/arithmeticSequence";
+import arithmeticSeries from "./generator/arithmeticSeries";
 import quadraticEquation from "./generator/quadraticEquation";
 
-const index = [quadraticEquation, arithmeticSequence];
+const index = [quadraticEquation, arithmeticSeries];
 
 export default index;
