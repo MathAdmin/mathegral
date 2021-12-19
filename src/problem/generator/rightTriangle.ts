@@ -46,8 +46,19 @@ export const calculateParams = (triple: [number, number, number]): Params => {
   };
 };
 
+const sliceIntoChunks = (arr: any[], chunkSize: number) => {
+  const res = [];
+  for (let i = 0; i < arr.length; i += chunkSize) {
+    const chunk = arr.slice(i, i + chunkSize);
+    res.push(chunk);
+  }
+  return res;
+};
+
 const renderParams = (params: Params, keys: string[]): string => {
-  const values = keys.map((key) => `${key}&=${params[key]}`).join(" & ");
+  const values = sliceIntoChunks(keys, 2)
+    .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
+    .join(" \\\\ ");
   return `
 \\begin{align*}
 ${values}
@@ -55,29 +66,17 @@ ${values}
 `;
 };
 
-const renderDescription = (params: Params, keys: string[]): string => {
-  return `
-\\includegraphics[height=100px]{/images/right-triangle.svg}
-\\\\
-${renderParams(params, keys)}
-`;
-};
-
-const renderSolution = (params: Params, keys: string[]): string => {
-  return renderParams(params, keys);
-};
-
 const rightTriangle: ProblemGenerator = {
   key: "right-triangle",
+  image: "right-triangle.svg",
   generate: () => {
     const params = calculateParams(randomElement(primitiveTriples));
     let remaining = ["a", "b", "c", "p", "q", "h"];
     const [key1] = remaining.splice(randomInt(0, 6), 1);
     const [key2] = remaining.splice(randomInt(0, 5), 1);
-    const keys = [key1, key2];
     return {
-      description: renderDescription(params, keys),
-      solution: renderSolution(params, remaining),
+      description: renderParams(params, [key1, key2]),
+      solution: renderParams(params, remaining),
     };
   },
 };

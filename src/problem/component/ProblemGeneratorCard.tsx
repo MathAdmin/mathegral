@@ -8,6 +8,7 @@ import {
   CardHeader,
   Box,
   Divider,
+  CardMedia,
 } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -46,11 +47,21 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
           <MathText markup={t(`generator.${generator.key}.description`)} />
         }
       />
+      {generator.image ? (
+        <CardMedia
+          component="img"
+          sx={{ objectFit: "contain" }}
+          height="200px"
+          image={"/images/" + generator.image}
+        />
+      ) : null}
       <CardContent>
         <TeX
           settings={{
-            trust: (context: any) => ["\\includegraphics"].includes(context.command),
-            strict: (errorCode: string) => "newLineInDisplayMode" === errorCode ? "ignore" : "warn",
+            trust: (context: any) =>
+              ["\\includegraphics"].includes(context.command),
+            strict: (errorCode: string) =>
+              "newLineInDisplayMode" === errorCode ? "ignore" : "warn",
           }}
           math={problem.description}
           block
