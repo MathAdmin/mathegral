@@ -39,10 +39,12 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
     setSolutionVisible(!solutionVisible);
   };
 
+  const title = t(`generator.${generator.key}.name`);
+
   return (
     <Card>
       <CardHeader
-        title={t(`generator.${generator.key}.name`)}
+        title={title}
         subheader={
           <MathText markup={t(`generator.${generator.key}.description`)} />
         }
@@ -53,6 +55,7 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
           sx={{ objectFit: "contain" }}
           height="200px"
           image={"/images/" + generator.image}
+          alt={title}
         />
       ) : null}
       <CardContent>
