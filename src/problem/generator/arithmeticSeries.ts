@@ -192,6 +192,7 @@ const renderSolution = (params: Params, variant: Variant): string => {
 `;
   }
 };
+
 export const calculateAn = (a1: number, n: number, d: number): number => {
   return a1 + (n - 1) * d;
 };

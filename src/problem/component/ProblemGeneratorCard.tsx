@@ -47,7 +47,14 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
         }
       />
       <CardContent>
-        <TeX math={problem.description} block />
+        <TeX
+          settings={{
+            trust: (context: any) => ["\\includegraphics"].includes(context.command),
+            strict: (errorCode: string) => "newLineInDisplayMode" === errorCode ? "ignore" : "warn",
+          }}
+          math={problem.description}
+          block
+        />
         <Divider variant="middle" />
         <Box sx={{ visibility: solutionVisible ? "visible" : "hidden" }}>
           <TeX math={problem.solution} block />
