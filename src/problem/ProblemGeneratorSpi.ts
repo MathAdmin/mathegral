@@ -1,5 +1,6 @@
 export interface ProblemGenerator {
   key: string;
+  image?: string;
   generate: () => Problem;
 }
 

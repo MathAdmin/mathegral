@@ -20,3 +20,7 @@ export function randomEnum<T>(anEnum: T): T[keyof T] {
   const randomEnumValue = enumValues[randomIndex];
   return randomEnumValue;
 }
+
+export function randomElement<T>(array: T[]): T {
+  return array[randomInt(0, array.length)];
+}

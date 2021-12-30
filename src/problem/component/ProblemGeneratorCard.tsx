@@ -8,6 +8,7 @@ import {
   CardHeader,
   Box,
   Divider,
+  CardMedia,
 } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -38,16 +39,36 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
     setSolutionVisible(!solutionVisible);
   };
 
+  const title = t(`generator.${generator.key}.name`);
+
   return (
     <Card>
       <CardHeader
-        title={t(`generator.${generator.key}.name`)}
+        title={title}
         subheader={
           <MathText markup={t(`generator.${generator.key}.description`)} />
         }
       />
+      {generator.image ? (
+        <CardMedia
+          component="img"
+          sx={{ objectFit: "contain" }}
+          height="200px"
+          image={"/images/" + generator.image}
+          alt={title}
+        />
+      ) : null}
       <CardContent>
-        <TeX math={problem.description} block />
+        <TeX
+          settings={{
+            trust: (context: any) =>
+              ["\\includegraphics"].includes(context.command),
+            strict: (errorCode: string) =>
+              "newLineInDisplayMode" === errorCode ? "ignore" : "warn",
+          }}
+          math={problem.description}
+          block
+        />
         <Divider variant="middle" />
         <Box sx={{ visibility: solutionVisible ? "visible" : "hidden" }}>
           <TeX math={problem.solution} block />
