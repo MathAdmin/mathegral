@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import {
   Card,
@@ -10,6 +11,7 @@ import {
   Divider,
   CardMedia,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -22,6 +24,7 @@ interface ProblemGeneratorCardProps {
 }
 
 const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const generator = props.generator;
 
@@ -47,6 +50,11 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
         title={title}
         subheader={
           <MathText markup={t(`generator.${generator.key}.description`)} />
+        }
+        action={
+          <IconButton aria-label="close" onClick={() => navigate("/")}>
+            <CloseIcon />
+          </IconButton>
         }
       />
       {generator.image ? (

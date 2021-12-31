@@ -12,5 +12,16 @@
       "name": "Right Triangle",
       "description": "Calculate the missing values."
     }
+  },
+  "chapter": {
+    "equation-solving": {
+      "name": "Equation solving"
+    },
+    "series": {
+      "name": "Series and sequences"
+    },
+    "geometry": {
+      "name": "Geometry"
+    }
   }
 }

@@ -12,5 +12,16 @@
       "name": "Rechtwinkliges Dreieck",
       "description": "Berechne die fehlenden Werte."
     }
+  },
+  "chapter": {
+    "equation-solving": {
+      "name": "Gleichungen lösen"
+    },
+    "series": {
+      "name": "Reihen und Folgen"
+    },
+    "geometry": {
+      "name": "Geometrie"
+    }
   }
 }
