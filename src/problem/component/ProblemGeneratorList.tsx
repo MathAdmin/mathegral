@@ -12,7 +12,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import SchoolIcon from "@mui/icons-material/School";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import chapters from "../problemGeneratorIndex";
 import MathText from "./MathText";
@@ -25,7 +25,7 @@ const ProblemGeneratorList = () => {
       {chapters.map((chapter) => (
         <Accordion key={chapter.key}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
+            <Typography variant="h6">
               {t(`chapter.${chapter.key}.name`)}
             </Typography>
           </AccordionSummary>
@@ -38,7 +38,7 @@ const ProblemGeneratorList = () => {
                     onClick={() => navigate(`/problems/${generator.key}`)}
                   >
                     <ListItemIcon>
-                      <ArrowForwardIcon />
+                      <SchoolIcon />
                     </ListItemIcon>
                     <ListItemText>
                       <MathText markup={t(`generator.${generator.key}.name`)} />
