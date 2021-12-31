@@ -16,10 +16,16 @@ import {
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import 'katex/dist/katex.min.css';
+import "katex/dist/katex.min.css";
 import ProblemGeneratorList from "./problem/component/ProblemGeneratorList";
 import ProblemGeneratorCard from "./problem/component/ProblemGeneratorCard";
-import index from "./problem/problemGeneratorIndex";
+import chapters from "./problem/problemGeneratorIndex";
+import { ProblemGenerator } from "./problem/ProblemGeneratorSpi";
+
+const index = new Set<ProblemGenerator>();
+chapters.forEach((chapter) => {
+  chapter.generators.forEach((generator) => index.add(generator));
+});
 
 function App() {
   return (
@@ -30,7 +36,7 @@ function App() {
         <Suspense fallback={<CircularProgress />}>
           <Routes>
             <Route path="/" element={<ProblemGeneratorList />} />
-            {index.map((generator) => (
+            {Array.from(index).map((generator) => (
               <Route
                 key={`problems.${generator.key}`}
                 path={`/problems/${generator.key}`}
