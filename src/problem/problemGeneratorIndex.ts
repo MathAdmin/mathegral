@@ -14,11 +14,11 @@ const chapters: Chapter[] = [
     generators: [quadraticEquation],
   },
   {
-    key: "series",
+    key: "5Klasse",
     generators: [arithmeticSeries],
   },
   {
-    key: "geometry",
+    key: "3KLasse",
     generators: [rightTriangle],
   },
 ];

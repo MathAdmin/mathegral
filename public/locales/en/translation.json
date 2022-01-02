@@ -15,13 +15,13 @@
   },
   "chapter": {
     "4KLasse": {
-      "name": "4. Klasse"
+      "name": "Grade 10"
     },
-    "series": {
-      "name": "Series and sequences"
+    "5KLasse": {
+      "name": "Grade 11"
     },
-    "geometry": {
-      "name": "Geometry"
+    "3Klasse": {
+      "name": "Grade 9"
     }
   }
 }
