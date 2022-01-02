@@ -10,7 +10,7 @@ interface Chapter {
 
 const chapters: Chapter[] = [
   {
-    key: "equation-solving",
+    key: "4Klasse",
     generators: [quadraticEquation],
   },
   {
