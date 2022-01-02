@@ -14,14 +14,14 @@
     }
   },
   "chapter": {
-    "equation-solving": {
-      "name": "Equation solving"
+    "4Klasse": {
+      "name": "Grade 10"
     },
-    "series": {
-      "name": "Series and sequences"
+    "5Klasse": {
+      "name": "Grade 11"
     },
-    "geometry": {
-      "name": "Geometry"
+    "3Klasse": {
+      "name": "Grade 9"
     }
   }
 }

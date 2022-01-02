@@ -10,17 +10,18 @@ interface Chapter {
 
 const chapters: Chapter[] = [
   {
-    key: "equation-solving",
+    key: "3Klasse",
+    generators: [rightTriangle],
+  },
+  {
+    key: "4Klasse",
     generators: [quadraticEquation],
   },
   {
-    key: "series",
+    key: "5Klasse",
     generators: [arithmeticSeries],
   },
-  {
-    key: "geometry",
-    generators: [rightTriangle],
-  },
+ 
 ];
 
 export default chapters;
