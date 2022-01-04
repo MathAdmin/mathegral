@@ -14,14 +14,17 @@
     }
   },
   "chapter": {
+    "3Klasse": {
+      "name": "3. Klasse"
+    },
     "4Klasse": {
       "name": "4. Klasse"
     },
     "5Klasse": {
       "name": "5. Klasse"
     },
-    "3Klasse": {
-      "name": "3. Klasse"
+    "6Klasse": {
+      "name": "6. Klasse"
     }
   }
 }
