@@ -181,7 +181,7 @@ const renderSolution = (params: Params, variant: Variant): string => {
     case Variant.d_an_Sn:
       return `
 \\begin{align*}
-  a_1&=${params.an} & n&=${params.n}
+  a_1&=${params.a1} & n&=${params.n}
 \\end{align*}
 `;
     case Variant.n_an_Sn:
