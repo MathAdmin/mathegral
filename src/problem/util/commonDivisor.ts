@@ -11,3 +11,18 @@ export const gcd = (
   }
   return apos;
 };
+
+export const multigcd=(arr:any[]):any[]=>{
+  if (arr.length==1) {
+    return arr;
+  } else {
+    var number1=arr.pop();
+    var number2=arr.pop();
+    arr.push(gcd(number1,number2));
+    return multigcd(arr);
+  }
+};
+
+export const calculategcd=(arr:any[]):number=>{
+  return multigcd(arr)[0];
+}
