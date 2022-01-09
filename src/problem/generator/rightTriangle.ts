@@ -6,11 +6,11 @@ const primitiveTriples: [number, number, number][] = [
   [5, 12, 13],
   [8, 15, 17],
   [7, 24, 25],
+  [20, 21, 29],
   /*[12, 35, 37],
   [9, 40, 41],
   [11, 60, 61],
   [28, 45, 53],
-  [20, 21, 29],
   [16, 63, 65],
   [33, 56, 65],
   [48, 55, 73],
@@ -32,13 +32,11 @@ interface Params {
 
 export const calculateParams = (triple: [number, number, number]): Params => {
   const [pi, hi, ai] = triple;
-  const maxside = 100;
-  const maxfactor = Math.ceil(maxside/(pi*pi));
-  const factor = randomInt(1,maxfactor);
-  const [p, h, a] = [pi * pi * factor, hi * pi * factor , ai * pi * factor];
+  const [p, h, a] = [pi * pi , hi * pi , ai * pi];
   const b = (a * h) / p;
   const q = (h * h) / p;
   const c = (p * p + h * h) / p;
+
   return {
     a,
     b,
