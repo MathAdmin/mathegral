@@ -32,7 +32,7 @@ interface Params {
 
 export const calculateParams = (triple: [number, number, number]): Params => {
   const [pi, hi, ai] = triple;
-  const maxpythfactor = Math.ceil(1000 /(pi*pi));
+  const maxpythfactor = Math.ceil(500 /(pi*pi));
   const pythfactor = randomInt(1,maxpythfactor);
   const [p, h, a] = [pi * pi *pythfactor, hi * pi *pythfactor, ai * pi*pythfactor];
   const b = (a * h) / p;
