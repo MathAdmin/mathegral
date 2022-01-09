@@ -32,8 +32,8 @@ interface Params {
 
 export const calculateParams = (triple: [number, number, number]): Params => {
   const [pi, hi, ai] = triple;
-  //const maxside = 700;
-  const maxfactor = Math.ceil(200/(pi*pi));
+  const maxside = 100;
+  const maxfactor = Math.ceil(100/(pi*pi));
   const factor = randomInt(1,maxfactor);
   const [p, h, a] = [pi * pi * factor, hi * pi * factor , ai * pi * factor];
   const b = (a * h) / p;
