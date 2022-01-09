@@ -3,10 +3,21 @@ import { gcd } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
 
 export const renderEquation2 = (a: number, b: number, c:number, d:number, factor:number) => {
-  return `${factor *a *c}x^2+${(- a * d - b * c)* factor}x+${b * d * factor}=0`
+  if (factor *a *c===1){
+    return `x^2+${(- a * d - b * c)* factor}x+${b * d * factor}=0`
     .replaceAll("+-", "-")
-    .replace(/([+-])1x^2/, "$1x^2")
-    .replace(/([+-])1x/, "$1x");
+    .replaceAll("+1x", "+x")
+    .replaceAll("-1x", "-x")
+    .replaceAll("+0x", "")
+    .replaceAll("-0x", "");
+  } else {
+    return `${factor *a *c}x^2+${(- a * d - b * c)* factor}x+${b * d * factor}=0`
+    .replaceAll("+-", "-")
+    .replaceAll("+1x", "+x")
+    .replaceAll("-1x", "-x")
+    .replaceAll("+0x", "")
+    .replaceAll("-0x", "");
+  }
 };
 
 export const renderSolution2 =(a: number, b: number,c: number, d: number, factor: number) => {
@@ -28,7 +39,6 @@ export const renderSolution2 =(a: number, b: number,c: number, d: number, factor
       
     }
 };
-
 
 
 export const renderFactorization2 = (a: number, b: number,c: number, d: number, factor: number) => {
