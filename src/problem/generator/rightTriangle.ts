@@ -32,7 +32,8 @@ interface Params {
 
 export const calculateParams = (triple: [number, number, number]): Params => {
   const [pi, hi, ai] = triple;
-  const [p, h, a] = [pi * pi , hi * pi , ai * pi];
+  const pythfactor = randomElement([1,1,2,2,3,3,4,5,6])
+  const [p, h, a] = [pi * pi *pythfactor, hi * pi *pythfactor, ai * pi*pythfactor];
   const b = (a * h) / p;
   const q = (h * h) / p;
   const c = (p * p + h * h) / p;
