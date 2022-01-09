@@ -205,8 +205,8 @@ const geometricSeries: ProblemGenerator = {
   key: "geometric-series",
   generate: () => {
     const a1 = randomInt(-9, 10);
-    const q = randomInt(-9, 10, (value) => value !== 0);
-    const n = randomInt(7, 40);
+    const q = randomInt(-5, 7, (value) => value !== 0);
+    const n = randomInt(5, 25);
     const an = geocalculateAn(a1, n, q);
     const Sn = geocalculateSn(a1, n, q);
 
