@@ -23,7 +23,7 @@ const sliceIntoChunks = (arr: any[], chunkSize: number) => {
 
 const renderParams = (params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
-    .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
+    .map((chunk) => chunk.map((key) => `${key.replaceAll("alpha", "[\\alpha]")}&=${params[key]}`).join(" & "))
     .join(" \\\\ ");
   return `
 \\begin{align*}
