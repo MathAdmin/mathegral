@@ -79,10 +79,11 @@ const sinTriangle: ProblemGenerator = {
 
     //const caselength = key1.length*key2.length*key3.length;
     const caselength = 1;
-    
+
     // Case SSS
     if (caselength===1){
-      const randomseite=randomInt(0,20);
+      //const randomseite = randomInt(0,20);
+      const randomseite = 0
       switch (randomseite) {
         case 0:
           a = (b+c)*(1+Math.random());
