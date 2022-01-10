@@ -12,8 +12,16 @@
       "name": "Arithmetic Series",
       "description": "Determine the values of the arithmetic series [[S_n=\\sum_{i=1}^n a_i]] and the corresponding sequence [[a_i=a_{i-1}+d]]."
     },
+    "geometric-series": {
+      "name": "Geometric Series",
+      "description": "Determine the values of the geometric series [[S_n=\\sum_{i=1}^n a_i]] and the corresponding sequence [[a_i=a_{i-1}*q]]."
+    },
     "right-triangle": {
       "name": "Right Triangle",
+      "description": "Calculate the missing values."
+    },
+    "sin-triangle": {
+      "name": "Law of sines and cosines",
       "description": "Calculate the missing values."
     }
   },

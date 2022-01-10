@@ -1,8 +1,11 @@
 import { ProblemGenerator } from "./ProblemGeneratorSpi";
 import arithmeticSeries from "./generator/arithmeticSeries";
+import geometricSeries from "./generator/geometricSeries";
 import quadraticEquation from "./generator/quadraticEquation";
 import quadraticEquation2 from "./generator/quadraticEquation2";
 import rightTriangle from "./generator/rightTriangle";
+import sinTriangle from "./generator/sinTriangle";
+
 
 interface Chapter {
   key: string;
@@ -12,19 +15,19 @@ interface Chapter {
 const chapters: Chapter[] = [
   {
     key: "3Klasse",
-    generators: [rightTriangle,quadraticEquation],
+    generators: [rightTriangle,quadraticEquation,quadraticEquation2],
   },
   {
     key: "4Klasse",
-    generators: [quadraticEquation2],
+    generators: [quadraticEquation2,sinTriangle],
   },
   {
     key: "5Klasse",
-    generators: [arithmeticSeries],
+    generators: [arithmeticSeries,geometricSeries],
   },
   {
     key: "6Klasse",
-    generators: [arithmeticSeries],
+    generators: [arithmeticSeries,geometricSeries],
   },
 ];
 
