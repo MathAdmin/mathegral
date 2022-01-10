@@ -21,7 +21,7 @@ const sliceIntoChunks = (arr: any[], chunkSize: number) => {
   return res;
 };
 
-const renderParams1 = (params: Params, keys: string[]): string => {
+const renderDescription= (params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
   .map((chunk) => chunk.map((key) => `${key.replaceAll("alpha", "\\alpha").replaceAll("beta", "\\beta").replaceAll("gamma", "\\gamma")}&=${params[key]}`).join(" & "))
   .join(" \\\\ ");
@@ -32,11 +32,11 @@ const renderParams1 = (params: Params, keys: string[]): string => {
   `;
 };
 
-const renderParams2 = (params: Params, keys: string[]): string => {
+const renderSolution = (params: Params, keys: string[]): string => {
   if (keys[0].length+keys[1].length+keys[2].length<5){
     return `
     \\begin{align*}
-    \\doubleR
+    \\\doubleR
     \\end{align*}
     `;
   } else {
@@ -87,8 +87,8 @@ const sinTriangle: ProblemGenerator = {
 
 
     return {
-      description: renderParams1(params, [key1, key2,key3]),
-      solution: renderParams2(params, remaining),
+      description: renderDescription(params, [key1, key2,key3]),
+      solution: renderSolution(params, remaining),
     };
   },
 };
