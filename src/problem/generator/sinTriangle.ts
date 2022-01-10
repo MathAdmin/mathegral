@@ -34,7 +34,7 @@ const renderDescription= (params: Params, keys: string[]): string => {
 
 const renderSolution = (params: Params, keys: string[]): string => {
   if (keys[0].length+keys[1].length+keys[2].length<5){
-    return ` a \\in \\mathbb{R}   ,   b \\in \\mathbb{R}   ,   c \\in \\mathbb{R}` ;
+    return ` a \\in \\mathbb{R} \\{   },\\{   }   b \\in \\mathbb{R}   ,   c \\in \\mathbb{R}` ;
   } else {
     const values = sliceIntoChunks(keys, 3)
       .map((chunk) => chunk.map((key) => `${key.replaceAll("alpha", "\\alpha").replaceAll("beta", "\\beta").replaceAll("gamma", "\\gamma")}&=${params[key]}`).join(" & "))
