@@ -22,7 +22,7 @@ const sliceIntoChunks = (arr: any[], chunkSize: number) => {
 };
 
 const renderParams = (params: Params, keys: string[]): string => {
-  if (keys[0].length+keys[1].length+keys[2].length>12){
+  if (keys[0].length+keys[1].length+keys[2].length<5){
     return `
     \\begin{align*}
     [[\\doubleR]]
