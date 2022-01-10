@@ -53,7 +53,7 @@ const sinTriangle: ProblemGenerator = {
       wc
     };
     
-    let remaining = ["a", "b", "c", "wa", "wb", "wc"];
+    let remaining = ["a", "b", "c", "[\alpha]", "wb", "wc"];
     /*const [key1] = remaining.splice(randomInt(0, 6), 1);
     const [key2] = remaining.splice(randomInt(0, 5), 1);
     const [key3] = remaining.splice(randomInt(0, 4), 1);*/
