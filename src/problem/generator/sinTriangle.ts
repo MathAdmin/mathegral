@@ -22,14 +22,22 @@ const sliceIntoChunks = (arr: any[], chunkSize: number) => {
 };
 
 const renderParams = (params: Params, keys: string[]): string => {
-  const values = sliceIntoChunks(keys, 3)
-    .map((chunk) => chunk.map((key) => `${key.replaceAll("alpha", "\\alpha").replaceAll("beta", "\\beta").replaceAll("gamma", "\\gamma")}&=${params[key]}`).join(" & "))
-    .join(" \\\\ ");
-  return `
-\\begin{align*}
-${values}
-\\end{align*}
-`;
+  if (keys[0].length+keys[1].length+keys[2].length>12){
+    return `
+    \\begin{align*}
+    [[\\doubleR]]
+    \\end{align*}
+    `;
+  } else {
+    const values = sliceIntoChunks(keys, 3)
+      .map((chunk) => chunk.map((key) => `${key.replaceAll("alpha", "\\alpha").replaceAll("beta", "\\beta").replaceAll("gamma", "\\gamma")}&=${params[key]}`).join(" & "))
+      .join(" \\\\ ");
+    return `
+  \\begin{align*}
+  ${values}
+  \\end{align*}
+  `;
+  }
 };
 
 const sinTriangle: ProblemGenerator = {
@@ -57,6 +65,10 @@ const sinTriangle: ProblemGenerator = {
     const [key1] = remaining.splice(randomInt(0, 6), 1);
     const [key2] = remaining.splice(randomInt(0, 5), 1);
     const [key3] = remaining.splice(randomInt(0, 4), 1);
+
+
+
+
 
     /*const [key1] = remaining.splice(0, 1);
     const [key2] = remaining.splice(0, 1);

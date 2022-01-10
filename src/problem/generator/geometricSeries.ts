@@ -204,7 +204,7 @@ export const calculateSn = (a1: number, n: number, q: number): number => {
 const geometricSeries: ProblemGenerator = {
   key: "geometric-series",
   generate: () => {
-    const a1 = randomInt(-9, 10);
+    const a1 = randomInt(-9, 10,(value) => ![0].includes(value));
     const q = randomInt(-5, 7, (value) => ![0, 1,-1].includes(value));
     const n = randomInt(5, 25);
     const an = calculateAn(a1, n, q);
