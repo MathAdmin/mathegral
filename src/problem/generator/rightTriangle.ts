@@ -71,7 +71,7 @@ ${values}
 
 const rightTriangle: ProblemGenerator = {
   key: "right-triangle",
-  image: "right-triangle.svg",
+  image: "sin-triangle.svg",
   generate: () => {
     const params = calculateParams(randomElement(primitiveTriples));
     let remaining = ["a", "b", "c", "p", "q", "h"];
