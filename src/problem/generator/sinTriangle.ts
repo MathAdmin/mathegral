@@ -39,9 +39,9 @@ const sinTriangle: ProblemGenerator = {
     const a = randomInt(1, 1000)/100;
     const b = randomInt(1, 1000)/100;
     const c = randomInt(1+Math.abs(b-a)*100, Math.abs(b+a)*100)/100;
-    const wa = Math.round(Math.acos((a*a-c*c-b*b)/(2*c*b))*100)/100;
-    const wb = Math.round(Math.acos((b*b-a*a-c*c)/(2*a*c))*100)/100;
-    const wc = Math.round(Math.acos((c*c-a*a-b*b)/(2*a*b))*100)/100;
+    const wa = Math.round(Math.acos((a*a-c*c-b*b)/(2*c*b))*1000)/1000;
+    const wb = Math.round(Math.acos((b*b-a*a-c*c)/(2*a*c))*1000)/1000;
+    const wc = Math.round(Math.acos((c*c-a*a-b*b)/(2*a*b))*1000)/1000;
     
 
     const params = {

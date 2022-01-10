@@ -19,6 +19,10 @@
     "right-triangle": {
       "name": "Rechtwinkliges Dreieck",
       "description": "Berechne die fehlenden Werte."
+    },
+    "sin-triangle": {
+      "name": "Sinussatz & Kosinussatz",
+      "description": "Berechne die fehlenden Werte."
     }
   },
   "chapter": {

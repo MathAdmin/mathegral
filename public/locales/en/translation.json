@@ -19,6 +19,10 @@
     "right-triangle": {
       "name": "Right Triangle",
       "description": "Calculate the missing values."
+    },
+    "sin-triangle": {
+      "name": "Law of sines and cosines",
+      "description": "Calculate the missing values."
     }
   },
   "chapter": {
