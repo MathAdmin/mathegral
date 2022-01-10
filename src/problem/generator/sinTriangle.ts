@@ -54,13 +54,13 @@ const sinTriangle: ProblemGenerator = {
     };
     
     let remaining = ["a", "b", "c", "alpha", "beta", "gamma"];
-    /*const [key1] = remaining.splice(randomInt(0, 6), 1);
+    const [key1] = remaining.splice(randomInt(0, 6), 1);
     const [key2] = remaining.splice(randomInt(0, 5), 1);
-    const [key3] = remaining.splice(randomInt(0, 4), 1);*/
+    const [key3] = remaining.splice(randomInt(0, 4), 1);
 
-    const [key1] = remaining.splice(0, 1);
+    /*const [key1] = remaining.splice(0, 1);
     const [key2] = remaining.splice(0, 1);
-    const [key3] = remaining.splice(0, 1);
+    const [key3] = remaining.splice(0, 1);*/
 
 
 
