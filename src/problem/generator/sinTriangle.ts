@@ -33,8 +33,10 @@ const renderDescription= (params: Params, keys: string[]): string => {
 };
 
 const renderSolution = (params: Params, keys: string[]): string => {
-  if (keys[0].length+keys[1].length+keys[2].length<5){
-    return ` a \\in \\mathbb{R} \\{   },\\{   }   b \\in \\mathbb{R}   ,   c \\in \\mathbb{R}` ;
+  if (params.a===0){
+    return `a \\in \\mathbb{R} , b \\in \\mathbb{R}c \\in \\mathbb{R}` ;
+  } else if (params.alpha===0){
+      return `\\mathbb{L}=\{\}` ;
   } else {
     const values = sliceIntoChunks(keys, 3)
       .map((chunk) => chunk.map((key) => `${key.replaceAll("alpha", "\\alpha").replaceAll("beta", "\\beta").replaceAll("gamma", "\\gamma")}&=${params[key]}`).join(" & "))
@@ -50,14 +52,13 @@ const sinTriangle: ProblemGenerator = {
   key: "sin-triangle",
   image: "sin-triangle.svg",
   generate: () => {
-    const a = randomInt(1, 1000)/100;
-    const b = randomInt(1, 1000)/100;
-    const c = randomInt(1+Math.abs(b-a)*100, Math.abs(b+a)*100)/100;
-    const alpha = Math.round(Math.acos((a*a-c*c-b*b)/(2*c*b))*1000)/1000;
-    const beta = Math.round(Math.acos((b*b-a*a-c*c)/(2*a*c))*1000)/1000;
-    const gamma = Math.round(Math.acos((c*c-a*a-b*b)/(2*a*b))*1000)/1000;
+    var a = randomInt(1, 1000)/100;
+    var b = randomInt(1, 1000)/100;
+    var c = randomInt(1+Math.abs(b-a)*100, Math.abs(b+a)*100)/100;
+    var alpha = Math.round(Math.acos((a*a-c*c-b*b)/(2*c*b))*1000)/1000;
+    var beta = Math.round(Math.acos((b*b-a*a-c*c)/(2*a*c))*1000)/1000;
+    var gamma = Math.round(Math.acos((c*c-a*a-b*b)/(2*a*b))*1000)/1000;
     
-
     const params = {
       a,
       b,
@@ -72,15 +73,41 @@ const sinTriangle: ProblemGenerator = {
     const [key2] = remaining.splice(randomInt(0, 5), 1);
     const [key3] = remaining.splice(randomInt(0, 4), 1);*/
 
+    const [key1] = remaining.splice(0, 1);
+    const [key2] = remaining.splice(0, 1);
+    const [key3] = remaining.splice(0, 1);
 
-
-
-
-    const [key1] = remaining.splice(3, 1);
-    const [key2] = remaining.splice(3, 1);
-    const [key3] = remaining.splice(3, 1);
-
-
+    const caselength = key1.length*key2.length*key3.length;
+    
+    // Case SSS
+    if (caselength===1){
+      const randomseite=randomInt(0,20);
+      switch (randomseite) {
+        case 0:
+          a = (b+c)*(1+Math.random());
+          alpha = 0;
+          beta = 0;
+          gamma = 0;
+          break;
+        case 1:
+          b = (a+c)*(1+Math.random());
+          alpha = 0;
+          beta = 0;
+          gamma = 0;
+          break;
+        case 2:
+          c = (a+b)*(1+Math.random());
+          alpha = 0;
+          beta = 0;
+          gamma = 0;
+          break;
+      }
+    // Case WWW
+    } else if (caselength===100){
+      a = 0;
+      b = 0;
+      c = 0;
+    } 
 
     return {
       description: renderDescription(params, [key1, key2,key3]),
