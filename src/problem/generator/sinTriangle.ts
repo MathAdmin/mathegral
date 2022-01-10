@@ -77,7 +77,8 @@ const sinTriangle: ProblemGenerator = {
     const [key2] = remaining.splice(0, 1);
     const [key3] = remaining.splice(0, 1);
 
-    const caselength = key1.length*key2.length*key3.length;
+    //const caselength = key1.length*key2.length*key3.length;
+    const caselength = 1;
     
     // Case SSS
     if (caselength===1){
