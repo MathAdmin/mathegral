@@ -1,6 +1,6 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
-import { randomElement, randomInt } from "../util/randomizer";
-
+import { randomInt } from "../util/randomizer";
+//import { randomElement, randomInt } from "../util/randomizer";
 
 interface Params {
   [index: string]: number;
