@@ -7,9 +7,9 @@ interface Params {
   a: number;
   b: number;
   c: number;
-  wa: number;
-  wb: number;
-  wc: number;
+  alpha: number;
+  beta: number;
+  gamma: number;
 }
 
 const sliceIntoChunks = (arr: any[], chunkSize: number) => {
@@ -39,21 +39,21 @@ const sinTriangle: ProblemGenerator = {
     const a = randomInt(1, 1000)/100;
     const b = randomInt(1, 1000)/100;
     const c = randomInt(1+Math.abs(b-a)*100, Math.abs(b+a)*100)/100;
-    const wa = Math.round(Math.acos((a*a-c*c-b*b)/(2*c*b))*1000)/1000;
-    const wb = Math.round(Math.acos((b*b-a*a-c*c)/(2*a*c))*1000)/1000;
-    const wc = Math.round(Math.acos((c*c-a*a-b*b)/(2*a*b))*1000)/1000;
+    const alpha = Math.round(Math.acos((a*a-c*c-b*b)/(2*c*b))*1000)/1000;
+    const beta = Math.round(Math.acos((b*b-a*a-c*c)/(2*a*c))*1000)/1000;
+    const gamma = Math.round(Math.acos((c*c-a*a-b*b)/(2*a*b))*1000)/1000;
     
 
     const params = {
       a,
       b,
       c,
-      wa,
-      wb,
-      wc
+      alpha,
+      beta,
+      gamma
     };
     
-    let remaining = ["a", "b", "c", "\\alpha", "wb", "wc"];
+    let remaining = ["a", "b", "c", "alpha", "beta", "gamma"];
     /*const [key1] = remaining.splice(randomInt(0, 6), 1);
     const [key2] = remaining.splice(randomInt(0, 5), 1);
     const [key3] = remaining.splice(randomInt(0, 4), 1);*/
