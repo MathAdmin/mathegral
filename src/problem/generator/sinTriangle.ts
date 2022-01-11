@@ -61,20 +61,20 @@ const sinTriangle: ProblemGenerator = {
     
         
     let remaining = ["a", "b", "c", "alpha", "beta", "gamma"];
-    /*const [key1] = remaining.splice(randomInt(0, 6), 1);
+    const [key1] = remaining.splice(randomInt(0, 6), 1);
     const [key2] = remaining.splice(randomInt(0, 5), 1);
-    const [key3] = remaining.splice(randomInt(0, 4), 1);*/
+    const [key3] = remaining.splice(randomInt(0, 4), 1);
 
-    const [key1] = remaining.splice(0, 1);
+    /*const [key1] = remaining.splice(0, 1);
     const [key2] = remaining.splice(0, 1);
-    const [key3] = remaining.splice(0, 1);
+    const [key3] = remaining.splice(0, 1);*/
 
     const caselength = key1.length*key2.length*key3.length;
   
 
     // Case SSS
     if (caselength===1){
-      const randomseite = randomInt(0,2);
+      const randomseite = randomInt(0,5);
       switch (randomseite) {
         case 0:
           a = Math.ceil((b+c)*(1+Math.random())*100)/100;
