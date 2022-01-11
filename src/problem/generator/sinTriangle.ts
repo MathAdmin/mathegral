@@ -34,7 +34,7 @@ const renderDescription= (params: Params, keys: string[]): string => {
 
 const renderSolution = (params: Params, keys: string[]): string => {
   if (params.a===0){
-    return `a \\in \\mathbb{R} , b \\in \\mathbb{R}c \\in \\mathbb{R}` ;
+    return `a \\in \\mathbb{R} , b \\in \\mathbb{R} , c \\in \\mathbb{R}` ;
   } else if (params.alpha===0){
       return `\\mathbb{L}=\\{ \\}` ;
   } else {
@@ -52,6 +52,7 @@ const sinTriangle: ProblemGenerator = {
   key: "sin-triangle",
   image: "sin-triangle.svg",
   generate: () => {
+    // WSW Default Value 
     var a = randomInt(1, 1000)/100;
     var b = randomInt(1, 1000)/100;
     var c = randomInt(1+Math.abs(b-a)*100, Math.abs(b+a)*100)/100;
@@ -74,7 +75,8 @@ const sinTriangle: ProblemGenerator = {
 
     // Case SSS
     if (caselength===1){
-      const randomseite = randomInt(0,5);
+      // SSS Mit Wahrscheinlichkeit 15% ohne Lösung!
+      const randomseite = randomInt(0,20);
       switch (randomseite) {
         case 0:
           a = Math.ceil((b+c)*(1+Math.random())*100)/100;
@@ -97,10 +99,14 @@ const sinTriangle: ProblemGenerator = {
       }
     // Case WWW
     } else if (caselength===100){
+      // Mit Wahrscheinlichkeit 100% Unterdefiniert!
       a = 0;
       b = 0;
       c = 0;
-    } 
+      // Case SSW
+    } else if (caselength===4 ||caselength===5){
+      a = 888;
+    }
 
     const params = {
       a,
