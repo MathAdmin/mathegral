@@ -36,7 +36,7 @@ const renderSolution = (params: Params, keys: string[]): string => {
   if (params.a===0){
     return `a \\in \\mathbb{R} , b \\in \\mathbb{R}c \\in \\mathbb{R}` ;
   } else if (params.alpha===0){
-      return `\\mathbb{L}={}` ;
+      return `\\mathbb{L}=\{ \}` ;
   } else {
     const values = sliceIntoChunks(keys, 3)
       .map((chunk) => chunk.map((key) => `${key.replaceAll("alpha", "\\alpha").replaceAll("beta", "\\beta").replaceAll("gamma", "\\gamma")}&=${params[key]}`).join(" & "))
@@ -77,19 +77,19 @@ const sinTriangle: ProblemGenerator = {
       const randomseite = randomInt(0,2);
       switch (randomseite) {
         case 0:
-          a = (b+c)*(1+Math.random());
+          a = Math.ceil((b+c)*(1+Math.random())*100)/100;
           alpha = 0;
           beta = 0;
           gamma = 0;
           break;
         case 1:
-          b = (a+c)*(1+Math.random());
+          b = Math.ceil((a+c)*(1+Math.random())*100)/100;
           alpha = 0;
           beta = 0;
           gamma = 0;
           break;
         case 2:
-          c = (a+b)*(1+Math.random());
+          c = Math.ceil((a+b)*(1+Math.random())*100)/100;
           alpha = 0;
           beta = 0;
           gamma = 0;
@@ -101,7 +101,7 @@ const sinTriangle: ProblemGenerator = {
       b = 0;
       c = 0;
     } 
-    
+
     const params = {
       a,
       b,
