@@ -103,7 +103,7 @@ const sinTriangle: ProblemGenerator = {
       a = 0;
       b = 0;
       c = 0;
-      // Case SSW
+      // Case SSW INCLUDES GEHT NOCH NICHT!
     } else if (caselength===4 ||caselength===5){
         const [anglelist] =[key1,key2,key3];
         if (anglelist.includes("alpha")) {
