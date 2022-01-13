@@ -58,6 +58,7 @@ const sinTriangle: ProblemGenerator = {
     let remaining = ["a", "b", "c", "walpha", "wbeta", "wgamma"];
     const [key1] = remaining.splice(randomInt(0, 6), 1);
     const [key2] = remaining.splice(randomInt(0, 5), 1);
+    const [key3] = remaining.splice(randomInt(0, 4), 1);
     return {
       description: renderParams(params, [key1, key2]),
       solution: renderParams(params, remaining),
