@@ -97,10 +97,11 @@ const renderParams = (params: Params, keys: string[]): string => {
     return `\\mathbb\\{L\\}`
     } else {
     return `
-\\begin{align*}
-${values}
-\\end{align*}
-`;
+    \\begin{align*}
+    ${values}
+    \\end{align*}
+    `;
+  }
 };
 
 const sinTriangle: ProblemGenerator = {
