@@ -12,8 +12,29 @@ interface Params {
   w3: number;
 }
 
-export const startParams = (): Params => {
-  const s1 = 1;
+enum Variant {
+  SSS,
+  SSW,
+  SWW,
+  WWW
+}
+
+export const startParams = (variant:Variant): Params => {
+  var s1 = 0;
+  switch (variant) {
+    case Variant.SSS:
+      s1 = 111;
+      break;
+    case Variant.SSW:
+      s1 = 112;
+      break;
+    case Variant.SWW:
+      s1 = 122;
+      break;
+    case Variant.WWW:
+      s1 = 222;
+  };
+  
   const s2 = 2;
   const s3 = 3;
   const w1 = 4;
@@ -72,7 +93,9 @@ const sinTriangle: ProblemGenerator = {
   key: "sin-triangle",
   image: "sin-triangle.svg",
   generate: () => {
-    const params = startParams();
+
+    const variant = randomEnum(Variant);
+    const params = startParams(variant);
     let remaining = ["s1", "s2", "s3", "w1", "w2", "w3"];
     
     //const [key1] = remaining.splice(0, 1);
