@@ -20,10 +20,19 @@ enum Variant {
 }
 
 export const startParams = (variant:Variant): Params => {
+  
   var s1 = 0;
+  var s2 = 0;
+  var s3 = 0;
+  var w1 = 0;
+  var w2 = 0;
+  var w3 = 0;
+
   switch (variant) {
     case Variant.SSS:
-      s1 = 111;
+      s1 = Math.floor(Math.random() * 1000)/100;
+      s2 = Math.floor(Math.random() * 1000)/100;
+      s3 = Math.floor(Math.random() * 1000)/100;
       break;
     case Variant.SSW:
       s1 = 112;
@@ -35,11 +44,7 @@ export const startParams = (variant:Variant): Params => {
       s1 = 222;
   };
   
-  const s2 = 2;
-  const s3 = 3;
-  const w1 = 4;
-  const w2 = 5;
-  const w3 = 6;
+
 
   return {
     s1,
@@ -94,7 +99,8 @@ const sinTriangle: ProblemGenerator = {
   image: "sin-triangle.svg",
   generate: () => {
 
-    const variant = randomEnum(Variant);
+    var variant = randomEnum(Variant);
+    variant=0;
     const params = startParams(variant);
     let remaining = ["s1", "s2", "s3", "w1", "w2", "w3"];
     
@@ -103,8 +109,8 @@ const sinTriangle: ProblemGenerator = {
     //const [key3] = remaining.splice(0, 1);
     
     return {
-      description: renderParams(params, ["w1", "w2","w3"]),
-      solution: renderParams(params, ["s1", "s2","s3"]),
+      description: renderParams(params, ["s1", "s2","s3"]),
+      solution: renderParams(params, ["w1", "w2","w3"]),
     };
   },
 };
