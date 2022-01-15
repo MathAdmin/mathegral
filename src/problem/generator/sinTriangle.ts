@@ -74,11 +74,11 @@ const sinTriangle: ProblemGenerator = {
   generate: () => {
     const params = startParams();
     let remaining = ["s1", "s2", "s3", "w1", "w2", "w3"];
-    const [key1] = remaining.splice(0, 1);
+    //const [key1] = remaining.splice(0, 1);
     const [key2] = remaining.splice(0, 1);
     const [key3] = remaining.splice(0, 1);
     return {
-      description: renderParams(params, [key1, key2,key3]),
+      description: renderParams(params, ["s1", key2,key3]),
       solution: renderParams(params, remaining),
     };
   },
