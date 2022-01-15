@@ -94,7 +94,7 @@ const renderParams = (params: Params, keys: string[]): string => {
     .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
     .join(" \\\\ ");
   if (params.s1*params.s2*params.s3*params.w1*params.w2*params.w3=== 0){
-    return `\\mathbb{L}`
+    return `\\mathbb{L}=\\{\\}`
     } else {
     return `
     \\begin{align*}
