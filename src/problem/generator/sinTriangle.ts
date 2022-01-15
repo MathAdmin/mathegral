@@ -35,9 +35,9 @@ export const startParams = (variant:Variant): Params => {
       s2 = 2+Math.floor(Math.random() * 1000)/100;
       s3 = 2+Math.floor(Math.random() * 1000)/100;
       if ((s1+s2>s3) && (s1+s3>s2) && (s2+s3>s1)) {
-        w1 = Math.round((Math.acos((s2*s2+s3*s3-s1*s1)/(2*s2*s3)))*1000)/1000;
-        w2 = Math.round(Math.acos((s1*s1+s3*s3-s2*s2)/(2*s1*s3))*1000)/1000;
-        w3 = Math.round(Math.acos((s2*s2+s1*s1-s3*s3)/(2*s2*s1))*1000)/1000;
+        w1 = Math.floor((Math.acos((s2*s2+s3*s3-s1*s1)/(2*s2*s3)))*1000)/1000;
+        w2 = Math.floor(Math.acos((s1*s1+s3*s3-s2*s2)/(2*s1*s3))*1000)/1000;
+        w3 = Math.floor(Math.acos((s2*s2+s1*s1-s3*s3)/(2*s2*s1))*1000)/1000;
       }
       break;
     case Variant.SSW:
