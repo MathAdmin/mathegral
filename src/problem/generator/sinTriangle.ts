@@ -31,9 +31,9 @@ export const startParams = (variant:Variant): Params => {
   switch (variant) {
     case Variant.SSS:
       // s>2 
-      s1 = 2+randomInt(0,1000)/100;
-      s2 = 2+randomInt(0,1000);
-      s3 = 2+randomInt(0,1000);
+      s1 = 2+Math.round( ( Math.random() + Number.EPSILON ) * 1000 ) / 100;
+      s2 = 2+randomInt(0,10);
+      s3 = 2+randomInt(0,10);
       if ((s1+s2>s3) && (s1+s3>s2) && (s2+s3>s1)) {
         w1 = Math.floor((Math.acos((s2*s2+s3*s3-s1*s1)/(2*s2*s3)))*1000)/1000;
         w2 = Math.floor(Math.acos((s1*s1+s3*s3-s2*s2)/(2*s1*s3))*1000)/1000;
