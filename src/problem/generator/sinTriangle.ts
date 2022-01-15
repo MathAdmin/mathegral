@@ -4,29 +4,47 @@ import { randomInt, randomEnum } from "../util/randomizer";
 
 interface Params {
   [index: string]: number;
-  a: number;
-  b: number;
-  c: number;
-  walpha: number;
-  wbeta: number;
-  wgamma: number;
+  s1: number;
+  s2: number;
+  s3: number;
+  w1: number;
+  w2: number;
+  w3: number;
 }
 
-export const calculateParams = (triple: [number, number, number]): Params => {
-  const a = 1;
-  const b = 2;
-  const c = 3;
-  const walpha = 4;
-  const wbeta = 5;
-  const wgamma = 6;
+export const startParams = (): Params => {
+  const s1 = 1;
+  const s2 = 2;
+  const s3 = 3;
+  const w1 = 4;
+  const w2 = 5;
+  const w3 = 6;
 
   return {
-    a,
-    b,
-    c,
-    walpha,
-    wbeta,
-    wgamma,
+    s1,
+    s2,
+    s3,
+    w1,
+    w2,
+    w3,
+  };
+};
+
+export const calculateParams = (params: Params): Params => {
+  const s1 = 1;
+  const s2 = 2;
+  const s3 = 3;
+  const w1 = 4;
+  const w2 = 5;
+  const w3 = 6;
+
+  return {
+    s1,
+    s2,
+    s3,
+    w1,
+    w2,
+    w3,
   };
 };
 
@@ -54,11 +72,11 @@ const sinTriangle: ProblemGenerator = {
   key: "sin-triangle",
   image: "sin-triangle.svg",
   generate: () => {
-    const params = calculateParams([0,0,0]);
-    let remaining = ["a", "b", "c", "walpha", "wbeta", "wgamma"];
-    const [key1] = remaining.splice(randomInt(0, 6), 1);
-    const [key2] = remaining.splice(randomInt(0, 5), 1);
-    const [key3] = remaining.splice(randomInt(0, 4), 1);
+    const params = startParams();
+    let remaining = ["s1", "s2", "s3", "w1", "w2", "w3"];
+    const [key1] = remaining.splice(0, 1);
+    const [key2] = remaining.splice(0, 1);
+    const [key3] = remaining.splice(0, 1);
     return {
       description: renderParams(params, [key1, key2,key3]),
       solution: renderParams(params, remaining),
