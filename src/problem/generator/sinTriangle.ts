@@ -30,10 +30,10 @@ export const startParams = (variant:Variant): Params => {
 
   switch (variant) {
     case Variant.SSS:
-      // 2<Si<5 -> Sa+Sb <10
-      s1 = parseFloat((2+Math.random()*3).toPrecision(3));
-      s2 = parseFloat((2+Math.random()*3).toPrecision(3));
-      s3 = parseFloat((2+Math.random()*3).toPrecision(3));
+      // 1<Si<5 -> Sa+Sb <10
+      s1 = parseFloat((1+Math.random()*4).toPrecision(3));
+      s2 = parseFloat((1+Math.random()*4).toPrecision(3));
+      s3 = parseFloat((1+Math.random()*4).toPrecision(3));
       if ((s1+s2>s3) && (s1+s3>s2) && (s2+s3>s1)) {
         w1 = Math.floor((Math.acos((s2*s2+s3*s3-s1*s1)/(2*s2*s3)))*1000)/1000;
         w2 = Math.floor(Math.acos((s1*s1+s3*s3-s2*s2)/(2*s1*s3))*1000)/1000;
