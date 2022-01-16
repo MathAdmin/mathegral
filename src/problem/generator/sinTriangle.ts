@@ -103,7 +103,7 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
   switch (knownAngle){
     case 1:
       w11 = newAngle;
-      const determinant = (s1*s1-s2*s2*Math.sin(w11));
+      const determinant = (s1*s1-s2*s2*(Math.sin(w11))*(Math.sin(w11)));
       if (determinant<0){
         multi = 0;
 
