@@ -57,7 +57,9 @@ export const startParams = (variant:Variant): Params => {
       s1 = 122;
       break;
     case Variant.WWW:
-      s1 = 222;
+      w1 = parseFloat((Math.random()*Math.PI).toPrecision(3));
+      w2 = parseFloat((Math.random()*(Math.PI-w1)).toPrecision(3));
+      w3 = parseFloat((Math.PI-w1-w2).toPrecision(3));
   };
   
 
@@ -114,9 +116,11 @@ const renderParamsSolution = (params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
     .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
     .join(" \\\\ ");
-  if (params.s1*params.s2*params.s3*params.w1*params.w2*params.w3=== 0){
+  if (params.w1+params.w2+params.w3=== 0){
     return `\\mathbb{L}=\\{\\}`
-    } else {
+    } else if (params.s1+params.s2+params.s3=== 0){
+      return `s1\\in mathbb{R}, s2\\in mathbb{R}, s3\\in mathbb{R} `
+      } else {
     return `
     \\begin{align*}
     ${values}
@@ -131,7 +135,7 @@ const sinTriangle: ProblemGenerator = {
   generate: () => {
 
     var variant = randomEnum(Variant);
-    //variant=0;
+    variant=3;
     const params = startParams(variant);
     let remaining = ["s1", "s2", "s3", "w1", "w2", "w3"];
        
