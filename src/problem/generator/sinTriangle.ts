@@ -206,7 +206,7 @@ const renderParamsSolution2 = (params: Params, params2:Params2, keys: string[]):
   .join(" \\\\ ");
   return `
   \\begin{align*}
-  ${values}
+  ${values} \\\\
   ${values2}
   \\end{align*}
   `;
