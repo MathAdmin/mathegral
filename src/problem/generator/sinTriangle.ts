@@ -12,6 +12,16 @@ interface Params {
   w3: number;
 }
 
+interface Params2 {
+  [index: string]: number;
+  s1: number;
+  s2: number;
+  s3: number;
+  w1: number;
+  w2: number;
+  w3: number;
+}
+
 enum Variant {
   SSS,
   SSW,
@@ -89,7 +99,18 @@ const sliceIntoChunks = (arr: any[], chunkSize: number) => {
   return res;
 };
 
-const renderParams = (params: Params, keys: string[]): string => {
+const renderParamsDescription = (params: Params, keys: string[]): string => {
+  const values = sliceIntoChunks(keys, 3)
+    .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
+    .join(" \\\\ ");
+    return `
+    \\begin{align*}
+    ${values}
+    \\end{align*}
+    `;
+};
+
+const renderParamsSolution = (params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
     .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
     .join(" \\\\ ");
@@ -119,8 +140,8 @@ const sinTriangle: ProblemGenerator = {
     //const [key3] = remaining.splice(0, 1);
     
     return {
-      description: renderParams(params, ["s1", "s2","s3"]),
-      solution: renderParams(params, ["w1", "w2","w3"]),
+      description: renderParamsDescription(params, ["s1", "s2","s3"]),
+      solution: renderParamsSolution(params, ["w1", "w2","w3"]),
     };
   },
 };
