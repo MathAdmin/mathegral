@@ -131,18 +131,22 @@ const sinTriangle: ProblemGenerator = {
   generate: () => {
 
     var variant = randomEnum(Variant);
-    variant=0;
+    //variant=0;
     const params = startParams(variant);
     let remaining = ["s1", "s2", "s3", "w1", "w2", "w3"];
-    
-    //const [key1] = remaining.splice(0, 1);
-    //const [key2] = remaining.splice(0, 1);
-    //const [key3] = remaining.splice(0, 1);
-    
-    return {
-      description: renderParamsDescription(params, ["s1", "s2","s3"]),
-      solution: renderParamsSolution(params, ["w1", "w2","w3"]),
-    };
+       
+    switch (variant){
+      case Variant.SSS:
+      return {
+        description: renderParamsDescription(params, ["s1", "s2","s3"]),
+        solution: renderParamsSolution(params, ["w1", "w2","w3"]),
+      };
+      default:
+      return {
+        description: renderParamsDescription(params, ["w1", "w2","w3"]),
+        solution: renderParamsSolution(params, ["s1", "s2","s3"]),
+        }; 
+    }
   },
 };
 
