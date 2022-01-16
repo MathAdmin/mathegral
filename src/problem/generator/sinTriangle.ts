@@ -236,12 +236,14 @@ const sinTriangle: ProblemGenerator = {
         if (knownAngle===1){
           switch (params2.multi){
             case 0:
+              params.w1 = params2.w11;
               return {
                 description: renderParamsDescription(params, ["s1", "s2","w1"]),
                 solution: renderParamsSolution(params, ["s3", "w2","w3"]),
               };              
             
             case 1:
+              params.w1 = params2.w11;
               params.s3 = params2.s31;
               params.w2 = params2.w21;
               params.w3 = params2.w31;
