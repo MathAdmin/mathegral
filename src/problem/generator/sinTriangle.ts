@@ -53,9 +53,17 @@ export const startParams = (variant:Variant): Params => {
     case Variant.SSW:
       s1 = 112;
       break;
+
     case Variant.SWW:
-      s1 = 122;
+      s1 = parseFloat((1+Math.random()*4).toPrecision(3));
+      w1 = parseFloat((Math.random()*Math.PI).toPrecision(3));
+      w2 = parseFloat((Math.random()*(Math.PI-w1)).toPrecision(3));
+      w3 = parseFloat((Math.PI-w1-w2).toPrecision(3));
+      s2 = parseFloat((Math.sin(w2)*s1/Math.sin(w1)).toPrecision(3));
+      s3 = parseFloat((Math.sin(w3)*s1/Math.sin(w1)).toPrecision(3));
+
       break;
+
     case Variant.WWW:
       w1 = parseFloat((Math.random()*Math.PI).toPrecision(3));
       w2 = parseFloat((Math.random()*(Math.PI-w1)).toPrecision(3));
@@ -135,7 +143,7 @@ const sinTriangle: ProblemGenerator = {
   generate: () => {
 
     var variant = randomEnum(Variant);
-    variant=3;
+    variant = 2;
     const params = startParams(variant);
     let remaining = ["s1", "s2", "s3", "w1", "w2", "w3"];
        
@@ -145,6 +153,32 @@ const sinTriangle: ProblemGenerator = {
         description: renderParamsDescription(params, ["s1", "s2","s3"]),
         solution: renderParamsSolution(params, ["w1", "w2","w3"]),
       };
+
+      case Variant.SWW:
+        const missingAngle = randomInt(1,4);
+        if (missingAngle===1){
+          return {
+            description: renderParamsDescription(params, ["s1", "w2","w3"]),
+            solution: renderParamsSolution(params, ["w1", "s2","s3"]),
+          };
+        } else if (missingAngle===2){
+          return {
+            description: renderParamsDescription(params, ["s1", "w1","w3"]),
+            solution: renderParamsSolution(params, ["w2", "s2","s3"]),
+          };
+        } else {
+          return {
+            description: renderParamsDescription(params, ["s1", "w1","w2"]),
+            solution: renderParamsSolution(params, ["w3", "s2","s3"]),
+          };
+        };
+        
+      case Variant.WWW:
+        return {
+          description: renderParamsDescription(params, ["w1", "w2","w3"]),
+          solution: renderParamsSolution(params, ["s1", "s2","s3"]),
+        };
+
       default:
       return {
         description: renderParamsDescription(params, ["w1", "w2","w3"]),
