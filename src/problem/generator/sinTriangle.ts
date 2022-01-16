@@ -250,7 +250,7 @@ const sinTriangle: ProblemGenerator = {
                 solution: renderParamsSolution(params, ["s3", "w2","w3"]),
               }; 
 
-            case2:
+            case 2:
               params.s3 = params2.s31;
               params.w2 = params2.w21;
               params.w3 = params2.w31;
