@@ -119,7 +119,7 @@ const renderParamsSolution = (params: Params, keys: string[]): string => {
   if (params.w1+params.w2+params.w3=== 0){
     return `\\mathbb{L}=\\{\\}`
     } else if (params.s1+params.s2+params.s3=== 0){
-      return `s1\\in mathbb{R}, s2\\in mathbb{R}, s3\\in mathbb{R} `
+      return `s1\\in \\mathbb{R}, s2\\in \\mathbb{R}, s3\\in \\mathbb{R} `
       } else {
     return `
     \\begin{align*}
