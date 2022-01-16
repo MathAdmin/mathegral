@@ -16,10 +16,14 @@ interface Params2 {
   [index: string]: number;
   s1: number;
   s2: number;
-  s3: number;
-  w1: number;
-  w2: number;
-  w3: number;
+  s31: number;
+  s32: number;
+  w11: number;
+  w12: number;
+  w21: number;
+  w22: number;
+  w31: number;
+  w32: number;
 }
 
 enum Variant {
@@ -51,7 +55,8 @@ export const startParams = (variant:Variant): Params => {
       }
       break;
     case Variant.SSW:
-      s1 = 112;
+      s1 = parseFloat((1+Math.random()*4).toPrecision(3));
+      s2 = parseFloat((1+Math.random()*4).toPrecision(3));
       break;
 
     case Variant.SWW:
@@ -82,21 +87,37 @@ export const startParams = (variant:Variant): Params => {
   };
 };
 
-export const calculateParams = (params: Params): Params => {
-  const s1 = 1;
-  const s2 = 2;
-  const s3 = 3;
-  const w1 = 4;
-  const w2 = 5;
-  const w3 = 6;
-
+export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 => {
+  var s31 = 0;
+  var s32 = 0;
+  var w11 = 0;
+  var w21 = 0;
+  var w31 = 0;
+  var w12 = 0;
+  var w22 = 0;
+  var w32 = 0;
+  
+  const newAngle = parseFloat((Math.random()*Math.PI).toPrecision(3));
+  switch (knownAngle){
+    default:
+      w31 = newAngle;
+      s31 = parseFloat((Math.sqrt(s1*s1+s2*s2-2*s1*s2*Math.cos(w31))).toPrecision(3));
+      w11 = Math.floor((Math.acos((s2*s2+s31*s31-s1*s1)/(2*s2*s31)))*1000)/1000;
+      w21 = Math.floor(Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31))*1000)/1000;
+  }
+  
+  
   return {
     s1,
     s2,
-    s3,
-    w1,
-    w2,
-    w3,
+    s31,
+    s32,
+    w11,
+    w12,
+    w21,
+    w22,
+    w31,
+    w32
   };
 };
 
@@ -143,7 +164,7 @@ const sinTriangle: ProblemGenerator = {
   generate: () => {
 
     var variant = randomEnum(Variant);
-    variant = 2;
+    variant = 1;
     const params = startParams(variant);
     let remaining = ["s1", "s2", "s3", "w1", "w2", "w3"];
        
@@ -153,6 +174,31 @@ const sinTriangle: ProblemGenerator = {
         description: renderParamsDescription(params, ["s1", "s2","s3"]),
         solution: renderParamsSolution(params, ["w1", "w2","w3"]),
       };
+
+      case Variant.SSW:
+        var knownAngle = randomInt(1,4);
+        knownAngle = 3;
+        const params2 = calculateParams(params.s1,params.s2,knownAngle)
+        if (knownAngle===1){
+          return {
+            description: renderParamsDescription(params, ["s1", "s2","w1"]),
+            solution: renderParamsSolution(params, ["s3", "w2","w3"]),
+          };
+        } else if (knownAngle===2){
+          return {
+            description: renderParamsDescription(params, ["s1", "s2","w2"]),
+            solution: renderParamsSolution(params, ["s3", "w1","w3"]),
+          };
+        } else {
+          params.w3 = params2.w31;
+          params.s3 = params2.s31;
+          params.w1 = params2.w11;
+          params.w2 = params2.w21;
+          return {
+            description: renderParamsDescription(params, ["s1", "s2","w3"]),
+            solution: renderParamsSolution(params, ["s3", "w1","w2"]),
+          };
+        };
 
       case Variant.SWW:
         const missingAngle = randomInt(1,4);
