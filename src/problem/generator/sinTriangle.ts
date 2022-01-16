@@ -251,6 +251,7 @@ const sinTriangle: ProblemGenerator = {
               }; 
 
             case 2:
+              params.w1 = params2.w11;
               params.s3 = params2.s31;
               params.w2 = params2.w21;
               params.w3 = params2.w31;
