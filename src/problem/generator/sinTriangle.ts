@@ -24,6 +24,7 @@ interface Params2 {
   w22: number;
   w31: number;
   w32: number;
+  multi: number;
 }
 
 enum Variant {
@@ -96,9 +97,42 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
   var w12 = 0;
   var w22 = 0;
   var w32 = 0;
+  var multi = 1;
   
   const newAngle = parseFloat((Math.random()*Math.PI).toPrecision(3));
   switch (knownAngle){
+    case 1:
+      w11 = newAngle;
+      const determinant = (s1*s1-s2*s2*Math.sin(w11));
+      if (determinant<0){
+        multi = 0;
+
+      } else if (determinant===0){
+        s31 = s2*Math.cos(w11);
+        w21 = Math.floor(Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31))*1000)/1000;
+        w31 = Math.floor(Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1))*1000)/1000;
+        multi = 1;
+
+      } else {
+        s31 = (s2*Math.cos(w11)+Math.sqrt(determinant));
+        w21 = Math.floor(Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31))*1000)/1000;
+        w31 = Math.floor(Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1))*1000)/1000;
+        s32 = (s2*Math.cos(w11)-Math.sqrt(determinant));;
+        w22 = Math.floor(Math.acos((s1*s1+s32*s32-s2*s2)/(2*s1*s32))*1000)/1000;
+        w32 = Math.floor(Math.acos((s2*s2+s1*s1-s32*s32)/(2*s2*s1))*1000)/1000;
+        multi = 2;
+      }
+
+      break;
+    case 2:
+      w21 = newAngle;
+      break;
+    case 3:
+      w31 = newAngle;
+      s31 = parseFloat((Math.sqrt(s1*s1+s2*s2-2*s1*s2*Math.cos(w31))).toPrecision(3));
+      w11 = Math.floor((Math.acos((s2*s2+s31*s31-s1*s1)/(2*s2*s31)))*1000)/1000;
+      w21 = Math.floor(Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31))*1000)/1000;
+      break;
     default:
       w31 = newAngle;
       s31 = parseFloat((Math.sqrt(s1*s1+s2*s2-2*s1*s2*Math.cos(w31))).toPrecision(3));
@@ -117,7 +151,8 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
     w21,
     w22,
     w31,
-    w32
+    w32,
+    multi
   };
 };
 
@@ -145,7 +180,7 @@ const renderParamsSolution = (params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
     .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
     .join(" \\\\ ");
-  if (params.w1+params.w2+params.w3=== 0){
+  if (params.w1*params.w2*params.w3=== 0){
     return `\\mathbb{L}=\\{\\}`
     } else if (params.s1+params.s2+params.s3=== 0){
       return `s1\\in \\mathbb{R} \\nobreakspace , \\nobreakspace s2\\in \\mathbb{R} \\nobreakspace , \\nobreakspace s3\\in \\mathbb{R} `
@@ -156,6 +191,25 @@ const renderParamsSolution = (params: Params, keys: string[]): string => {
     \\end{align*}
     `;
   }
+};
+
+const renderParamsSolution2 = (params: Params, params2:Params2, keys: string[]): string => {
+  const values = sliceIntoChunks(keys, 3)
+  .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
+  .join(" \\\\ ");
+  params.s3 = params2.s32;
+  params.w2 = params2.w22;
+  params.w3 = params2.w32;
+
+  const values2 = sliceIntoChunks(keys, 3)
+  .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
+  .join(" \\\\ ");
+  return `
+  \\begin{align*}
+  ${values}
+  ${values2}
+  \\end{align*}
+  `;
 };
 
 const sinTriangle: ProblemGenerator = {
@@ -177,13 +231,44 @@ const sinTriangle: ProblemGenerator = {
 
       case Variant.SSW:
         var knownAngle = randomInt(1,4);
-        knownAngle = 3;
+        knownAngle = 1;
         const params2 = calculateParams(params.s1,params.s2,knownAngle)
         if (knownAngle===1){
-          return {
-            description: renderParamsDescription(params, ["s1", "s2","w1"]),
-            solution: renderParamsSolution(params, ["s3", "w2","w3"]),
-          };
+          switch (params2.multi){
+            case 0:
+              return {
+                description: renderParamsDescription(params, ["s1", "s2","w1"]),
+                solution: renderParamsSolution(params, ["s3", "w2","w3"]),
+              };              
+            
+            case 1:
+              params.s3 = params2.s31;
+              params.w2 = params2.w21;
+              params.w3 = params2.w31;
+              return {
+                description: renderParamsDescription(params, ["s1", "s2","w1"]),
+                solution: renderParamsSolution(params, ["s3", "w2","w3"]),
+              }; 
+
+            case2:
+              params.s3 = params2.s31;
+              params.w2 = params2.w21;
+              params.w3 = params2.w31;
+              return {
+                description: renderParamsDescription(params, ["s1", "s2","w1"]),
+                solution: renderParamsSolution2(params,params2, ["s3", "w2","w3"]),
+                // Nur die erste Lösung wird dargestellt!
+              };
+
+            default:
+            return {
+              description: renderParamsDescription(params, ["s1", "s2","w1"]),
+              solution: renderParamsSolution(params, ["s3", "w2","w3"]),
+            };
+          }
+
+
+
         } else if (knownAngle===2){
           return {
             description: renderParamsDescription(params, ["s1", "s2","w2"]),
@@ -218,6 +303,7 @@ const sinTriangle: ProblemGenerator = {
             solution: renderParamsSolution(params, ["w3", "s2","s3"]),
           };
         };
+      
         
       case Variant.WWW:
         return {
