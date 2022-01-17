@@ -217,7 +217,7 @@ const renderParamsDescription = (params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
     .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
     .join(" \\\\ ")
-    .replaceAll("s1",Permutation[0][0])
+    .replaceAll("s1",Permutation[0][3])
     //Hier !
     return `
     \\begin{align*}
