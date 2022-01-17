@@ -14,7 +14,7 @@
     },
     "geometric-series": {
       "name": "Geometric Series",
-      "description": "Determine the values of the geometric series [[S_n=\\sum_{i=1}^n a_i]] and the corresponding sequence [[a_i=a_{i-1}*q]]."
+      "description": "Determine the values of the geometric series [[S_n=\\sum_{i=1}^n a_i]] and the corresponding sequence [[a_i=a_{i-1}\\cdot q]]."
     },
     "right-triangle": {
       "name": "Right Triangle",

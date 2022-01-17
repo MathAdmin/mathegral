@@ -22,7 +22,7 @@ enum Variant {
   n_an_Sn,
 }
 
-const georenderDescription = (params: Params, variant: Variant): string => {
+const renderDescription = (params: Params, variant: Variant): string => {
   const hidden = "\\text{?}";
   switch (variant) {
     case Variant.a1_q_n:
@@ -128,7 +128,7 @@ const georenderDescription = (params: Params, variant: Variant): string => {
   }
 };
 
-const georenderSolution = (params: Params, variant: Variant): string => {
+const renderSolution = (params: Params, variant: Variant): string => {
   switch (variant) {
     case Variant.a1_q_n:
       return `
@@ -193,22 +193,22 @@ const georenderSolution = (params: Params, variant: Variant): string => {
   }
 };
 
-export const geocalculateAn = (a1: number, n: number, q: number): number => {
+export const calculateAn = (a1: number, n: number, q: number): number => {
   return a1 * Math.pow(q,n - 1);
 };
 
-export const geocalculateSn = (a1: number, n: number, q: number): number => {
+export const calculateSn = (a1: number, n: number, q: number): number => {
   return a1 * (Math.pow(q,n)-1) / (q-1);
 };
 
 const geometricSeries: ProblemGenerator = {
   key: "geometric-series",
   generate: () => {
-    const a1 = randomInt(-9, 10);
-    const q = randomInt(-5, 7, (value) => value !== 0);
+    const a1 = randomInt(-9, 10,(value) => ![0].includes(value));
+    const q = randomInt(-5, 7, (value) => ![0, 1,-1].includes(value));
     const n = randomInt(5, 25);
-    const an = geocalculateAn(a1, n, q);
-    const Sn = geocalculateSn(a1, n, q);
+    const an = calculateAn(a1, n, q);
+    const Sn = calculateSn(a1, n, q);
 
     const params = {
       a1,
@@ -220,8 +220,8 @@ const geometricSeries: ProblemGenerator = {
     const variant = randomEnum(Variant);
 
     return {
-      description: georenderDescription(params, variant),
-      solution: georenderSolution(params, variant),
+      description: renderDescription(params, variant),
+      solution: renderSolution(params, variant),
     };
   },
 };

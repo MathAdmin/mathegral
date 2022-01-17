@@ -1,0 +1,42 @@
+{
+  "generator": {
+    "quadratic-equation": {
+      "name": "Equation du 2nd degré",
+      "description": "Résolvez l'équation suivante:"
+    },
+    "quadratic-equation2": {
+      "name": "Equation du 2nd degré (2)",
+      "description": "Résolvez l'équation suivante:"
+    },
+    "arithmetic-series": {
+      "name": "Suites arithmetiques",
+      "description": "Calculez les valeurs manquantes avec [[S_n=\\sum_{i=1}^n a_i]] et [[a_i=a_{i-1}+d]]."
+    },
+    "geometric-series": {
+      "name": "Suites geometriques",
+      "description": "Calculez les valeurs manquantes avec [[S_n=\\sum_{i=1}^n a_i]] et [[a_i=a_{i-1} \\cdot q]]."
+    },
+    "right-triangle": {
+      "name": "Théorème de Pythagore",
+      "description": "Calculez les valeurs manquantes."
+    },
+    "sin-triangle": {
+      "name": "Théorème du sinus et du cosinus",
+      "description": "Calculez les valeurs manquantes."
+    }
+  },
+  "chapter": {
+    "3Klasse": {
+      "name": "3eme classe"
+    },
+    "4Klasse": {
+      "name": "4eme classe"
+    },
+    "5Klasse": {
+      "name": "5eme classe"
+    },
+    "6Klasse": {
+      "name": "6eme classe"
+    }
+  }
+}
