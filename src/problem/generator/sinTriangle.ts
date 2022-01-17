@@ -222,8 +222,7 @@ const renderParamsDescription = (permIndex: number, params: Params, keys: string
     .replaceAll("s3",Permutation[permIndex][2])
     .replaceAll("w1",Permutation[permIndex][3])
     .replaceAll("w2",Permutation[permIndex][4])
-    .replaceAll("w3",Permutation[permIndex][5])
-    //Hier !
+    .replaceAll("w3",Permutation[permIndex][5]);
     return `
     \\begin{align*}
     ${values}
@@ -231,14 +230,20 @@ const renderParamsDescription = (permIndex: number, params: Params, keys: string
     `;
 };
 
-const renderParamsSolution = (params: Params, keys: string[]): string => {
+const renderParamsSolution = (permIndex:number, params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
     .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
-    .join(" \\\\ ");
+    .join(" \\\\ ")
+    .replaceAll("s1",Permutation[permIndex][0])
+    .replaceAll("s2",Permutation[permIndex][1])
+    .replaceAll("s3",Permutation[permIndex][2])
+    .replaceAll("w1",Permutation[permIndex][3])
+    .replaceAll("w2",Permutation[permIndex][4])
+    .replaceAll("w3",Permutation[permIndex][5]);
   if (params.w1*params.w2*params.w3=== 0){
     return `\\mathbb{L}=\\{\\}`
     } else if (params.s1+params.s2+params.s3=== 0){
-      return `s1\\in \\mathbb{R} \\nobreakspace , \\nobreakspace s2\\in \\mathbb{R} \\nobreakspace , \\nobreakspace s3\\in \\mathbb{R} `
+      return `${Permutation[permIndex][0]} \\in \\mathbb{R} \\nobreakspace , \\nobreakspace ${Permutation[permIndex][1]}\\in \\mathbb{R} \\nobreakspace , \\nobreakspace ${Permutation[permIndex][2]}\\in \\mathbb{R} `
       } else {
     return `
     \\begin{align*}
@@ -248,17 +253,29 @@ const renderParamsSolution = (params: Params, keys: string[]): string => {
   }
 };
 
-const renderParamsSolution2 = (params: Params, params2:Params2, keys: string[]): string => {
+const renderParamsSolution2 = (permIndex:number, params: Params, params2:Params2, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
   .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
-  .join(" \\\\ ");
+  .join(" \\\\ ")
+  .replaceAll("s1",Permutation[permIndex][0])
+  .replaceAll("s2",Permutation[permIndex][1])
+  .replaceAll("s3",Permutation[permIndex][2])
+  .replaceAll("w1",Permutation[permIndex][3])
+  .replaceAll("w2",Permutation[permIndex][4])
+  .replaceAll("w3",Permutation[permIndex][5]);
   params.s3 = params2.s32;
   params.w1 = params2.w12;
   params.w3 = params2.w32;
 
   const values2 = sliceIntoChunks(keys, 3)
   .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
-  .join(" \\\\ ");
+  .join(" \\\\ ")
+  .replaceAll("s1",Permutation[permIndex][0])
+  .replaceAll("s2",Permutation[permIndex][1])
+  .replaceAll("s3",Permutation[permIndex][2])
+  .replaceAll("w1",Permutation[permIndex][3])
+  .replaceAll("w2",Permutation[permIndex][4])
+  .replaceAll("w3",Permutation[permIndex][5]);
   return `
   \\begin{align*}
   ${values} \\\\
@@ -280,8 +297,8 @@ const sinTriangle: ProblemGenerator = {
     switch (variant){
       case Variant.SSS:
       return {
-        description: renderParamsDescription(permIndex,params, ["s1", "s2","s3"]),
-        solution: renderParamsSolution(params, ["w1", "w2","w3"]),
+        description: renderParamsDescription(permIndex, params, ["s1", "s2","s3"]),
+        solution: renderParamsSolution(permIndex, params, ["w1", "w2","w3"]),
       };
 
       case Variant.SSW:
@@ -294,7 +311,7 @@ const sinTriangle: ProblemGenerator = {
               params.w1 = params2.w11;
               return {
                 description: renderParamsDescription(permIndex,params, ["s1", "s2","w1"]),
-                solution: renderParamsSolution(params, ["s3", "w2","w3"]),
+                solution: renderParamsSolution(permIndex, params, ["s3", "w2","w3"]),
               };              
             
             case 1:
@@ -304,7 +321,7 @@ const sinTriangle: ProblemGenerator = {
               params.w3 = params2.w31;
               return {
                 description: renderParamsDescription(permIndex, params, ["s1", "s2","w1"]),
-                solution: renderParamsSolution(params, ["s3", "w2","w3"]),
+                solution: renderParamsSolution(permIndex, params, ["s3", "w2","w3"]),
               }; 
 
             case 2:
@@ -314,14 +331,14 @@ const sinTriangle: ProblemGenerator = {
               params.w3 = params2.w31;
               return {
                 description: renderParamsDescription(permIndex, params, ["s1", "s2","w1"]),
-                solution: renderParamsSolution2(params,params2, ["s3", "w2","w3"]),
+                solution: renderParamsSolution2(permIndex, params,params2, ["s3", "w2","w3"]),
 
               };
 
             default:
             return {
               description: renderParamsDescription(permIndex, params, ["s1", "s2","w1"]),
-              solution: renderParamsSolution(params, ["s3", "w2","w3"]),
+              solution: renderParamsSolution(permIndex, params, ["s3", "w2","w3"]),
             };
           }
 
@@ -333,7 +350,7 @@ const sinTriangle: ProblemGenerator = {
               params.w2 = params2.w21;
               return {
                 description: renderParamsDescription(permIndex, params, ["s1", "s2","w2"]),
-                solution: renderParamsSolution(params, ["s3", "w1","w3"]),
+                solution: renderParamsSolution(permIndex, params, ["s3", "w1","w3"]),
               };              
             
             case 1:
@@ -343,7 +360,7 @@ const sinTriangle: ProblemGenerator = {
               params.w3 = params2.w31;
               return {
                 description: renderParamsDescription(permIndex, params, ["s1", "s2","w2"]),
-                solution: renderParamsSolution(params, ["s3", "w1","w3"]),
+                solution: renderParamsSolution(permIndex, params, ["s3", "w1","w3"]),
               }; 
 
             case 2:
@@ -353,14 +370,14 @@ const sinTriangle: ProblemGenerator = {
               params.w3 = params2.w31;
               return {
                 description: renderParamsDescription(permIndex, params, ["s1", "s2","w2"]),
-                solution: renderParamsSolution2(params,params2, ["s3", "w1","w3"]),
+                solution: renderParamsSolution2(permIndex, params,params2, ["s3", "w1","w3"]),
 
               };
 
             default:
             return {
               description: renderParamsDescription(permIndex, params, ["s1", "s2","w2"]),
-              solution: renderParamsSolution(params, ["s3", "w1","w3"]),
+              solution: renderParamsSolution(permIndex, params, ["s3", "w1","w3"]),
             };
           }
         } else {
@@ -370,7 +387,7 @@ const sinTriangle: ProblemGenerator = {
           params.w2 = params2.w21;
           return {
             description: renderParamsDescription(permIndex, params, ["s1", "s2","w3"]),
-            solution: renderParamsSolution(params, ["s3", "w1","w2"]),
+            solution: renderParamsSolution(permIndex, params, ["s3", "w1","w2"]),
           };
         };
 
@@ -379,17 +396,17 @@ const sinTriangle: ProblemGenerator = {
         if (missingAngle===1){
           return {
             description: renderParamsDescription(permIndex, params, ["s1", "w2","w3"]),
-            solution: renderParamsSolution(params, ["w1", "s2","s3"]),
+            solution: renderParamsSolution(permIndex, params, ["w1", "s2","s3"]),
           };
         } else if (missingAngle===2){
           return {
             description: renderParamsDescription(permIndex, params, ["s1", "w1","w3"]),
-            solution: renderParamsSolution(params, ["w2", "s2","s3"]),
+            solution: renderParamsSolution(permIndex, params, ["w2", "s2","s3"]),
           };
         } else {
           return {
             description: renderParamsDescription(permIndex, params, ["s1", "w1","w2"]),
-            solution: renderParamsSolution(params, ["w3", "s2","s3"]),
+            solution: renderParamsSolution(permIndex, params, ["w3", "s2","s3"]),
           };
         };
       
@@ -397,13 +414,13 @@ const sinTriangle: ProblemGenerator = {
       case Variant.WWW:
         return {
           description: renderParamsDescription(permIndex, params, ["w1", "w2","w3"]),
-          solution: renderParamsSolution(params, ["s1", "s2","s3"]),
+          solution: renderParamsSolution(permIndex, params, ["s1", "s2","s3"]),
         };
 
       default:
       return {
         description: renderParamsDescription(permIndex, params, ["w1", "w2","w3"]),
-        solution: renderParamsSolution(params, ["s1", "s2","s3"]),
+        solution: renderParamsSolution(permIndex, params, ["s1", "s2","s3"]),
         }; 
     }
   },
