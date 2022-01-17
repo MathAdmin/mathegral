@@ -290,7 +290,6 @@ const sinTriangle: ProblemGenerator = {
   generate: () => {
     const permIndex = randomInt(0,3);
     var variant = randomEnum(Variant);
-    variant = 1;
     const params = startParams(variant);
     let remaining = ["s1", "s2", "s3", "w1", "w2", "w3"];
        
@@ -303,7 +302,6 @@ const sinTriangle: ProblemGenerator = {
 
       case Variant.SSW:
         var knownAngle = randomInt(1,4);
-        knownAngle = 2;
         const params2 = calculateParams(params.s1,params.s2,knownAngle)
         if (knownAngle===1){
           switch (params2.multi){
