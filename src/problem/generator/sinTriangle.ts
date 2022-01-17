@@ -116,8 +116,8 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
 
       } else if (determinant===0){
         s31 = parseFloat((s2*Math.cos(w11)).toPrecision(3));
-        w21 = Math.floor(Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31))*1000)/1000;
-        w31 = Math.floor(Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1))*1000)/1000;
+        w21 = Math.floor((Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31))*1000))/1000;
+        w31 = Math.floor((Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1))*1000))/1000;
         multi = 1;
 
       } else {
@@ -126,15 +126,15 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
           s31 = 0;
           multi = 0;
         } else {
-          w21 = Math.floor(Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31))*1000)/1000;
-          w31 = Math.floor(Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1))*1000)/1000;
+          w21 = Math.floor((Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31)))*1000)/1000;
+          w31 = Math.floor((Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1)))*1000)/1000;
           s32 = parseFloat((s2*Math.cos(w11)-Math.sqrt(determinant)).toPrecision(3));
           if (s32<0) {
             s32 = 0;
             multi = 1;
           } else {
-            w22 = Math.floor(Math.acos((s1*s1+s32*s32-s2*s2)/(2*s1*s32))*1000)/1000;
-            w32 = Math.floor(Math.acos((s2*s2+s1*s1-s32*s32)/(2*s2*s1))*1000)/1000;
+            w22 = Math.floor((Math.acos((s1*s1+s32*s32-s2*s2)/(2*s1*s32)))*1000)/1000;
+            w32 = Math.floor((Math.acos((s2*s2+s1*s1-s32*s32)/(2*s2*s1)))*1000)/1000;
             multi = 2;
           }
         }
@@ -149,8 +149,8 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
 
       } else if (determinant===0){
         s31 = parseFloat((s1*Math.cos(w21)).toPrecision(3));
-        w11 = Math.floor(Math.acos((s2*s2+s31*s31-s1*s1)/(2*s2*s31))*1000)/1000;
-        w31 = Math.floor(Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1))*1000)/1000;
+        w11 = Math.floor((Math.acos((s2*s2+s31*s31-s1*s1)/(2*s2*s31)))*1000)/1000;
+        w31 = Math.floor((Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1)))*1000)/1000;
         multi = 1;
 
       } else {
@@ -159,15 +159,15 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
           s31 = 0;
           multi = 0;
         } else {
-          w11 = Math.floor(Math.acos((s2*s2+s31*s31-s1*s1)/(2*s2*s31))*1000)/1000;
-          w31 = Math.floor(Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1))*1000)/1000;
+          w11 = Math.floor((Math.acos((s2*s2+s31*s31-s1*s1)/(2*s2*s31)))*1000)/1000;
+          w31 = Math.floor((Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1)))*1000)/1000;
           s32 = parseFloat((s1*Math.cos(w21)-Math.sqrt(determinant)).toPrecision(3));
           if (s32<0) {
             s32 = 0;
             multi = 1;
           } else {
-            w12 = Math.floor(Math.acos((s2*s2+s32*s32-s1*s1)/(2*s2*s32))*1000)/1000;
-            w32 = Math.floor(Math.acos((s2*s2+s1*s1-s32*s32)/(2*s2*s1))*1000)/1000;
+            w12 = Math.floor((Math.acos((s2*s2+s32*s32-s1*s1)/(2*s2*s32)))*1000)/1000;
+            w32 = Math.floor((Math.acos((s2*s2+s1*s1-s32*s32)/(2*s2*s1)))*1000)/1000;
             multi = 2;
           }
         }
@@ -179,13 +179,13 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
       w31 = newAngle;
       s31 = parseFloat((Math.sqrt(s1*s1+s2*s2-2*s1*s2*Math.cos(w31))).toPrecision(3));
       w11 = Math.floor((Math.acos((s2*s2+s31*s31-s1*s1)/(2*s2*s31)))*1000)/1000;
-      w21 = Math.floor(Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31))*1000)/1000;
+      w21 = Math.floor((Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31)))*1000)/1000;
       break;
     default:
       w31 = newAngle;
       s31 = parseFloat((Math.sqrt(s1*s1+s2*s2-2*s1*s2*Math.cos(w31))).toPrecision(3));
       w11 = Math.floor((Math.acos((s2*s2+s31*s31-s1*s1)/(2*s2*s31)))*1000)/1000;
-      w21 = Math.floor(Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31))*1000)/1000;
+      w21 = Math.floor((Math.acos((s1*s1+s31*s31-s2*s2)/(2*s1*s31)))*1000)/1000;
   }
   
   
