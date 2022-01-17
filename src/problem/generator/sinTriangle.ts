@@ -2,6 +2,12 @@ import { alpha } from "@mui/material";
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
 import { randomInt, randomEnum } from "../util/randomizer";
 
+const Permutation: [string, string, string,string, string, string][] = [
+  ["a", "b", "c","\\alpha","\\beta","\\gamma"],
+  ["b", "c", "a","\\beta","\\gamma","\\alpha"],
+  ["c", "a", "b","\\gamma","\\alpha","\\beta"],
+];
+
 interface Params {
   [index: string]: number;
   s1: number;
@@ -211,7 +217,8 @@ const renderParamsDescription = (params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
     .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
     .join(" \\\\ ")
-    .replaceAll("s1","a");
+    .replaceAll("s1",Permutation[0][0])
+    //Hier !
     return `
     \\begin{align*}
     ${values}
