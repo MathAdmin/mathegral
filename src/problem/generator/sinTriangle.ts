@@ -255,7 +255,7 @@ const renderParamsSolution = (permIndex:number, params: Params, keys: string[]):
 
 const renderParamsSolution2 = (permIndex:number, params: Params, params2:Params2, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
-  .map((chunk) => chunk.map((key) => `${key} \\approx${params[key]}`).join(" & "))
+  .map((chunk) => chunk.map((key) => `${key} &\\approx${params[key]}`).join(" & "))
   .join(" \\\\ ")
   .replaceAll("s1",Permutation[permIndex][0])
   .replaceAll("s2",Permutation[permIndex][1])
@@ -268,7 +268,7 @@ const renderParamsSolution2 = (permIndex:number, params: Params, params2:Params2
   params.w3 = params2.w32;
 
   const values2 = sliceIntoChunks(keys, 3)
-  .map((chunk) => chunk.map((key) => `${key} \\approx ${params[key]}`).join(" & "))
+  .map((chunk) => chunk.map((key) => `${key} &\\approx ${params[key]}`).join(" & "))
   .join(" \\\\ ")
   .replaceAll("s1",Permutation[permIndex][0])
   .replaceAll("s2",Permutation[permIndex][1])
