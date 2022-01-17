@@ -168,8 +168,6 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
       }
 
       break;
-
-      // Bis hier!
     
     case 3:
       w31 = newAngle;
@@ -212,7 +210,8 @@ const sliceIntoChunks = (arr: any[], chunkSize: number) => {
 const renderParamsDescription = (params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
     .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
-    .join(" \\\\ ");
+    .join(" \\\\ ")
+    .replaceAll("s1","a");
     return `
     \\begin{align*}
     ${values}
