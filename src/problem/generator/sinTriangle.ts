@@ -98,12 +98,13 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
   var w22 = 0;
   var w32 = 0;
   var multi = 1;
+  var determinant = 0;
   
   const newAngle = parseFloat((Math.random()*Math.PI).toPrecision(3));
   switch (knownAngle){
     case 1:
       w11 = newAngle;
-      const determinant = (s1*s1-s2*s2*(Math.sin(w11))*(Math.sin(w11)));
+      determinant = (s1*s1-s2*s2*(Math.sin(w11))*(Math.sin(w11)));
       if (determinant<0){
         multi = 0;
 
@@ -136,7 +137,40 @@ export const calculateParams = (s1:number,s2:number,knownAngle:number): Params2 
       break;
     case 2:
       w21 = newAngle;
+      determinant = (s2*s2-s1*s1*(Math.sin(w21))*(Math.sin(w21)));
+      if (determinant<0){
+        multi = 0;
+
+      } else if (determinant===0){
+        s31 = parseFloat((s1*Math.cos(w21)).toPrecision(3));
+        w11 = Math.floor(Math.acos((s2*s2+s31*s31-s1*s1)/(2*s2*s31))*1000)/1000;
+        w31 = Math.floor(Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1))*1000)/1000;
+        multi = 1;
+
+      } else {
+        s31 = parseFloat((s1*Math.cos(w21)+Math.sqrt(determinant)).toPrecision(3));
+        if (s31 < 0) {
+          s31 = 0;
+          multi = 0;
+        } else {
+          w11 = Math.floor(Math.acos((s2*s2+s31*s31-s1*s1)/(2*s2*s31))*1000)/1000;
+          w31 = Math.floor(Math.acos((s2*s2+s1*s1-s31*s31)/(2*s2*s1))*1000)/1000;
+          s32 = parseFloat((s1*Math.cos(w21)-Math.sqrt(determinant)).toPrecision(3));
+          if (s32<0) {
+            s32 = 0;
+            multi = 1;
+          } else {
+            w12 = Math.floor(Math.acos((s2*s2+s32*s32-s1*s1)/(2*s2*s32))*1000)/1000;
+            w32 = Math.floor(Math.acos((s2*s2+s1*s1-s32*s32)/(2*s2*s1))*1000)/1000;
+            multi = 2;
+          }
+        }
+      }
+
       break;
+
+      // Bis hier!
+    
     case 3:
       w31 = newAngle;
       s31 = parseFloat((Math.sqrt(s1*s1+s2*s2-2*s1*s2*Math.cos(w31))).toPrecision(3));
@@ -208,7 +242,7 @@ const renderParamsSolution2 = (params: Params, params2:Params2, keys: string[]):
   .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
   .join(" \\\\ ");
   params.s3 = params2.s32;
-  params.w2 = params2.w22;
+  params.w1 = params2.w12;
   params.w3 = params2.w32;
 
   const values2 = sliceIntoChunks(keys, 3)
@@ -241,7 +275,7 @@ const sinTriangle: ProblemGenerator = {
 
       case Variant.SSW:
         var knownAngle = randomInt(1,4);
-        knownAngle = 1;
+        knownAngle = 2;
         const params2 = calculateParams(params.s1,params.s2,knownAngle)
         if (knownAngle===1){
           switch (params2.multi){
@@ -270,7 +304,7 @@ const sinTriangle: ProblemGenerator = {
               return {
                 description: renderParamsDescription(params, ["s1", "s2","w1"]),
                 solution: renderParamsSolution2(params,params2, ["s3", "w2","w3"]),
-                // Nur die erste Lösung wird dargestellt!
+
               };
 
             default:
@@ -283,10 +317,41 @@ const sinTriangle: ProblemGenerator = {
 
 
         } else if (knownAngle===2){
-          return {
-            description: renderParamsDescription(params, ["s1", "s2","w2"]),
-            solution: renderParamsSolution(params, ["s3", "w1","w3"]),
-          };
+          switch (params2.multi){
+            case 0:
+              params.w2 = params2.w21;
+              return {
+                description: renderParamsDescription(params, ["s1", "s2","w2"]),
+                solution: renderParamsSolution(params, ["s3", "w1","w3"]),
+              };              
+            
+            case 1:
+              params.w2 = params2.w21;
+              params.s3 = params2.s31;
+              params.w1 = params2.w11;
+              params.w3 = params2.w31;
+              return {
+                description: renderParamsDescription(params, ["s1", "s2","w2"]),
+                solution: renderParamsSolution(params, ["s3", "w1","w3"]),
+              }; 
+
+            case 2:
+              params.w2 = params2.w21;
+              params.s3 = params2.s31;
+              params.w1 = params2.w11;
+              params.w3 = params2.w31;
+              return {
+                description: renderParamsDescription(params, ["s1", "s2","w2"]),
+                solution: renderParamsSolution2(params,params2, ["s3", "w1","w3"]),
+
+              };
+
+            default:
+            return {
+              description: renderParamsDescription(params, ["s1", "s2","w2"]),
+              solution: renderParamsSolution(params, ["s3", "w1","w3"]),
+            };
+          }
         } else {
           params.w3 = params2.w31;
           params.s3 = params2.s31;
