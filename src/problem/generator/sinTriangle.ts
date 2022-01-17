@@ -232,7 +232,7 @@ const renderParamsDescription = (permIndex: number, params: Params, keys: string
 
 const renderParamsSolution = (permIndex:number, params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
-    .map((chunk) => chunk.map((key) => `${key} \\approx ${params[key]}`).join(" & "))
+    .map((chunk) => chunk.map((key) => `${key} &\\approx ${params[key]}`).join(" & "))
     .join(" \\\\ ")
     .replaceAll("s1",Permutation[permIndex][0])
     .replaceAll("s2",Permutation[permIndex][1])
