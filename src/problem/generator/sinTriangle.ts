@@ -213,11 +213,16 @@ const sliceIntoChunks = (arr: any[], chunkSize: number) => {
   return res;
 };
 
-const renderParamsDescription = (params: Params, keys: string[]): string => {
+const renderParamsDescription = (permIndex: number, params: Params, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 3)
     .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
     .join(" \\\\ ")
-    .replaceAll("s1",Permutation[0][3])
+    .replaceAll("s1",Permutation[permIndex][0])
+    .replaceAll("s2",Permutation[permIndex][1])
+    .replaceAll("s3",Permutation[permIndex][2])
+    .replaceAll("w1",Permutation[permIndex][3])
+    .replaceAll("w2",Permutation[permIndex][4])
+    .replaceAll("w3",Permutation[permIndex][5])
     //Hier !
     return `
     \\begin{align*}
@@ -266,7 +271,7 @@ const sinTriangle: ProblemGenerator = {
   key: "sin-triangle",
   image: "sin-triangle.svg",
   generate: () => {
-
+    const permIndex = randomInt(0,3);
     var variant = randomEnum(Variant);
     variant = 1;
     const params = startParams(variant);
@@ -275,7 +280,7 @@ const sinTriangle: ProblemGenerator = {
     switch (variant){
       case Variant.SSS:
       return {
-        description: renderParamsDescription(params, ["s1", "s2","s3"]),
+        description: renderParamsDescription(permIndex,params, ["s1", "s2","s3"]),
         solution: renderParamsSolution(params, ["w1", "w2","w3"]),
       };
 
@@ -288,7 +293,7 @@ const sinTriangle: ProblemGenerator = {
             case 0:
               params.w1 = params2.w11;
               return {
-                description: renderParamsDescription(params, ["s1", "s2","w1"]),
+                description: renderParamsDescription(permIndex,params, ["s1", "s2","w1"]),
                 solution: renderParamsSolution(params, ["s3", "w2","w3"]),
               };              
             
@@ -298,7 +303,7 @@ const sinTriangle: ProblemGenerator = {
               params.w2 = params2.w21;
               params.w3 = params2.w31;
               return {
-                description: renderParamsDescription(params, ["s1", "s2","w1"]),
+                description: renderParamsDescription(permIndex, params, ["s1", "s2","w1"]),
                 solution: renderParamsSolution(params, ["s3", "w2","w3"]),
               }; 
 
@@ -308,14 +313,14 @@ const sinTriangle: ProblemGenerator = {
               params.w2 = params2.w21;
               params.w3 = params2.w31;
               return {
-                description: renderParamsDescription(params, ["s1", "s2","w1"]),
+                description: renderParamsDescription(permIndex, params, ["s1", "s2","w1"]),
                 solution: renderParamsSolution2(params,params2, ["s3", "w2","w3"]),
 
               };
 
             default:
             return {
-              description: renderParamsDescription(params, ["s1", "s2","w1"]),
+              description: renderParamsDescription(permIndex, params, ["s1", "s2","w1"]),
               solution: renderParamsSolution(params, ["s3", "w2","w3"]),
             };
           }
@@ -327,7 +332,7 @@ const sinTriangle: ProblemGenerator = {
             case 0:
               params.w2 = params2.w21;
               return {
-                description: renderParamsDescription(params, ["s1", "s2","w2"]),
+                description: renderParamsDescription(permIndex, params, ["s1", "s2","w2"]),
                 solution: renderParamsSolution(params, ["s3", "w1","w3"]),
               };              
             
@@ -337,7 +342,7 @@ const sinTriangle: ProblemGenerator = {
               params.w1 = params2.w11;
               params.w3 = params2.w31;
               return {
-                description: renderParamsDescription(params, ["s1", "s2","w2"]),
+                description: renderParamsDescription(permIndex, params, ["s1", "s2","w2"]),
                 solution: renderParamsSolution(params, ["s3", "w1","w3"]),
               }; 
 
@@ -347,14 +352,14 @@ const sinTriangle: ProblemGenerator = {
               params.w1 = params2.w11;
               params.w3 = params2.w31;
               return {
-                description: renderParamsDescription(params, ["s1", "s2","w2"]),
+                description: renderParamsDescription(permIndex, params, ["s1", "s2","w2"]),
                 solution: renderParamsSolution2(params,params2, ["s3", "w1","w3"]),
 
               };
 
             default:
             return {
-              description: renderParamsDescription(params, ["s1", "s2","w2"]),
+              description: renderParamsDescription(permIndex, params, ["s1", "s2","w2"]),
               solution: renderParamsSolution(params, ["s3", "w1","w3"]),
             };
           }
@@ -364,7 +369,7 @@ const sinTriangle: ProblemGenerator = {
           params.w1 = params2.w11;
           params.w2 = params2.w21;
           return {
-            description: renderParamsDescription(params, ["s1", "s2","w3"]),
+            description: renderParamsDescription(permIndex, params, ["s1", "s2","w3"]),
             solution: renderParamsSolution(params, ["s3", "w1","w2"]),
           };
         };
@@ -373,17 +378,17 @@ const sinTriangle: ProblemGenerator = {
         const missingAngle = randomInt(1,4);
         if (missingAngle===1){
           return {
-            description: renderParamsDescription(params, ["s1", "w2","w3"]),
+            description: renderParamsDescription(permIndex, params, ["s1", "w2","w3"]),
             solution: renderParamsSolution(params, ["w1", "s2","s3"]),
           };
         } else if (missingAngle===2){
           return {
-            description: renderParamsDescription(params, ["s1", "w1","w3"]),
+            description: renderParamsDescription(permIndex, params, ["s1", "w1","w3"]),
             solution: renderParamsSolution(params, ["w2", "s2","s3"]),
           };
         } else {
           return {
-            description: renderParamsDescription(params, ["s1", "w1","w2"]),
+            description: renderParamsDescription(permIndex, params, ["s1", "w1","w2"]),
             solution: renderParamsSolution(params, ["w3", "s2","s3"]),
           };
         };
@@ -391,13 +396,13 @@ const sinTriangle: ProblemGenerator = {
         
       case Variant.WWW:
         return {
-          description: renderParamsDescription(params, ["w1", "w2","w3"]),
+          description: renderParamsDescription(permIndex, params, ["w1", "w2","w3"]),
           solution: renderParamsSolution(params, ["s1", "s2","s3"]),
         };
 
       default:
       return {
-        description: renderParamsDescription(params, ["w1", "w2","w3"]),
+        description: renderParamsDescription(permIndex, params, ["w1", "w2","w3"]),
         solution: renderParamsSolution(params, ["s1", "s2","s3"]),
         }; 
     }
