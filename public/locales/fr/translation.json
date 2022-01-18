@@ -1,11 +1,15 @@
 {
   "generator": {
     "quadratic-equation": {
-      "name": "Equation du 2nd degré",
+      "name": "Equations du 2nd degré",
       "description": "Résolvez l'équation suivante:"
     },
     "quadratic-equation2": {
-      "name": "Equation du 2nd degré (2)",
+      "name": "Equations du 2nd degré (2)",
+      "description": "Résolvez l'équation suivante:"
+    },
+    "fractional-equation": {
+      "name": "Equations rationnelles",
       "description": "Résolvez l'équation suivante:"
     },
     "arithmetic-series": {

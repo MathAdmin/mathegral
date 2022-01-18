@@ -23,7 +23,7 @@ export const renderEquation = (params: Params) => {
 
   return `\\frac{${b1}}{${c1}x+${d1}}=0`
   .replaceAll("+-", "-")
-  //  .replace(/([+-])1x/, "$1x");
+  .replaceAll("{1x", "{x");
 };
 
 /*export const renderFactorization = (s1: number, s2: number) => {
