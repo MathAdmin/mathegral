@@ -1,10 +1,12 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
 import { randomInt } from "../util/randomizer";
 import { calculategcd } from "../util/commonDivisor";
+import { SortByAlpha } from "@mui/icons-material";
 
 
 interface Params {
-  [index: number]: [number,number,number,number];
+  //[index: number]: [number,number,number,number];
+  [index: number]: any[];
 /*  sol: [number,number,number,number];
   frac1: [number,number,number,number];
   frac2: [number,number,number,number];
@@ -83,7 +85,7 @@ const fractionalEquation: ProblemGenerator = {
     var frac4 = [0,0,0,0];
     var pol = [0,0,0,0];
 
-    let params:Params = [[sol1,0,0,0],[0,b1,c1,d1],[0,b2,c2,d2],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+    let params:Params = [sol,[0,b1,c1,d1],[0,b2,c2,d2],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 
     return {
       description: renderEquation(params),
