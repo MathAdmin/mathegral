@@ -28,9 +28,16 @@ export const renderEquation = (params: Params) => {
   .replaceAll("{1x", "{x");
 };
 
-/*export const renderFactorization = (s1: number, s2: number) => {
-  return `(x-${s1})(x-${s2})=0`.replaceAll("+-", "-").replaceAll("--", "+");
-};*/
+export const renderSolution = (params: Params) => {
+  const sol1 = params[0][0];
+  //const sol2 = params[0][1];
+  const sol2 = 0;
+  return `
+  \\begin{aligned}
+  x&=\\begin{cases} ${sol1} \\\\ ${sol2} \\end{cases}
+  \\end{aligned}
+  `
+};
 
 const fractionalEquation: ProblemGenerator = {
   key: "fractional-equation",
@@ -60,13 +67,7 @@ const fractionalEquation: ProblemGenerator = {
       description: renderEquation(params),
       solution:
       renderEquation(params),
-      /*`
-        \\begin{aligned}
-          ${renderFactorization(s1, s2).replace("=", "&=")} \\\\
-          x&=\\begin{cases} ${s1} \\\\ ${s2} \\end{cases}
-        \\end{aligned}
-      `,*/
-    };
+      };
   },
 };
 
