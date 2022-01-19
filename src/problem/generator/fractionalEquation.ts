@@ -51,7 +51,7 @@ export const renderSolution = (params: Params,level:number) => {
       if (b1*d2===-1*b2*d1){
         return `
         \\begin{aligned}
-        \\mathbb{L}&=\\mathbb{R} \\\\
+        \\mathbb{L}&=\\mathbb{R}-\\{${-d1/c1}\\} \\\\
         \\end{aligned}   
         `
       } else {
