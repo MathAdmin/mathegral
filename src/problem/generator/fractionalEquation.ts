@@ -48,7 +48,7 @@ export const renderSolution = (params: Params,level:number) => {
       const d2 = frac2[3];
 
     if (c1*d2===c2*d1){
-      if (b1*d2===b2*d1){
+      if (b1*d2===-1*b2*d1){
         return `
         \\begin{aligned}
         \\mathbb{L}&=\\mathbb{R} \\\\
