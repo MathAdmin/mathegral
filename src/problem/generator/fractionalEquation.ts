@@ -27,6 +27,7 @@ export const renderEquation = (params: Params) => {
 
   return `\\frac{${b1}}{${c1}x+${d1}}+\\frac{${b2}}{${c2}x+${d2}}=0`
   .replaceAll("+-", "-")
+  .replaceAll("{-1x", "{-x")
   .replaceAll("{1x", "{x");
 };
 
