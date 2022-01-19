@@ -37,7 +37,7 @@ export const renderSolution = (params: Params,level:number) => {
     case 1:
       return `
       \\begin{aligned}
-      x&= ${sol1} \\\\
+      \\mathbb{L}&={${sol1}} \\\\
       \\end{aligned}   
       `
 
