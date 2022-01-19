@@ -44,13 +44,17 @@ const fractionalEquation: ProblemGenerator = {
   generate: () => {
     const sol1 = randomInt(-9,10);
     
-    var b1 = randomInt(-9, 10, (value) => value !== 0);
+    
     var c1 = randomInt(-9, 10, (value) => value !== 0);
     var d1 = randomInt(-9, 10, (value) => value !== 0);
-    var b2 = randomInt(-9, 10, (value) => value !== 0);
     var c2 = randomInt(-9, 10, (value) => value !== 0);
     var d2 = randomInt(-9, 10, (value) => ![0, d1].includes(value));
 
+    var factor12 = randomInt(-9, 10, (value) => value !== 0);
+    var below1 = (c1 * sol1) + d1;
+    var below2 = (c2 * sol1) + d2;
+    var b1 = -1*(below1*factor12)/calculategcd([below1,below2]);
+    var b2 = (below2*factor12)/calculategcd([below1,below2]);
 
     var sol = [sol1,0,0,0];
     var frac1 = [0,b1,c1,d1];
