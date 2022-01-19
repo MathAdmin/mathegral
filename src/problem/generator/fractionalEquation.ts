@@ -65,8 +65,7 @@ const fractionalEquation: ProblemGenerator = {
 
     return {
       description: renderEquation(params),
-      solution:
-      renderEquation(params),
+      solution: renderSolution(params),
       };
   },
 };
