@@ -35,7 +35,11 @@ export const renderSolution = (params: Params,level:number) => {
   switch(level) {
 
     case 1:
-    return `x&=${sol1}`
+      return `
+      \\begin{aligned}
+      x&= ${sol1} \\\\
+      \\end{aligned}   
+      `
 
     case 2:
     return `
