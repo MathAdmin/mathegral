@@ -28,23 +28,39 @@ export const renderEquation = (params: Params) => {
   .replaceAll("{1x", "{x");
 };
 
-export const renderSolution = (params: Params) => {
+export const renderSolution = (params: Params,level:number) => {
   const sol1 = params[0][0];
-  //const sol2 = params[0][1];
-  const sol2 = 0;
-  return `
-  \\begin{aligned}
-  x&=\\begin{cases} ${sol1} \\\\ ${sol2} \\end{cases}
-  \\end{aligned}
-  `
+  const sol2 = params[0][1];
+
+  switch(level) {
+
+    case 1:
+    return `x&=${sol1}`
+
+    case 2:
+    return `
+    \\begin{aligned}
+    x&=\\begin{cases} ${sol1} \\\\ ${sol2} \\end{cases}
+    \\end{aligned}   
+    `
+    default:
+      return `
+      \\begin{aligned}
+      x&=\\begin{cases} ${sol1} \\\\ ${sol2} \\end{cases}
+      \\end{aligned}   
+      `
+  }
 };
 
 const fractionalEquation: ProblemGenerator = {
   key: "fractional-equation",
   generate: () => {
+    var level = randomInt(1,6);
+    level = 1;
+    // Erste Stufe
+
     const sol1 = randomInt(-9,10);
-    
-    
+        
     var c1 = randomInt(-9, 10, (value) => value !== 0);
     var d1 = randomInt(-9, 10, (value) => value !== 0);
     var c2 = randomInt(-9, 10, (value) => value !== 0);
@@ -65,11 +81,9 @@ const fractionalEquation: ProblemGenerator = {
 
     let params:Params = [[sol1,0,0,0],[0,b1,c1,d1],[0,b2,c2,d2],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 
-
-
     return {
       description: renderEquation(params),
-      solution: renderSolution(params),
+      solution: renderSolution(params,level),
       };
   },
 };
