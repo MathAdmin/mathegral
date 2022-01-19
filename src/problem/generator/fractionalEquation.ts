@@ -34,15 +34,44 @@ export const renderEquation = (params: Params) => {
 export const renderSolution = (params: Params,level:number) => {
   const sol1 = params[0][0];
   const sol2 = params[0][1];
+  const frac1 = params[1];
+  const frac2 = params[2];
 
   switch(level) {
 
     case 1:
+      const b1 = frac1[1];
+      const c1 = frac1[2];
+      const d1 = frac1[3];
+      const b2 = frac2[1];
+      const c2 = frac2[2];
+      const d2 = frac2[3];
+
+    if (c1*d2===c2*d1){
+      if (b1*d2===b2*d1){
+        return `
+        \\begin{aligned}
+        \\mathbb{L}&=\\mathbb{R} \\\\
+        \\end{aligned}   
+        `
+      } else {
+        return `
+        \\begin{aligned}
+        \\mathbb{L}&=\\{\\} \\\\
+        \\end{aligned}   
+        `
+      }
+
+
+    } else{
       return `
       \\begin{aligned}
       \\mathbb{L}&=\\{${sol1}\\} \\\\
       \\end{aligned}   
       `
+    }
+
+
 
     case 2:
     return `
