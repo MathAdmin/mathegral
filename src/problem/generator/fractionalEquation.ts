@@ -65,18 +65,21 @@ const fractionalEquation: ProblemGenerator = {
     level = 1;
     // Erste Stufe
 
-    const sol1 = randomInt(-9,10);
-        
+           
     var c1 = randomInt(-9, 10, (value) => value !== 0);
     var d1 = randomInt(-9, 10, (value) => value !== 0);
     var c2 = randomInt(-9, 10, (value) => value !== 0);
     var d2 = randomInt(-9, 10, (value) => ![0, d1].includes(value));
 
+    var sol1 = randomInt(-9, 10, (value) => ![-d2/c2, -d1/c1].includes(value));
+
     var factor12 = randomInt(-9, 10, (value) => value !== 0);
     var below1 = (c1 * sol1) + d1;
     var below2 = (c2 * sol1) + d2;
+
     var b1 = -1*(below1*factor12)/calculategcd([below1,below2]);
-    var b2 = (below2*factor12)/calculategcd([below1,below2]);
+    var b2 = (below2*factor12)/calculategcd([below1,below2]);  
+
 
     var sol = [sol1,0,0,0];
     var frac1 = [0,b1,c1,d1];
@@ -85,7 +88,7 @@ const fractionalEquation: ProblemGenerator = {
     var frac4 = [0,0,0,0];
     var pol = [0,0,0,0];
 
-    let params:Params = [sol,[0,b1,c1,d1],[0,b2,c2,d2],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+    let params:Params = [sol,frac1,frac2,frac3,frac4,pol];
 
     return {
       description: renderEquation(params),
