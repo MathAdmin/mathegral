@@ -22,7 +22,7 @@ export const calculateParameter = (level:number):Params => {
   var d1 = randomInt(-9, 10, (value) => value !== 0);
   var c2 = randomInt(-9, 10, (value) => value !== 0);
   var d2 = randomInt(-9, 10, (value) => ![0, d1].includes(value));
-  c1=1;d1=1;//c2=2;//d2=2;
+  c1=1;d1=1;c2=2;d2=2;
   var sol1 = randomInt(-9, 10, (value) => ![-d2/c2, -d1/c1].includes(value));
 
   var factor12 = randomInt(-9, 10, (value) => value !== 0);
@@ -31,6 +31,7 @@ export const calculateParameter = (level:number):Params => {
 
   var b1 = -1*(below1*factor12)/calculategcd([below1,below2]);
   var b2 = (below2*factor12)/calculategcd([below1,below2]);  
+  b1=1;b2=3;
 
   if (c1*d2===c2*d1){
     if (b1*d2===-1*b2*d1){
