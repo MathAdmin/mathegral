@@ -13,7 +13,7 @@ export const gcd = (
 };
 
 export const multigcd=(arr:any[]):any[]=>{
-  if (arr.length==1) {
+  if (arr.length===1) {
     return arr;
   } else {
     var number1=arr.pop();
