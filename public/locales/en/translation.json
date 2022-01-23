@@ -25,6 +25,13 @@
       "description": "Calculate the missing values."
     }
   },
+  "action": {
+      "home": "Home",
+      "github": "GitHub",
+      "regenerate": "New problem",
+      "toggle-solution": "Toggle solution",
+      "close": "Close"
+  },
   "chapter": {
     "3Klasse": {
       "name": "Grade 9"
