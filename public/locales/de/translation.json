@@ -29,6 +29,13 @@
       "description": "Berechne die fehlenden Werte."
     }
   },
+  "action": {
+      "home": "Home",
+      "github": "GitHub",
+      "regenerate": "Neues Problem",
+      "toggle-solution": "Lösung anzeigen",
+      "close": "Schliessen"
+  },
   "chapter": {
     "3Klasse": {
       "name": "3. Klasse"

@@ -1,4 +1,3 @@
-import { alpha } from "@mui/material";
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
 import { randomInt, randomEnum } from "../util/randomizer";
 
@@ -291,7 +290,6 @@ const sinTriangle: ProblemGenerator = {
     const permIndex = randomInt(0,3);
     var variant = randomEnum(Variant);
     const params = startParams(variant);
-    let remaining = ["s1", "s2", "s3", "w1", "w2", "w3"];
        
     switch (variant){
       case Variant.SSS:

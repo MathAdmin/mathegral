@@ -29,6 +29,13 @@
       "description": "Calculez les valeurs manquantes."
     }
   },
+  "action": {
+      "home": "Home",
+      "github": "GitHub",
+      "regenerate": "Nouveau",
+      "toggle-solution": "Solution",
+      "close": "Fermer"
+  },
   "chapter": {
     "3Klasse": {
       "name": "3eme classe"

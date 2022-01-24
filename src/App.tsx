@@ -13,6 +13,7 @@ import {
   Toolbar,
   IconButton,
   CircularProgress,
+  Tooltip,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -21,6 +22,7 @@ import ProblemGeneratorList from "./problem/component/ProblemGeneratorList";
 import ProblemGeneratorCard from "./problem/component/ProblemGeneratorCard";
 import chapters from "./problem/problemGeneratorIndex";
 import { ProblemGenerator } from "./problem/ProblemGeneratorSpi";
+import { useTranslation } from "react-i18next";
 
 const index = new Set<ProblemGenerator>();
 chapters.forEach((chapter) => {
@@ -31,9 +33,9 @@ function App() {
   return (
     <Router>
       <CssBaseline />
-      <Header />
-      <Container sx={{ mt: 3 }}>
-        <Suspense fallback={<CircularProgress />}>
+      <Suspense fallback={<CircularProgress />}>
+        <Header />
+        <Container sx={{ mt: 3 }}>
           <Routes>
             <Route path="/" element={<ProblemGeneratorList />} />
             {Array.from(index).map((generator) => (
@@ -44,38 +46,47 @@ function App() {
               />
             ))}
           </Routes>
-        </Suspense>
-      </Container>
+        </Container>
+      </Suspense>
     </Router>
   );
 }
 
 const Header = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const homeText = t("action.home");
+  const githubText = t("action.github");
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="home"
-          sx={{ mr: 2 }}
-          onClick={() => navigate("/")}
-        >
-          <HomeIcon />
-        </IconButton>
+        <Tooltip title={homeText}>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label={homeText}
+            sx={{ mr: 2 }}
+            onClick={() => navigate("/")}
+          >
+            <HomeIcon />
+          </IconButton>
+        </Tooltip>
         <Typography variant="h5" sx={{ flexGrow: 1 }}>
           Matherhorn
         </Typography>
-        <IconButton
-          size="large"
-          color="inherit"
-          aria-label="goto GitHub"
-          onClick={() => window.open("https://github.com/alimfeld/matherhorn")}
-        >
-          <GitHubIcon />
-        </IconButton>
+        <Tooltip title={githubText}>
+          <IconButton
+            size="large"
+            color="inherit"
+            aria-label={githubText}
+            onClick={() =>
+              window.open("https://github.com/alimfeld/matherhorn")
+            }
+          >
+            <GitHubIcon />
+          </IconButton>
+        </Tooltip>
       </Toolbar>
     </AppBar>
   );
