@@ -8,8 +8,9 @@ import {
   IconButton,
   CardHeader,
   Box,
-  Divider,
   CardMedia,
+  Collapse,
+  Tooltip,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -43,6 +44,9 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   };
 
   const title = t(`generator.${generator.key}.name`);
+  const closeText = t("action.close");
+  const regenerateText = t("action.regenerate");
+  const toggleSolutionText = t("action.toggle-solution");
 
   return (
     <Card>
@@ -52,9 +56,11 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
           <MathText markup={t(`generator.${generator.key}.description`)} />
         }
         action={
-          <IconButton aria-label="close" onClick={() => navigate("/")}>
-            <CloseIcon />
-          </IconButton>
+          <Tooltip title={closeText}>
+            <IconButton aria-label={closeText} onClick={() => navigate("/")}>
+              <CloseIcon />
+            </IconButton>
+          </Tooltip>
         }
       />
       {generator.image ? (
@@ -77,19 +83,26 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
           math={problem.description}
           block
         />
-        <Divider variant="middle" />
-        <Box sx={{ visibility: solutionVisible ? "visible" : "hidden" }}>
-          <TeX math={problem.solution} block />
-        </Box>
       </CardContent>
       <CardActions>
-        <IconButton aria-label="refresh" onClick={refresh}>
-          <RefreshIcon />
-        </IconButton>
-        <IconButton aria-label="toggle solution" onClick={toggleSolution}>
-          {solutionVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
-        </IconButton>
+        <Tooltip title={regenerateText}>
+          <IconButton aria-label={regenerateText} onClick={refresh}>
+            <RefreshIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title={toggleSolutionText}>
+          <IconButton aria-label={toggleSolutionText} onClick={toggleSolution}>
+            {solutionVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
+          </IconButton>
+        </Tooltip>
       </CardActions>
+      <Collapse in={solutionVisible} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Box sx={{ visibility: solutionVisible ? "visible" : "hidden" }}>
+            <TeX math={problem.solution} block />
+          </Box>
+        </CardContent>
+      </Collapse>
     </Card>
   );
 };
