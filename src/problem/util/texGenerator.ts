@@ -1,28 +1,14 @@
-export const gcd = (
-  a: number,
-  b: number
-): number => {
-  var apos = Math.abs(a);
-  var bpos = Math.abs(b);
-  while (bpos) {
-      var temppos=bpos;
-      bpos=apos%bpos;
-      apos=temppos;
-  }
-  return apos;
-};
+import { calculategcd } from "../util/commonDivisor";
 
-export const multigcd=(arr:any[]):any[]=>{
-  if (arr.length==1) {
-    return arr;
+export const fracTex=(above:number,below:number):string=>{
+  const gcd = calculategcd([above,below]);
+  const sign = (above*below)/Math.abs((above*below));
+  above = (sign*Math.abs(above)) / gcd;
+  below = Math.abs(below) /gcd;
+  if (below===1){
+    return `${above}`
   } else {
-    var number1=arr.pop();
-    var number2=arr.pop();
-    arr.push(gcd(number1,number2));
-    return multigcd(arr);
+    return `\\frac{${above}}{${below}}`
   }
+  
 };
-
-export const calculategcd=(arr:any[]):number=>{
-  return multigcd(arr)[0];
-}

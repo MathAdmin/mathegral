@@ -1,170 +1,107 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
 import { randomInt } from "../util/randomizer";
 import { calculategcd } from "../util/commonDivisor";
-import { SortByAlpha } from "@mui/icons-material";
+import { fracTex } from "../util/texGenerator";
 
+type FractionalTerm = {
+  a: number;
+  b: number;
+  c: number;
+  d: number;
+}
 
-interface Params {
-    [index: number]: any[];
+type SolPol = {
+  x: number;
+  xtex: string;
+}
+
+type Params = {
+  terms: FractionalTerm[];
+  solutions: SolPol[];
+  pols: SolPol[];
+  solcount: number;
+  polcount: number;
 }
 
 
 export const calculateParameter = (level:number):Params => {
-  
-  // Erste Stufe
-  var solcounter = 999;
-  var polcounter = 999;
-  var sol1 = 999;
-  var pol1 = 999;
-  var pol2 =999;
-  
-  var c1 = randomInt(-9, 10, (value) => value !== 0);
-  var d1 = randomInt(-9, 10, (value) => value !== 0);
-  var c2 = randomInt(-9, 10, (value) => value !== 0);
-  var d2 = randomInt(-9, 10, (value) => ![0, d1].includes(value));
-  c1=1;d1=1;c2=2;d2=2;
-  var sol1 = randomInt(-9, 10, (value) => ![-d2/c2, -d1/c1].includes(value));
 
-  var factor12 = randomInt(-9, 10, (value) => value !== 0);
-  var below1 = (c1 * sol1) + d1;
-  var below2 = (c2 * sol1) + d2;
+var solcounter = 0; var sol1 = 999; var soltex1 =``;
+var polcounter = 0; var pol1 = 999; var poltex1 =``;
+var pol2 = 999; var poltex2 =``;
+var b1 =999; var c1 = 999; var d1 = 999;
+var b2 =999; var c2 = 999; var d2 = 999;
 
-  var b1 = -1*(below1*factor12)/calculategcd([below1,below2]);
-  var b2 = (below2*factor12)/calculategcd([below1,below2]);  
-  b1=1;b2=3;
+switch(level){
+case 1:
+// Level 1  (New Levels will come!)
+c1 = randomInt(-9, 10, (value) => value !== 0);
+d1 = randomInt(-9, 10, (value) => value !== 0);
+c2 = randomInt(-9, 10, (value) => value !== 0);
+d2 = randomInt(-9, 10, (value) => ![0, d1].includes(value));
+sol1 = randomInt(-9, 10, (value) => ![-d2/c2, -d1/c1].includes(value));
+var factor12 = randomInt(-9, 10, (value) => value !== 0);
+var below1 = (c1 * sol1) + d1;
+var below2 = (c2 * sol1) + d2;
+b1 = -1*(below1*factor12)/calculategcd([below1,below2]);
+b2 = (below2*factor12)/calculategcd([below1,below2]);  
+pol1 = -d1/c1;
+poltex1 = fracTex(-d1,c1);
+pol2 = -d2/c2;
+poltex2 = fracTex(-d2,c2);
 
-  if (c1*d2===c2*d1){
-    if (b1*d2===-1*b2*d1){
-      solcounter = -1;
-      polcounter = 1;
-      sol1 = 999;
-      pol1 = -d1/c1;
-    } else {
-      solcounter = 0;
-      polcounter = 1;
-      sol1 = 999;
-      pol1 = -d1/c1;
-    }
+if (c1*d2===c2*d1){
+  sol1 = 999;
+  soltex1 = `999`;
+  if (b1*d2===-1*b2*d1){
+    solcounter = 999;
+    polcounter = 1;
   } else {
-    solcounter = 1;
-    polcounter = 2;
-    pol1 = -d1/c1;
-    pol1 = -d2/c2;
-
+    solcounter = 0;
+    polcounter = 1;
   }
+} else {
+  solcounter = 1;
+  polcounter = 2;
+}
+break;
 
-  var counter =[solcounter,polcounter];
-  var frac1 = [0,b1,c1,d1];
-  var frac2 = [0,b2,c2,d2];
-  var frac3 = [0,0,0,0];
-  var frac4 = [0,0,0,0];
-  var sol = [sol1,0,0,0];
-  var pol = [pol1,pol2,0,0];
-  
-  let params:Params = [counter,frac1,frac2,frac3,frac4,sol,pol];
+case 2:
+// Zweite Stufe 
+break;
+
+case 3:
+// Dritte Stufe 
+break;
+
+case 4:
+// Vierte Stufe
+break;
+
+case 5:
+// Fünfte Stufe 
+}
+
+  let params: Params = { 
+    terms: [{a:999, b: b1, c: c1, d: d1 },
+      {a:999, b: b2, c: c2, d: d2 }],
+    solutions: [{x: sol1, xtex: soltex1}],
+    pols: [{x: pol1, xtex: poltex1},{x: pol2, xtex: poltex2}],
+    solcount: solcounter,
+    polcount: polcounter
+  };
 
   return params
 };
 
-export const noSolution = ():string => {
-  return  `
-        \\begin{aligned}
-        \\mathbb{L}&=\\{\\} \\\\
-        \\end{aligned}   
-        `
-};
-
-export const oneSolution = (params: Params,level:number):string => {
-  const sol1 = params[5][0];
-  return  `
-  \\begin{aligned}
-  x&=${sol1} \\\\
-  \\end{aligned}   
-  `
-};
-
-export const twoSolution = (params: Params,level:number):string => {
-  const sol1 = params[5][0];
-  const sol2 = params[5][1];
-  return  `
-  \\begin{aligned}
-  x&=\\begin{cases} ${sol1} \\\\ ${sol2} \\end{cases}
-  \\end{aligned}   
-  `
-};
-
-export const threeSolution = (params: Params,level:number):string => {
-  const sol1 = params[5][0];
-  const sol2 = params[5][1];
-  const sol3 = params[5][2];
-  return  `
-  \\begin{aligned}
-  x&=\\begin{cases} ${sol1} \\\\ ${sol2} \\\\ ${sol3} \\end{cases}
-  \\end{aligned}   
-  `
-};
-
-export const fourSolution = (params: Params,level:number):string => {
-  const sol1 = params[5][0];
-  const sol2 = params[5][1];
-  const sol3 = params[5][2];
-  const sol4 = params[5][3];
-
-  return  `
-  \\begin{aligned}
-  x&=\\begin{cases} ${sol1} \\\\ ${sol2} \\\\ ${sol3}  \\\\ ${sol4} \\end{cases}
-  \\end{aligned}   
-  `
-};
-
-export const infiniteSolution = (params: Params,level:number):string => {
-  const pol1 = params[6][0];
-  const pol2 = params[6][1];
-  const pol3 = params[6][2];
-  const pol4 = params[6][3];
-
-
-  var polcounter = params[0][1];
-  var polListe = ``;
-  switch (polcounter){
-    case 1:
-    polListe = `${pol1}`;
-    break;
-    case 2:
-    polListe = `${pol2},${pol2}`;
-    break;
-    case 3:
-    polListe = `${pol1},${pol2},${pol3}`;
-    break;
-    case 4:
-    polListe = `${pol1},${pol2},${pol3},${pol4}`;
-  }
-
-  return  `
-        \\begin{aligned}
-        \\mathbb{L}&=\\mathbb{R} - \\{${polListe}\\} \\\\
-        \\end{aligned}   
-        `
-};
-
-
-
-
 export const renderEquation = (params: Params,level:number) => {
-
-  const b1 = params[1][1];
-  const c1 = params[1][2];
-  const d1 = params[1][3];
-  const b2 = params[2][1];
-  const c2 = params[2][2];
-  const d2 = params[2][3];
-  const b3 = params[3][1];
-  const c3 = params[3][2];
-  const d3 = params[3][3];
-  const b4 = params[4][1];
-  const c4 = params[4][2];
-  const d4 = params[4][3];
-
+  const b1 = params.terms[0].b;
+  const c1 = params.terms[0].c;
+  const d1 = params.terms[0].d;
+  const b2 = params.terms[1].b;
+  const c2 = params.terms[1].c;
+  const d2 = params.terms[1].d;
+  
   var textEquation=``;
   switch (level){
     case 1:
@@ -183,117 +120,74 @@ export const renderEquation = (params: Params,level:number) => {
       textEquation = `\\frac{${b1}}{${c1}x+${d1}}+\\frac{${b2}}{${c2}x+${d2}}=0`;
   }
 
-
   return textEquation
   .replaceAll("+-", "-")
   .replaceAll("{-1x", "{-x")
   .replaceAll("{1x", "{x");
 };
 
-
-export const renderSolutionalt = (params: Params,level:number) => {
-  
-  const solcounter = params[0][0];
-  const polcounter = params[0][1];
-
-  const frac1 = params[1];
-  const frac2 = params[2];
-  const frac3 = params[3];
-  const frac4 = params[4];
-
-  const sol1 = params[5][0];
-  const sol2 = params[5][1];
-  const sol3 = params[5][2];
-  const sol4 = params[5][3];
-
-  const pol1 = params[6][0];
-  const pol2 = params[6][1];
-  const pol3 = params[6][2];
-  const pol4 = params[6][3];
-
-
-
-  switch(level) {
-
-    case 1:
-      const b1 = frac1[1];
-      const c1 = frac1[2];
-      const d1 = frac1[3];
-      const b2 = frac2[1];
-      const c2 = frac2[2];
-      const d2 = frac2[3];
-
-    if (c1*d2===c2*d1){
-      if (b1*d2===-1*b2*d1){
-        return `
-        \\begin{aligned}
-        \\mathbb{L}&=\\mathbb{R} - \\{${-d1/c1}\\} \\\\
-        \\end{aligned}   
-        `
-      } else {
-        return `
-        \\begin{aligned}
-        \\mathbb{L}&=\\{\\} \\\\
-        \\end{aligned}   
-        `
-      }
-
-
-    } else{
-      return `
-      \\begin{aligned}
-      \\mathbb{L}&=\\{${sol1}\\} \\\\
-      \\end{aligned}   
-      `
-    }
-
-
-
-    case 2:
-    return `
-    \\begin{aligned}
-    x&=\\begin{cases} ${sol1} \\\\ ${sol2} \\end{cases}
-    \\end{aligned}   
-    `
-    default:
-      return `
-      \\begin{aligned}
-      x&=\\begin{cases} ${sol1} \\\\ ${sol2} \\end{cases}
-      \\end{aligned}   
-      `
-  }
-};
-
-
 export const renderSolution = (params: Params,level:number) => {
+
+  const solcounter = params.solcount;
+  const polcounter = params.polcount;
+  const sol1 = params.solutions[0].x;
+
+  const poltex1 = params.pols[0].xtex;
+  const poltex2 = params.pols[1].xtex;
+
   
-  const solcounter = params[0][0];
-  const polcounter = params[0][1];
+  var solString =`\\begin{aligned} \\mathbb{P}&= \\{`;
+  var polListe =``;
 
-  switch(solcounter) {
-    case 0:
-      return noSolution()
+  switch (polcounter){
     case 1:
-      return oneSolution(params,level)  
+      polListe = `${poltex1}`;
+      break;
     case 2:
-      return twoSolution(params,level) 
+      polListe = `${poltex1};${poltex2}`;
+      break;
     case 3:
-      return threeSolution(params,level)
+      polListe = `${poltex1};${poltex2};999`;
+      break;
     case 4:
-      return fourSolution(params,level)
-    default:
-      return infiniteSolution(params,level)
+      polListe = `${poltex1};${poltex2};999;999`;
+      break;
+    case 999:
+      polListe =``;
   }
+
+  solString = solString + polListe + `\\} \\\\ \\mathbb{L}&=`;
+
+  var solListe =``;
+  switch (solcounter){
+    case 0:
+      solListe = `\\{\\}`;
+      break;
+    case 1:
+      solListe=`\\{ ${sol1}\\}`;
+      break;
+    case 2:
+      solListe = `\\{${sol1};999\\}`;
+      break;
+    case 3:
+      solListe = `\\{${sol1};999;999\\}`;
+      break;
+    case 4:
+      solListe = `\\{${sol1};999;999;999\\}`;
+      break;
+    case 999:
+      solListe = `\\mathbb{R} - \\{${polListe}\\}`;
+  }
+
+  solString = solString + solListe + `\\\\  \\end{aligned}`;   
+  return solString
 };
-
-
-
 
 const fractionalEquation: ProblemGenerator = {
   key: "fractional-equation",
   generate: () => {
-    var level = randomInt(1,6);
-    level = 1;
+    //var level = randomInt(1,6);
+    var level = 1;
     var params = calculateParameter(level);
     
     return {
