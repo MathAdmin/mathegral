@@ -1,11 +1,15 @@
 {
   "generator": {
+    "angle-name": {
+      "name": "Paires d'angles",
+      "description": "Déterminez leur nom:"
+    },
     "quadratic-equation": {
       "name": "Equations du 2nd degré",
       "description": "Résolvez l'équation suivante:"
     },
     "quadratic-equation2": {
-      "name": "Equations du 2nd degré (2)",
+      "name": "Equ. du 2nd degré (2)",
       "description": "Résolvez l'équation suivante:"
     },
     "fractional-equation": {

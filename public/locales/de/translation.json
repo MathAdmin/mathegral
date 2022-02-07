@@ -1,11 +1,15 @@
 {
   "generator": {
+    "angle-name": {
+      "name": "Winkelbezeichnung",
+      "description": "Wie werden diese Winkel genannt?"
+    },
     "quadratic-equation": {
       "name": "Quadratische Gleichung",
       "description": "Löse die Gleichung nach [[x]] auf."
     },
     "quadratic-equation2": {
-      "name": "Quadratische Gleichung 2",
+      "name": "Quadr. Gleichung 2",
       "description": "Löse die Gleichung nach [[x]] auf."
     },
     "fractional-equation": {
