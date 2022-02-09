@@ -1,11 +1,15 @@
 {
   "generator": {
+    "angle-name": {
+      "name": "Angle pairs",
+      "description": "Determine the name."
+    },
     "quadratic-equation": {
       "name": "Quadratic Equation",
       "description": "Solve the equation for [[x]]."
     },
     "quadratic-equation2": {
-      "name": "Quadratic Equation 2",
+      "name": "Quadr. Equation 2",
       "description": "Solve the equation for [[x]]."
     },
     "fractional-equation": {
