@@ -1,3 +1,5 @@
+[![CodeQL](https://github.com/alimfeld/matherhorn/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/alimfeld/matherhorn/actions/workflows/codeql-analysis.yml)
+
 # Matherhorn
 
 Generate mathematical problems and show their solution.
