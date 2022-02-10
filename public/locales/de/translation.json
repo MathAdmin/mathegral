@@ -1,5 +1,9 @@
 {
   "generator": {
+    "prime-factor": {
+      "name": "Primfaktorzerlegung",
+      "description": "Bestimme die Primfaktorzerlegung:"
+    },
     "angle-name": {
       "name": "Winkelbezeichnung",
       "description": "Wie werden diese Winkel genannt?"

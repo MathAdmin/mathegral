@@ -1,5 +1,9 @@
 {
   "generator": {
+    "prime-factor": {
+      "name": "Prime factorization",
+      "description": "Determine the prime factorization:"
+    },
     "angle-name": {
       "name": "Angle pairs",
       "description": "Determine the name."
