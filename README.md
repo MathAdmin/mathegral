@@ -1,3 +1,5 @@
+[![CI](https://github.com/alimfeld/matherhorn/actions/workflows/ci.yml/badge.svg)](https://github.com/alimfeld/matherhorn/actions/workflows/ci.yml)
+
 # Matherhorn
 
 Generate mathematical problems and show their solution.
