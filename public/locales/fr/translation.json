@@ -1,5 +1,9 @@
 {
   "generator": {
+    "prime-factor": {
+      "name": "Décomposition en produit de facteurs premiers",
+      "description": "Déterminez la décomposition:"
+    },
     "angle-name": {
       "name": "Paires d'angles",
       "description": "Déterminez leur nom:"

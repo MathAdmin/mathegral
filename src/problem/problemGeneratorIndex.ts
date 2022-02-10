@@ -7,6 +7,7 @@ import rightTriangle from "./generator/rightTriangle";
 import sinTriangle from "./generator/sinTriangle";
 import fractionalEquation from "./generator/fractionalEquation";
 import angleName from "./generator/angleName";
+import primeFactor from "./generator/primeFactor";
 
 interface Chapter {
   key: string;
@@ -16,7 +17,7 @@ interface Chapter {
 const chapters: Chapter[] = [
   {
     key: "3Klasse",
-    generators: [angleName, rightTriangle,quadraticEquation,quadraticEquation2,fractionalEquation],
+    generators: [primeFactor,angleName, rightTriangle,quadraticEquation,quadraticEquation2,fractionalEquation],
   },
   {
     key: "4Klasse",
