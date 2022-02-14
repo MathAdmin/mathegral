@@ -73,7 +73,7 @@ const Header = () => {
           </IconButton>
         </Tooltip>
         <Typography variant="h5" sx={{ flexGrow: 1 }}>
-          Matherhorn
+          Mathegral
         </Typography>
         <Tooltip title={githubText}>
           <IconButton
@@ -81,7 +81,7 @@ const Header = () => {
             color="inherit"
             aria-label={githubText}
             onClick={() =>
-              window.open("https://github.com/alimfeld/matherhorn")
+              window.open("https://github.com/MathAdmin/mathegral")
             }
           >
             <GitHubIcon />

@@ -1,4 +1,4 @@
-# Matherhorn
+# Mathegral
 
 Generate mathematical problems and show their solution.
 
@@ -6,7 +6,7 @@ Generate mathematical problems and show their solution.
 
 This application is deployed to [Cloudflare Pages](https://pages.cloudflare.com/).
 
-You can find the live version of this application [here](https://matherhorn.pages.dev/).
+You can find the live version of this application [here](https://mathegral.pages.dev/).
 
 ## Development
 
