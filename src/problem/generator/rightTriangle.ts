@@ -30,10 +30,8 @@ interface Params {
   h: number;
 }
 
-export const calculateParams = (triple: [number, number, number]): Params => {
+export const calculateParams = (triple: [number, number, number], pythfactor:number): Params => {
   const [pi, hi, ai] = triple;
-  const maxpythfactor = Math.ceil(600 /(hi*hi));
-  const pythfactor = randomInt(1,maxpythfactor);
   const [p, h, a] = [pi * pi *pythfactor, hi * pi *pythfactor, ai * pi*pythfactor];
   const b = (a * h) / p;
   const q = (h * h) / p;
@@ -73,7 +71,11 @@ const rightTriangle: ProblemGenerator = {
   key: "right-triangle",
   image: "right-triangle.svg",
   generate: () => {
-    const params = calculateParams(randomElement(primitiveTriples));
+    const triple = randomElement(primitiveTriples);
+    const h =  triple[1];
+    const maxpythfactor = Math.ceil(600 /(h*h));
+    const pythfactor = randomInt(1,maxpythfactor);
+    const params = calculateParams(triple,pythfactor);
     let remaining = ["a", "b", "c", "p", "q", "h"];
     const [key1] = remaining.splice(randomInt(0, 6), 1);
     const [key2] = remaining.splice(randomInt(0, 5), 1);
