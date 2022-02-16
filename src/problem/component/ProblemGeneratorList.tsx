@@ -31,7 +31,7 @@ const ProblemGeneratorList = () => {
           </AccordionSummary>
           <AccordionDetails>
             <List>
-              {chapter.generators.map((generator) => (
+              {chapter.generators.map((generator, i) => (
                 <ListItem key={generator.key}>
                   <ListItemButton
                     key={generator.key}
@@ -41,7 +41,7 @@ const ProblemGeneratorList = () => {
                       <SchoolIcon />
                     </ListItemIcon>
                     <ListItemText>
-                      <MathText markup={t(`generator.${generator.key}.name`)} />
+                      {i + 1}.&nbsp;<MathText markup={t(`generator.${generator.key}.name`)} />
                     </ListItemText>
                   </ListItemButton>
                 </ListItem>
