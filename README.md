@@ -39,6 +39,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 - [Typescript](https://www.typescriptlang.org/)
 - [MUI](https://mui.com/)
 - [KaTeX](https://katex.org)
+- [i18next](https://react.i18next.com)
 
 ## Concepts
 
