@@ -1,7 +1,7 @@
 export interface ProblemGenerator {
   key: string;
   image?: string;
-  generate: () => Problem;
+  generate: (translate: (key: string) => string) => Problem;
 }
 
 export interface Problem {

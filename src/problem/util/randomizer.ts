@@ -12,12 +12,18 @@ export const randomInt = (
   return value;
 };
 
-export function randomEnum<T>(anEnum: T): T[keyof T] {
+export function randomEnum<T>(
+  anEnum: T,
+  accept?: (value: T[keyof T]) => boolean
+): T[keyof T] {
   const enumValues = Object.keys(anEnum)
     .map((n) => Number.parseInt(n))
     .filter((n) => !Number.isNaN(n)) as unknown as T[keyof T][];
   const randomIndex = Math.floor(Math.random() * enumValues.length);
   const randomEnumValue = enumValues[randomIndex];
+  if (accept && !accept(randomEnumValue)) {
+    return randomEnum(anEnum, accept);
+  }
   return randomEnumValue;
 }
 
