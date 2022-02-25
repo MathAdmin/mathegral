@@ -30,13 +30,13 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const generator = props.generator;
 
   const [problem, setProblem] = React.useState<Problem>(() =>
-    generator.generate()
+    generator.generate(t)
   );
   const [solutionVisible, setSolutionVisible] = React.useState(false);
 
   const refresh = () => {
     setSolutionVisible(false);
-    setProblem(generator.generate());
+    setProblem(generator.generate(t));
   };
 
   const toggleSolution = () => {

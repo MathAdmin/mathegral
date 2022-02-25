@@ -6,7 +6,17 @@
     },
     "angle-name": {
       "name": "Paires d'angles",
-      "description": "Déterminez leur nom:"
+      "description": "Déterminez leur nom:",
+      "pair": {
+          "NONE": "Pas de nom",
+          "LINEAR_PAIR": "Supplémentaires adjacents",
+          "VERTICAL": "Opposés par le sommet",
+          "CORRESPONDING": "Correspondants",
+          "ALTERNATE": "Alternés",
+          "CONSECUTIVE": "Opposés",
+          "COMPLEMENTARY": "Complémentaires",
+          "SUPPLEMENTARY": "Supplémentaires"
+      }
     },
     "quadratic-equation": {
       "name": "Equations du 2nd degré",

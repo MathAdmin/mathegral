@@ -6,7 +6,17 @@
     },
     "angle-name": {
       "name": "Angle pairs",
-      "description": "Determine the name."
+      "description": "Determine the name.",
+      "pair": {
+          "NONE": "No name",
+          "LINEAR_PAIR": "Linear pair (supplementary)",
+          "VERTICAL": "Vertical",
+          "CORRESPONDING": "Corresponding",
+          "ALTERNATE": "Alternate",
+          "CONSECUTIVE": "Consecutive (supplementary)",
+          "COMPLEMENTARY": "Complementary",
+          "SUPPLEMENTARY": "Supplementary"
+      }
     },
     "quadratic-equation": {
       "name": "Quadratic Equation",

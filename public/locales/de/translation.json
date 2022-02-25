@@ -6,7 +6,17 @@
     },
     "angle-name": {
       "name": "Winkelbezeichnung",
-      "description": "Wie werden diese Winkel genannt?"
+      "description": "Wie werden diese Winkel genannt?",
+      "pair": {
+          "NONE": "Keine Bezeichnung",
+          "LINEAR_PAIR": "Nebenwinkel (Supplementwinkel)",
+          "VERTICAL": "Scheitelwinkel",
+          "CORRESPONDING": "Stufenwinkel",
+          "ALTERNATE": "Wechselwinkel",
+          "CONSECUTIVE": "Entgegengesetzt liegende Winkel (Supplementwinkel)",
+          "COMPLEMENTARY": "Komplementwinkel",
+          "SUPPLEMENTARY": "Supplementwinkel"
+      }
     },
     "quadratic-equation": {
       "name": "Quadratische Gleichung",
