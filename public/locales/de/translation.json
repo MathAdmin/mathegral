@@ -4,6 +4,14 @@
       "name": "Primfaktorzerlegung",
       "description": "Bestimme die Primfaktorzerlegung:"
     },
+    "common-arithmetic": {
+      "name": "ggT und kgV",
+      "description": "Bestimme den ggT und das kgV von:",
+      "operation":{
+        "GGT": "ggT",
+        "KGV": "kgV"
+      }
+    },
     "angle-name": {
       "name": "Winkelbezeichnung",
       "description": "Wie werden diese Winkel genannt?",

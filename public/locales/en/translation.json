@@ -4,6 +4,14 @@
       "name": "Prime factorization",
       "description": "Determine the prime factorization:"
     },
+    "common-arithmetic": {
+      "name": "gcd and lcm",
+      "description": "Determine the gcd and the lcm of:",
+      "operation":{
+        "GGT": "gcd",
+        "KGV": "lcm"
+      }
+    },
     "angle-name": {
       "name": "Angle pairs",
       "description": "Determine the name.",

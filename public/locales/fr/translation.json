@@ -4,6 +4,14 @@
       "name": "Décomposition en produit de facteurs premiers",
       "description": "Déterminez la décomposition:"
     },
+    "common-arithmetic": {
+      "name": "pgcd et ppcm",
+      "description": "Déterminez le pgcd et le ppcm de:",
+      "operation":{
+        "GGT": "pgcd",
+        "KGV": "ppcm"
+      }
+    },
     "angle-name": {
       "name": "Paires d'angles",
       "description": "Déterminez leur nom:",
