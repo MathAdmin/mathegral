@@ -47,7 +47,7 @@ const level1 = (): Params => {
       { a: 0, b: b1, c: c1, d: d1 },
       { a: 0, b: b2, c: c2, d: d2 },
     ],
-    solutions: pol1 === pol2 ? [] : [{ a: sol1, b: 1 }],
+    solutions: pol1 === pol2 ? undefined : [{ a: sol1, b: 1 }],
   };
 };
 
