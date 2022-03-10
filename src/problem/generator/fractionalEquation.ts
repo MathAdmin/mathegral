@@ -147,7 +147,7 @@ export const renderSolution = (params: Params) => {
   // create unique array of pols and join them
   const pols = [
     ...Array.from(
-      new Set(params.terms.map((term) => fracTex(-term.b, term.c)))
+      new Set(params.terms.map((term) => fracTex(-term.d, term.c)))
     ),
   ].join(";");
 
