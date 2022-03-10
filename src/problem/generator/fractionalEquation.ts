@@ -18,24 +18,25 @@ type Fraction = {
 type Params = {
   terms: FractionalTerm[];
   solutions: Fraction[] | undefined;
+  rightnumber: number;
 };
 
 const level1 = (): Params => {
-  const c1 = randomInt(-9, 10, (value) => value !== 0);
-  const d1 = randomInt(-9, 10, (value) => value !== 0);
+  const c1 = randomInt(-6, 7, (value) => value !== 0);
+  const d1 = randomInt(-6, 7, (value) => value !== 0);
 
-  const c2 = randomInt(-9, 10, (value) => value !== 0);
-  const d2 = randomInt(-9, 10, (value) => ![0, d1].includes(value));
+  const c2 = randomInt(-6, 7, (value) => value !== 0);
+  const d2 = randomInt(-6, 7, (value) => ![0, d1].includes(value));
 
   const sol1 = randomInt(
-    -9,
-    10,
+    -6,
+    7,
     (value) => ![0, -d2 / c2, -d1 / c1].includes(value)
   );
   const below1 = c1 * sol1 + d1;
   const below2 = c2 * sol1 + d2;
 
-  const factor12 = randomInt(-9, 10, (value) => value !== 0);
+  const factor12 = randomInt(-6, 7, (value) => value !== 0);
   const b1 = (-1 * (below1 * factor12)) / calculategcd([below1, below2]);
   const b2 = (below2 * factor12) / calculategcd([below1, below2]);
 
@@ -48,20 +49,21 @@ const level1 = (): Params => {
       { a: 0, b: b2, c: c2, d: d2 },
     ],
     solutions: pol1 === pol2 ? undefined : [{ a: sol1, b: 1 }],
+    rightnumber: 0,
   };
 };
 
 const level2 = (): Params => {
-  const c1 = randomInt(-9, 10, (value) => value !== 0);
-  const d1 = randomInt(-9, 10, (value) => value !== 0);
-  const c2 = randomInt(-9, 10, (value) => value !== 0);
-  const d2 = randomInt(-9, 10, (value) => ![0, d1].includes(value));
-  const c3 = randomInt(-9, 10, (value) => value !== 0);
-  const d3 = randomInt(-9, 10, (value) => ![0, d1, d2].includes(value));
+  const c1 = randomInt(-6, 7, (value) => value !== 0);
+  const d1 = randomInt(-6, 7, (value) => value !== 0);
+  const c2 = randomInt(-6, 7, (value) => value !== 0);
+  const d2 = randomInt(-6, 7, (value) => ![0, d1].includes(value));
+  const c3 = randomInt(-6, 7, (value) => value !== 0);
+  const d3 = randomInt(-6, 7, (value) => ![0, d1, d2].includes(value));
 
   const sol1 = randomInt(
-    -9,
-    10,
+    -6,
+    7,
     (value) =>
       ![
         0,
@@ -96,9 +98,14 @@ const level2 = (): Params => {
   const polCount = [...Array.from(new Set([pol1, pol2, pol3]))].length;
 
   // Other solution
-  const sol2 =
+  const newsol2 = 
     (b1 * d2 * d3 + b2 * d1 * d3 + b3 * d1 * d2) /
     (sol1 * (b1 * c2 * c3 + b2 * c1 * c3 + b3 * c1 * c2));
+
+  const sol2 =
+    polCount === [...Array.from(new Set([pol1, pol2, pol3, newsol2]))].length
+      ? sol1
+      : newsol2
 
   return {
     terms: [
@@ -118,6 +125,7 @@ const level2 = (): Params => {
               b: sol1 * (b1 * c2 * c3 + b2 * c1 * c3 + b3 * c1 * c2),
             },
           ],
+    rightnumber: 0,
   };
 };
 
@@ -135,7 +143,7 @@ export const renderEquation = (params: Params) => {
   const textEquation =
     params.terms
       .map((term) => `\\frac{${term.b}}{${term.c}x+${term.d}}`)
-      .join("+") + "=0";
+      .join("+") + "=" +`${params.rightnumber}`;
 
   return textEquation
     .replaceAll("+-", "-")
