@@ -273,6 +273,101 @@ const level4 = (): Params => {
 };
 
 
+////////////////////////////////////////
+//   LEVEL 5
+//
+//   a1 x + b1     a2 x + b2
+//   ---------- + ----------- = rn
+//   c1 x + d1     c2 x + d2
+////////////////////////////////////////
+
+const level5 = (): Params => {
+
+  const factor = randomInt(1,6);
+  const below = randomInt(0,20);
+  const above = below * randomInt(0, 6);
+  
+  // Zähler zerlegen
+  var above1 = randomInt(-2,1,(value) => value !== 0) 
+    * randomInt(above /4, (3 * above) / 4, (value) => value !== 0);
+  
+  const above2 = randomInt(-2,1,(value) => value !== 0) 
+    * above - above1;
+  
+  //Bruch1 erweitern
+  above1 = above1 * factor;
+  const below1 = below * factor;
+  
+  const below2 = below;
+
+  //Ergebnis berechnen
+  const rn = above1 / below1 + above2 / below2;
+
+  // Lösung1 bestimmen
+  const sol1 = randomInt(-10, 9, (value) => value !== 0);
+
+  // N ---> aX+b
+  var floor = Math.floor(above1/sol1);
+  const a1 = 
+    floor === above1/sol1 || floor === 0
+      ? floor + randomInt(-4, 3, (value) => ![0, -floor].includes(value))
+      : floor
+  const b1 = above1 - a1 * sol1;
+
+  floor = Math.floor(below1/sol1);
+  const c1 = 
+    floor === below1/sol1 || floor === 0
+      ? floor + randomInt(-4, 3, (value) => ![0, -floor].includes(value))
+      : floor
+  const d1 = below1 - c1 * sol1;
+
+  floor = Math.floor(above2/sol1);
+  const a2 = 
+    floor === above2/sol1 || floor === 0
+      ?  floor + randomInt(-4, 3, (value) => ![0, floor].includes(value))
+      :  floor
+  const b2 = above2 - a2 * sol1;
+  
+  floor = Math.floor(below2/sol1);
+  const c2 = 
+    floor === below2/sol1 || floor === 0 || floor === c1 / factor
+      ? floor + randomInt(-4, 3, (value) => ![0, -floor].includes(value))
+      : floor
+  const d2 = below2 - c2 * sol1;
+
+  const pol1 = -d1/c1;
+  const pol2 = -d2/c2;
+
+  const polCount = [...Array.from(new Set([pol1, pol2]))].length;
+
+  // Other solution
+  const sol2 = 
+    a1 * c2 + a2 * c1 - rn *c1 * c2 === 0
+      ? a1 * d2 + a2 * d1 + b1 *c2 + b2 *c1 -rn * c1 * d2 - rn * c2 * d1 === 0
+        ? undefined
+        : sol1
+      : (b1 * d2 + b2 * d1 - rn * d1 * d2) / (sol1 * (a1 * c2 + a2 * c1 - rn * c1 * c2))
+
+  const countSol = [...Array.from(new Set([pol1, pol2, sol1, sol2]))].length - polCount;
+ 
+
+  return {
+    terms: [
+      { a: a1, b: b1, c: c1, d: d1 },
+      { a: a2, b: b2, c: c2, d: d2 },
+    ],
+    solutions:
+      sol2 === undefined
+          ? undefined
+          : countSol === 1
+            ? [{ a: sol1, b: 1 }]
+            : [{ a: sol1, b: 1 },
+              {a: (b1 * d2 + b2 * d1 - rn * d1 * d2), 
+                b: (sol1 * (a1 * c2 + a2 * c1 - rn * c1 * c2))}],
+    rightnumber: rn,
+  };
+};
+
 
 export const calculateParameter = (level: number): Params => {
   switch (level) {
@@ -285,8 +380,11 @@ export const calculateParameter = (level: number): Params => {
     case 3:
         return level3();
 
-    default:
+    case 4:
       return level4();
+    
+      default:
+        return level5();
   }
 };
 
@@ -314,14 +412,14 @@ export const renderSolution = (params: Params) => {
   ].join(";");
 
   const sols = params.solutions
-    ? params.solutions.map((sol) => fracTex(sol.a, sol.b)).join(";")
+    ? `\\{`+ params.solutions.map((sol) => fracTex(sol.a, sol.b)).join(";") + `\\}`
     : `\\mathbb{R} - \\{${pols}\\}`;
 
   return `
   \\begin{aligned}
       \\mathbb{P}&= \\{${pols}\\}
       \\\\
-      \\mathbb{L}&=\\{${sols}\\}
+      \\mathbb{L}&=${sols}
   \\end{aligned}
   `;
 };
@@ -330,7 +428,7 @@ const fractionalEquation: ProblemGenerator = {
   key: "fractional-equation",
   generate: () => {
     const level = randomInt(1, 5);
-    //const level = 4;
+    //const level = 5;
     const params = calculateParameter(level);
 
     return {
