@@ -544,8 +544,8 @@ export const renderSolution = (params: Params) => {
 const fractionalEquation: ProblemGenerator = {
   key: "fractional-equation",
   generate: () => {
-    //const level = randomInt(1, 7);
-    const level = 1;
+    const level = randomInt(1, 7);
+    //const level = 1;
     const params = calculateParameter(level);
 
     return {
