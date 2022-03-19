@@ -3,6 +3,7 @@ import { calculategcd } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
 import { randomdist } from "../util/randomDistribution";
 import { fracTex } from "../util/texGenerator";
+import { calculateBinome } from "../util/commonDivisor";
 
 type FractionalTerm = {
   a: number;
@@ -618,19 +619,7 @@ const level8 = (): Params => {
 };
 
 
-export const calculateBinome = (sum: number,sol:number,nosol:number): Binome => {
-  const floor = Math.floor(sum/sol);
-  const a = 
-    floor === sum/sol || floor === 0 || floor === nosol
-      ?  floor + randomInt(-3, 4, (value) => ![0, -floor, floor].includes(value))
-      :  floor
-  const b = sum - a * sol;
-  return {
-    a: a,
-    b: b,
-  };
 
-};
 
 export const calculateParameter = (level: number): Params => {
   switch (level) {

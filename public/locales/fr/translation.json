@@ -38,6 +38,11 @@
       "name": "Equations rationnelles",
       "description": "Résolvez l'équation suivante:"
     },
+
+    "square-equation": {
+      "name": "Equations de racines carrées",
+      "description": "Résolvez l'équation suivante: (Attention aus solutions factices: [[\\mathbb{S}]])"
+    },
     "arithmetic-series": {
       "name": "Suites arithmetiques",
       "description": "Calculez les valeurs manquantes avec [[S_n=\\sum_{i=1}^n a_i]] et [[a_i=a_{i-1}+d]]."

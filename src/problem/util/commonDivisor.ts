@@ -1,3 +1,11 @@
+import { randomInt } from "../util/randomizer";
+
+type Binome = {
+  a: number;
+  b: number;
+};
+
+
 export const gcd = (
   a: number,
   b: number
@@ -26,3 +34,17 @@ export const multigcd=(arr:any[]):any[]=>{
 export const calculategcd=(arr:any[]):number=>{
   return multigcd(arr)[0];
 }
+
+export const calculateBinome = (sum: number,sol:number,nosol:number): Binome => {
+  const floor = Math.floor(sum/sol);
+  const a = 
+    floor === sum/sol || floor === 0 || floor === nosol
+      ?  floor + randomInt(-3, 4, (value) => ![0, -floor, floor].includes(value))
+      :  floor
+  const b = sum - a * sol;
+  return {
+    a: a,
+    b: b,
+  };
+
+};
