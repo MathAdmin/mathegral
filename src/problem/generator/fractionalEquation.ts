@@ -1,6 +1,7 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
 import { calculategcd } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
+import { randomdist } from "../util/randomDistribution";
 import { fracTex } from "../util/texGenerator";
 
 type FractionalTerm = {
@@ -10,7 +11,7 @@ type FractionalTerm = {
   d: number;
   e: number;
   f: number;
-};
+  };
 
 type Fraction = {
   a: number;
@@ -30,7 +31,7 @@ type Params = {
 };
 
 ////////////////////////////////////////
-//   LEVEL 1
+//   LEVEL 1 (10%)
 //
 //      b1           b2
 //   ---------- + ----------- = 0
@@ -73,7 +74,7 @@ const level1 = (): Params => {
 };
 
 ////////////////////////////////////////
-//   LEVEL 2
+//   LEVEL 2 (10%)
 //
 //      b1           b2              b3
 //   ---------- + ----------- + ----------- = 0
@@ -158,7 +159,7 @@ const level2 = (): Params => {
 };
 
 ////////////////////////////////////////
-//   LEVEL 3
+//   LEVEL 3 (20%)
 //
 //      b1           b2
 //   ---------- + ----------- = rn
@@ -218,7 +219,7 @@ const level3 = (): Params => {
 };
 
 ////////////////////////////////////////
-//   LEVEL 4
+//   LEVEL 4 (10%)
 //
 //   a1 x + b1     a2 x + b2
 //   ---------- + ----------- = 0
@@ -294,7 +295,7 @@ const level4 = (): Params => {
 
 
 ////////////////////////////////////////
-//   LEVEL 5
+//   LEVEL 5 (20%)
 //
 //   a1 x + b1     a2 x + b2
 //   ---------- + ----------- = rn
@@ -321,7 +322,7 @@ const level5 = (): Params => {
   const below2 = below;
 
   //Ergebnis berechnen
-  const rn = above1 / below1 + above2 / below2;
+  const rn = (above1 * below2 + above2 * below1) / (below1 * below2);
 
   // Lösung1 bestimmen
   const sol1 = randomInt(-9, 10, (value) => value !== 0);
@@ -382,7 +383,7 @@ const level5 = (): Params => {
 };
 
 /////////////////////////////////////////////////////////////
-//   LEVEL 6
+//   LEVEL 6 (15%)
 //
 //   a1 x + b1     a2 x + b2             a3 x + b3
 //   ---------- + ----------- + ------------------------ = 0
@@ -459,6 +460,164 @@ const level6 = (): Params => {
   };
 };
 
+//////////////////////////////////////////////////////////
+//   LEVEL 7  (10 % )
+//
+//        a1 x+ b1              a2 x+ b2
+//   -------------------- + -------------------- = 0
+//    f1 x^2 + c1 x + d1      f2 x^2 + c2 x + d2
+//
+//////////////////////////////////////////////////////////
+
+const level7 = (): Params => {
+
+  const sol1 = randomInt(-10, 9, (value) => value !== 0);
+
+  const number1 = randomInt(1,6);
+  const number2 = randomInt(1,6,(value) => ![number1].includes(value));
+  const number3 = randomInt(1,6,(value) => ![number1,number2].includes(value));
+  const number4 = randomInt(1,6,(value) => ![number1,number2,number3].includes(value));
+
+  const above1 = number1 * number2;
+  const below1 = number1 * number3;  
+  const above2 = - number4 * number2;
+  const below2 = number4 * number3;  
+
+  var binome = calculateBinome(above1,sol1,0);
+  const a1 = binome.a;
+  const b1 = binome.b;
+
+  binome = calculateBinome(below1,sol1,0);
+  const c01 = binome.a;
+  const d01 = binome.b;
+
+  binome = calculateBinome(above2,sol1,0);
+  const a2 = binome.a;
+  const b2 = binome.b;
+
+  binome = calculateBinome(below2,sol1,0);
+  const c02 = binome.a;
+  const d02 = binome.b;
+
+  const c3 = 1;
+  const d3 = randomInt(-10, 9, (value) => value !== 0);
+  const f1 = c01 * c3;
+  const f2 = c02 * c3;
+  const c1 = c01 * d3 + d01 * c3;
+  const c2 = c02 * d3 + d02 * c3;
+  const d1 = d01 * d3;
+  const d2 = d02 * d3;
+
+  const pol1 = -d01/c01;
+  const pol2 = -d02/c02;
+  const pol3 = -d3/c3;
+
+  const polCount = [...Array.from(new Set([pol1, pol2,pol3]))].length;
+
+  // Other solution
+  const sol2 = 
+    a1 * c02 + a2 * c01 === 0
+      ? a1 * d02 + a2 * d01 + b1 *c02 + b2 *c01 === 0
+        ? undefined
+        : sol1
+      : (b1 * d02 + b2 * d01) / (sol1 * (a1 * c02 + a2 * c01))
+
+  const countSol = [...Array.from(new Set([pol1, pol2,pol3, sol1, sol2]))].length - polCount;
+ 
+
+  return {
+    terms: [
+      { a: a1, b: b1, c: c1, d: d1, e: 0, f: f1 },
+      { a: a2, b: b2, c: c2, d: d2, e: 0, f: f2 },
+    ],
+    solutions:
+      sol2 === undefined
+          ? undefined
+          : countSol === 1
+            ? [{ a: sol1, b: 1 }]
+            : [{ a: sol1, b: 1 },
+              {a: (b1 * d02 + b2 * d01), b: (sol1 * (a1 * c02 + a2 * c01))}],    
+    pols: polCount === 1
+      ? [{ a: -d01, b: c01 }]
+      : polCount === 2
+        ? pol1 === pol2
+          ? [{ a: -d01, b: c01 },{ a: -d3, b: c3 }]
+          : [{ a: -d01, b: c01 },{ a: -d02, b: c02 }]
+        : [{ a: -d01, b: c01 },{ a: -d02, b: c02 },{ a: -d3, b: c3 }],
+    rightnumber: 0,
+  };
+};
+
+
+//////////////////////////////////////////////////////////
+//   LEVEL 8  ( 5 %)
+//
+//    x + b1     -x - b2     x + b3     -x - b4
+//   -------- + -------- + -------- + --------- = 0
+//    x + d1     x + d2      x + d3      x + d4
+//
+//////////////////////////////////////////////////////////
+
+const level8 = (): Params => {
+
+  const factor1 = randomInt(-5, 6,(value) => ![0].includes(value));
+  const factor2 = randomInt(-5, 6,(value) => ![0,factor1].includes(value));
+  const factor3 = randomInt(-5, 6,(value) => ![0,factor1,factor2].includes(value));
+
+  const sumA = factor1 * factor2;
+  const sumB = factor3;
+  const sumC = -1 * factor1 ;
+  const sumD = factor2 * factor3;
+
+  const b1 = randomInt(-9, 10,(value) => ![0].includes(value));
+  const b3 = randomInt(-9, 10,(value) => 
+    ![0, b1, b1 + sumA - sumC,b1 + sumA - sumC - sumD,
+       b1 + sumA + sumB - sumC - sumD, b1 + sumA + sumB - sumC].includes(value));
+  const d1 = b1 + sumA;
+  const b2 = -1 * (b1 + sumB);
+  const d2 = b1 + sumA + sumB;
+  const d3 = b3 + sumC;
+  const b4 = -1 * (b3 + sumD);
+  const d4 = b3 + sumC + sumD;
+
+ 
+  const pol1 = -d1;
+  const pol2 = -d2;
+  const pol3 = -d3;
+  const pol4 = -d4;
+  
+  const sol1 = 
+    d1 + d2 === d3 + d4
+      ? undefined
+      : (d3 *d4 - d1 * d2)/(d1 + d2 - d3 -d4);
+
+  const polCount = [...Array.from(new Set([pol1, pol2, pol3, pol4]))].length;
+ 
+  const countSol = [...Array.from(new Set([pol1, pol2, pol3, pol4, sol1]))].length - polCount;
+ 
+
+  return {
+    terms: [
+      { a: 1, b: b1, c: 1, d: d1, e:0, f:0 },
+      { a: -1, b: b2, c: 1, d: d2, e:0, f:0 },
+      { a: 1, b: b3, c: 1, d: d3, e:0, f:0 },
+      { a: -1, b: b4, c: 1, d: d4, e:0, f:0 },
+    ],
+    solutions: 
+      sol1 === undefined
+        ? undefined
+        : countSol === 0
+          ? undefined
+          : [{ a: d3 *d4 - d1 * d2, b: d1 + d2 - d3 -d4 }],
+    
+    pols: [{ a: -d1, b: 1 },{ a: -d2, b: 1 },
+      { a: -d3, b: 1 },{ a: -d4, b: 1 }],
+    
+    rightnumber: 0,
+  };
+};
+
+
 export const calculateBinome = (sum: number,sol:number,nosol:number): Binome => {
   const floor = Math.floor(sum/sol);
   const a = 
@@ -491,10 +650,16 @@ export const calculateParameter = (level: number): Params => {
       return level5();
   
     case 6:
-      return level6(); 
-    
-    default:
       return level6();
+      
+    case 7:
+        return level7();
+
+    case 8:
+        return level8();
+       
+    default:
+      return level1();
   }
 };
 
@@ -515,7 +680,8 @@ export const renderEquation = (params: Params) => {
     .replaceAll("{0x+", "{")
     .replaceAll("{0x-", "{-")
     .replaceAll("+0x", "")
-    .replaceAll("-0x", "");
+    .replaceAll("-0x", "")
+    .replaceAll("+0}", "}");
 };
 
 
@@ -544,7 +710,11 @@ export const renderSolution = (params: Params) => {
 const fractionalEquation: ProblemGenerator = {
   key: "fractional-equation",
   generate: () => {
-    const level = randomInt(1, 7);
+    
+    let levelDistribution = [
+      [1,10],[2,20],[3,40],[4,50],[5,70],[6,85],[7,95],[8,100]];
+    const pos = randomdist(levelDistribution);
+    const level = levelDistribution[pos][0];
     //const level = 1;
     const params = calculateParameter(level);
 
