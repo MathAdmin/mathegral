@@ -1,5 +1,6 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
 import { randomElement, randomInt } from "../util/randomizer";
+import { exclude } from "../util/predicates";
 
 const primitiveTriples: [number, number, number][] = [
   [3, 4, 5],
