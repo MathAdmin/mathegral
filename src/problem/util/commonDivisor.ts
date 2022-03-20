@@ -1,3 +1,6 @@
+import { randomInt } from "../util/randomizer";
+import { exclude } from "../util/predicates";
+
 export const gcd = (
   a: number,
   b: number
@@ -21,6 +24,30 @@ export const multigcd=(arr:any[]):any[]=>{
     arr.push(gcd(number1,number2));
     return multigcd(arr);
   }
+};
+
+export type Binome = {
+  a: number;
+  b: number;
+};
+
+export type Fraction = {
+  a: number;
+  b: number;
+};
+
+export const calculateBinome = (sum: number,sol:number,nosol:number): Binome => {
+  const floor = Math.floor(sum/sol);
+  const a = 
+    floor === sum/sol || floor === 0 || floor === nosol
+      ?  floor + randomInt(-3, 4, exclude(0, -floor, floor))
+      :  floor
+  const b = sum - a * sol;
+  return {
+    a: a,
+    b: b,
+  };
+
 };
 
 export const calculategcd=(arr:any[]):number=>{

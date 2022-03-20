@@ -1,5 +1,6 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
 import { randomInt } from "../util/randomizer";
+import { exclude } from "../util/predicates";
 import { calculategcd } from "../util/commonDivisor";
 
 const commonArithmetic: ProblemGenerator = {
@@ -7,7 +8,7 @@ const commonArithmetic: ProblemGenerator = {
     generate: (translate) => {
         const teiler = randomInt(1,40);
         const number1 = teiler*randomInt(1,400/teiler);
-        const number2 = teiler*randomInt(1,400/teiler);
+        const number2 = teiler*randomInt(1,400/teiler, exclude(number1/teiler));
         return {
         description: `${number1} \\text{ , } ${number2}`,
         solution: `\\text{${translate(

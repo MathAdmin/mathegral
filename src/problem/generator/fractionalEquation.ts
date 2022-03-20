@@ -1,8 +1,12 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
 import { calculategcd } from "../util/commonDivisor";
+import { Fraction } from "../util/commonDivisor";
+import { Binome } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
+import { exclude } from "../util/predicates";
 import { randomdist } from "../util/randomDistribution";
 import { fracTex } from "../util/texGenerator";
+
 
 type FractionalTerm = {
   a: number;
@@ -13,15 +17,6 @@ type FractionalTerm = {
   f: number;
   };
 
-type Fraction = {
-  a: number;
-  b: number;
-};
-
-type Binome ={
-  a: number;
-  b:number;
-};
 
 type Params = {
   terms: FractionalTerm[];
@@ -39,16 +34,15 @@ type Params = {
 ////////////////////////////////////////
 
 const level1 = (): Params => {
-  const c1 = randomInt(-6, 7, (value) => value !== 0);
-  const d1 = randomInt(-6, 7, (value) => value !== 0);
-  const c2 = randomInt(-6, 7, (value) => value !== 0);
-  const d2 = randomInt(-6, 7, (value) => ![0, d1].includes(value));
-  const sol1 = randomInt(-6,    7,
-    (value) => ![0, -d2 / c2, -d1 / c1].includes(value));
+  const c1 = randomInt(-6, 7, exclude(0));
+  const d1 = randomInt(-6, 7, exclude(0));
+  const c2 = randomInt(-6, 7, exclude(0));
+  const d2 = randomInt(-6, 7, exclude(0,d1));
+  const sol1 = randomInt(-6, 7,exclude(0, -d2 / c2, -d1 / c1));
 
   const below1 = c1 * sol1 + d1;
   const below2 = c2 * sol1 + d2;
-  const factor12 = randomInt(-6, 7, (value) => value !== 0);
+  const factor12 = randomInt(-6, 7, exclude(0));
   const b1 = (-1 * (below1 * factor12)) / calculategcd([below1, below2]);
   const b2 = (below2 * factor12) / calculategcd([below1, below2]);
 
@@ -82,17 +76,15 @@ const level1 = (): Params => {
 ////////////////////////////////////////
 
 const level2 = (): Params => {
-  const c1 = randomInt(-4, 5, (value) => value !== 0);
-  const d1 = randomInt(-5, 6, (value) => value !== 0);
-  const c2 = randomInt(-4, 5, (value) => value !== 0);
-  const d2 = randomInt(-5, 6, (value) => ![0, d1].includes(value));
-  const c3 = randomInt(-4, 5, (value) => value !== 0);
-  const d3 = randomInt(-5, 6, (value) => ![0, d1, d2].includes(value));
+  const c1 = randomInt(-4, 5, exclude(0));
+  const d1 = randomInt(-5, 6, exclude(0));
+  const c2 = randomInt(-4, 5, exclude(0));
+  const d2 = randomInt(-5, 6, exclude(0, d1));
+  const c3 = randomInt(-4, 5, exclude(0));
+  const d3 = randomInt(-5, 6, exclude(0, d1, d2));
 
-  const sol1 = randomInt(-6, 7,
-    (value) => ![0,-d1 / c1,-d2 / c2,-d3 / c3,
-        -(d2 - d1) / (c2 - c1),-(d3 - d1) / (c3 - c1),-(d3 - d2) / (c3 - c2),
-      ].includes(value));
+  const sol1 = randomInt(-6, 7,exclude(0,-d1 / c1,-d2 / c2,-d3 / c3,
+        -(d2 - d1) / (c2 - c1),-(d3 - d1) / (c3 - c1),-(d3 - d2) / (c3 - c2)));
 
   // below1!=below2!=below3
   const below1 = c1 * sol1 + d1;
@@ -168,17 +160,17 @@ const level2 = (): Params => {
 
 const level3 = (): Params => {
 
-  const c1 = randomInt(-6, 7, (value) => value !== 0);
-  const d1 = randomInt(-6, 7, (value) => value !== 0);
-  const c2 = randomInt(-6, 7, (value) => value !== 0);
-  const d2 = randomInt(-6, 7, (value) => ![0, d1].includes(value));
+  const c1 = randomInt(-6, 7, exclude(0));
+  const d1 = randomInt(-6, 7, exclude(0));
+  const c2 = randomInt(-6, 7, exclude(0));
+  const d2 = randomInt(-6, 7, exclude(0, d1));
 
-  const sol1 = randomInt(-6, 7,(value) => ![0, -d2 / c2, -d1 / c1].includes(value));
+  const sol1 = randomInt(-6, 7,exclude(0, -d2 / c2, -d1 / c1));
 
   const below1 = c1 * sol1 + d1;
   const below2 = c2 * sol1 + d2;
-  const factor1 = randomInt(-6, 7, (value) => value !== 0);
-  const factor2 = randomInt(-6, 7, (value) => value !== 0);
+  const factor1 = randomInt(-6, 7, exclude(0));
+  const factor2 = randomInt(-6, 7, exclude(0));
   const b1 = (below1 * factor1);
   const b2 = (below2 * factor2);
 
@@ -228,12 +220,12 @@ const level3 = (): Params => {
 
 const level4 = (): Params => {
 
-  const sol1 = randomInt(-10, 9, (value) => value !== 0);
+  const sol1 = randomInt(-10, 9,exclude(0));
 
   const number1 = randomInt(2,20);
-  const number2 = randomInt(2,20,(value) => ![number1].includes(value));
-  const number3 = randomInt(2,20,(value) => ![number1,number2].includes(value));
-  const number4 = randomInt(2,20,(value) => ![number1,number2,number3].includes(value));
+  const number2 = randomInt(2,20,exclude(number1));
+  const number3 = randomInt(2,20,exclude(number1,number2));
+  const number4 = randomInt(2,20,exclude(number1,number2,number3));
 
   const above1 = number1 * number2;
   const below1 = number1 * number3;  
@@ -309,10 +301,10 @@ const level5 = (): Params => {
   const above = below * randomInt(1, 6);
   
   // Zähler zerlegen
-  var above1 = randomInt(-1,2,(value) => value !== 0) 
-    * randomInt(above /4, (3 * above) / 4, (value) => value !== 0);
+  var above1 = randomInt(-1,2,exclude(0)) 
+    * randomInt(above /4, (3 * above) / 4, exclude(0));
   
-  const above2 = randomInt(-1,2,(value) => value !== 0) 
+  const above2 = randomInt(-1,2,exclude(0)) 
     * above - above1;
   
   //Bruch1 erweitern
@@ -325,7 +317,7 @@ const level5 = (): Params => {
   const rn = (above1 * below2 + above2 * below1) / (below1 * below2);
 
   // Lösung1 bestimmen
-  const sol1 = randomInt(-9, 10, (value) => value !== 0);
+  const sol1 = randomInt(-9, 10, exclude(0));
 
   // N ---> aX+b
   var binome = calculateBinome(above1,sol1,0);
@@ -392,15 +384,15 @@ const level5 = (): Params => {
 
 const level6 = (): Params => {
 
-  const above1 = randomInt(-9, 10, (value) => value !== 0);
-  const below1 = randomInt(-9, 10, (value) => ![0, 1, -1].includes(value));
-  const above2 = randomInt(-9, 10, (value) => value !== 0);
-  const below2 = randomInt(-9, 10, (value) => ![0, 1, -1, below1].includes(value));
+  const above1 = randomInt(-9, 10, exclude(0));
+  const below1 = randomInt(-9, 10, exclude(0, 1, -1));
+  const above2 = randomInt(-9, 10, exclude(0));
+  const below2 = randomInt(-9, 10, exclude(0, 1, -1));
 
   const above3 = - (above1 * below2 + above2 * below1); 
 
   // Lösung1 bestimmen
-  const sol1 = randomInt(-9, 10, (value) => value !== 0);
+  const sol1 = randomInt(-9, 10, exclude(0));
 
   // N ---> aX+b
   var binome = calculateBinome(above1,sol1,0);
@@ -471,12 +463,12 @@ const level6 = (): Params => {
 
 const level7 = (): Params => {
 
-  const sol1 = randomInt(-10, 9, (value) => value !== 0);
+  const sol1 = randomInt(-10, 9, exclude(0));
 
   const number1 = randomInt(1,6);
-  const number2 = randomInt(1,6,(value) => ![number1].includes(value));
-  const number3 = randomInt(1,6,(value) => ![number1,number2].includes(value));
-  const number4 = randomInt(1,6,(value) => ![number1,number2,number3].includes(value));
+  const number2 = randomInt(1,6,exclude(number1));
+  const number3 = randomInt(1,6,exclude(number1,number2));
+  const number4 = randomInt(1,6,exclude(number1,number2,number3));
 
   const above1 = number1 * number2;
   const below1 = number1 * number3;  
@@ -500,7 +492,7 @@ const level7 = (): Params => {
   const d02 = binome.b;
 
   const c3 = 1;
-  const d3 = randomInt(-10, 9, (value) => value !== 0);
+  const d3 = randomInt(-10, 9, exclude(0));
   const f1 = c01 * c3;
   const f2 = c02 * c3;
   const c1 = c01 * d3 + d01 * c3;
@@ -560,19 +552,18 @@ const level7 = (): Params => {
 
 const level8 = (): Params => {
 
-  const factor1 = randomInt(-5, 6,(value) => ![0].includes(value));
-  const factor2 = randomInt(-5, 6,(value) => ![0,factor1].includes(value));
-  const factor3 = randomInt(-5, 6,(value) => ![0,factor1,factor2].includes(value));
+  const factor1 = randomInt(-5, 6,exclude(0));
+  const factor2 = randomInt(-5, 6,exclude(0,factor1));
+  const factor3 = randomInt(-5, 6,exclude(0,factor1,factor2));
 
   const sumA = factor1 * factor2;
   const sumB = factor3;
   const sumC = -1 * factor1 ;
   const sumD = factor2 * factor3;
 
-  const b1 = randomInt(-9, 10,(value) => ![0].includes(value));
-  const b3 = randomInt(-9, 10,(value) => 
-    ![0, b1, b1 + sumA - sumC,b1 + sumA - sumC - sumD,
-       b1 + sumA + sumB - sumC - sumD, b1 + sumA + sumB - sumC].includes(value));
+  const b1 = randomInt(-9, 10,exclude(0));
+  const b3 = randomInt(-9, 10,exclude(0, b1, b1 + sumA - sumC,b1 + sumA - sumC - sumD,
+       b1 + sumA + sumB - sumC - sumD, b1 + sumA + sumB - sumC));
   const d1 = b1 + sumA;
   const b2 = -1 * (b1 + sumB);
   const d2 = b1 + sumA + sumB;
@@ -622,7 +613,7 @@ export const calculateBinome = (sum: number,sol:number,nosol:number): Binome => 
   const floor = Math.floor(sum/sol);
   const a = 
     floor === sum/sol || floor === 0 || floor === nosol
-      ?  floor + randomInt(-3, 4, (value) => ![0, -floor, floor].includes(value))
+      ?  floor + randomInt(-3, 4, exclude(0, -floor, floor))
       :  floor
   const b = sum - a * sol;
   return {

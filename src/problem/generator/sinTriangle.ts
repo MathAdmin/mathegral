@@ -1,5 +1,6 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
 import { randomInt, randomEnum } from "../util/randomizer";
+import { exclude } from "../util/predicates";
 
 const Permutation: [string, string, string,string, string, string][] = [
   ["a", "b", "c","\\alpha","\\beta","\\gamma"],

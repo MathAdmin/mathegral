@@ -38,6 +38,10 @@
       "name": "Fractional Equation",
       "description": "Solve the equation for [[x]]."
     },
+    "square-equation": {
+      "name": "Square root Equation ",
+      "description": "Determine the solutions [[\\mathbb{L}]] and the sham solutions [[\\mathbb{S}]]."
+    },
     "arithmetic-series": {
       "name": "Arithmetic Series",
       "description": "Determine the values of the arithmetic series [[S_n=\\sum_{i=1}^n a_i]] and the corresponding sequence [[a_i=a_{i-1}+d]]."

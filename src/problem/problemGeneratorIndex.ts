@@ -6,6 +6,7 @@ import quadraticEquation2 from "./generator/quadraticEquation2";
 import rightTriangle from "./generator/rightTriangle";
 import sinTriangle from "./generator/sinTriangle";
 import fractionalEquation from "./generator/fractionalEquation";
+import squareEquation from "./generator/squareEquation";
 import angleName from "./generator/angleName";
 import primeFactor from "./generator/primeFactor";
 import commonArithmetic from "./generator/commonArithmetic";
@@ -18,7 +19,7 @@ interface Chapter {
 const chapters: Chapter[] = [
   {
     key: "3Klasse",
-    generators: [primeFactor,commonArithmetic,angleName, rightTriangle,quadraticEquation,quadraticEquation2,fractionalEquation],
+    generators: [primeFactor,commonArithmetic,angleName, rightTriangle,quadraticEquation,quadraticEquation2,fractionalEquation, squareEquation],
   },
   {
     key: "4Klasse",
