@@ -1,5 +1,6 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
 import { gcd } from "../util/commonDivisor";
+import { exclude } from "../util/predicates";
 import { randomInt } from "../util/randomizer";
 
 export const renderEquation2 = (a: number, b: number, c:number, d:number, factor:number) => {
@@ -58,10 +59,10 @@ export const renderFactorization2 = (a: number, b: number,c: number, d: number, 
 const quadraticEquation2: ProblemGenerator = {
   key: "quadratic-equation2",
   generate: () => {
-    var a = randomInt(1, 10, (value) => value !== 0);
-    var b = randomInt(-9, 10, (value) => value !== 0);
-    var c = randomInt(1, 10, (value) => value !== 0);
-    var d = randomInt(-9, 10, (value) => value !== 0);
+    var a = randomInt(1, 10, exclude(0));
+    var b = randomInt(-9, 10, exclude(0));
+    var c = randomInt(1, 10, exclude(0));
+    var d = randomInt(-9, 10, exclude(0));
     const gcd1 = gcd(a,b);
     const gcd2 = gcd(c,d);
     var factor= gcd1 * gcd2;

@@ -1,4 +1,5 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
+import { exclude } from "../util/predicates";
 import { randomEnum, randomInt } from "../util/randomizer";
 
 interface Params {
@@ -204,8 +205,8 @@ export const calculateSn = (a1: number, n: number, q: number): number => {
 const geometricSeries: ProblemGenerator = {
   key: "geometric-series",
   generate: () => {
-    const a1 = randomInt(-9, 10,(value) => ![0].includes(value));
-    const q = randomInt(-5, 7, (value) => ![0, 1,-1].includes(value));
+    const a1 = randomInt(-9, 10, exclude(0));
+    const q = randomInt(-5, 7, exclude(0, 1, -1));
     const n = randomInt(5, 25);
     const an = calculateAn(a1, n, q);
     const Sn = calculateSn(a1, n, q);

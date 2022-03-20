@@ -1,4 +1,5 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
+import { exclude } from "../util/predicates";
 import { randomEnum, randomInt } from "../util/randomizer";
 
 interface Params {
@@ -205,7 +206,7 @@ const arithmeticSeries: ProblemGenerator = {
   key: "arithmetic-series",
   generate: () => {
     const a1 = randomInt(-9, 10);
-    const d = randomInt(-9, 30, (value) => value !== 0);
+    const d = randomInt(-9, 30, exclude(0));
     const n = randomInt(15, 100);
     const an = calculateAn(a1, n, d);
     const Sn = calculateSn(a1, n, an);
