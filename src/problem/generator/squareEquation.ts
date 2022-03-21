@@ -7,6 +7,8 @@ import { fracTex } from "../util/texGenerator";
 import { calculateBinome } from "../util/commonDivisor";
 import { Binome } from "../util/commonDivisor";
 import { Fraction } from "../util/commonDivisor";
+import { rootDivisor } from "../util/commonDivisor";
+
 
 type SquareTerm = {
     a: number;
@@ -74,7 +76,7 @@ const level1 = (): Params => {
 
     
 ////////////////////////////////////////
-//   LEVEL 2 (10%)
+//   LEVEL 2 (50%)
 //
 //   sqrt(c1 x + d1) +- sqrt(c2 x + d2) = rb
 //
@@ -130,9 +132,8 @@ const level2 = (): Params => {
         {a: 0, b: rb},
     };
   };
-
-  ////////////////////////////////////////
-//   LEVEL 3 (10%)
+////////////////////////////////////////
+//   LEVEL 3 (20%)
 //
 //    a1 * sqrt(c1 x + d1) - a1 sqrt(c2 x + d2) = ra x
 //
@@ -206,6 +207,86 @@ const level3 = (): Params => {
   };
 };
 
+/////////////////////////////////////////////////////////////////////////
+//   LEVEL 4 (20%)
+//
+//     sqrt(c1 x + d1) - sqrt(c2 x + d2) + a3 sqrt(c3 x + d3) = 0
+//
+/////////////////////////////////////////////////////////////////////////
+
+const level4 = (): Params => {
+
+
+  const number1 = randomInt(1, 5);
+  const square1 = number1 * number1;
+  const number2 = randomInt(1, 5, exclude(number1));
+  const square2 = number2 * number2;
+  //const a1 = randomInt(-2, 3,exclude(0));
+  const a1 = 1;
+  //const a2 = randomInt(-2, 3,exclude(0));
+  const a2 = -1;
+  const sol1 = randomInt(-6, 7, exclude(0));
+  
+  var binome = calculateBinome(square1,sol1,0);
+  const c1 = binome.a;
+  const d1 = binome.b;
+
+  binome = calculateBinome(square2,sol1,0);
+  const c2 = binome.a;
+  const d2 = binome.b;
+  
+  binome = rootDivisor(Math.abs(a1 * number1 + a2 * number2));
+  const a3 = 
+  a1 * number1 + a2 * number2 > 0
+    ? -1 * binome.a
+    : binome.a;
+  const number3 = binome.b;
+  const square3 = number3 * number3;
+  binome = calculateBinome(square3,sol1,0);
+  const c3 = binome.a;
+  const d3 = binome.b;
+  
+
+ // other Solution
+  const above = Math.pow(a1 * a1 * d1 + a2 * a2 * d2 - a3 * a3 * d3 , 2) 
+                - 4 * a1 * a1 * a2 * a2 * d1 * d2;
+  
+  const below = Math.pow(a1 * a1 * c1 + a2 * a2 * c2 - a3 * a3 * c3, 2)
+                - 4 * a1 * a1 * a2 * a2 * c1 * c2;
+  
+  const sol2 =
+     below === 0
+      ? undefined
+      : above / (sol1 * below);
+
+
+  return {
+      terms: [
+          { a: a1, b: 0, c: c1, d: d1},
+          { a: a2, b: 0, c: c2, d: d2},
+          { a: a3, b: 0, c: c3, d: d3},],
+      solutions: 
+          sol2 === undefined
+              ? [{ a: sol1, b: 1 }]
+              : a1 * Math.sqrt(c1 *sol2 +d1) 
+              + a2 * Math.sqrt(c2 *sol2 +d2)
+              + a3 * Math.sqrt(c3 *sol2 +d3) === 0
+                ? [{ a: sol1, b: 1 },{ a: above, b: sol1 * below }]
+                : [{ a: sol1, b: 1 }],
+      pseudos: 
+          sol2 === undefined
+            ? undefined
+            : a1 * Math.sqrt(c1 *sol2 +d1) 
+            + a2 * Math.sqrt(c2 *sol2 +d2)
+            + a3 * Math.sqrt(c3 *sol2 +d3) === 0
+            ? undefined
+            : [{ a: above, b: sol1 * below }] ,
+    rightTerm: 
+      {a: 0, b: 0},
+  };
+};
+
+
 
   export const calculateParameter = (level: number): Params => {
         switch (level) {
@@ -217,10 +298,10 @@ const level3 = (): Params => {
             
           case 3:
               return level3();
-      /*
+      
           case 4:
             return level4();
-          
+      /*    
           case 5:
             return level5();
         
@@ -290,10 +371,10 @@ const level3 = (): Params => {
         key: "square-equation",
         generate: () => {
           
-          let levelDistribution = [[1,40],[2,80],[3,100]];
+          let levelDistribution = [[1,10],[2,60],[3,80],[4,100]];
           const pos = randomdist(levelDistribution);
           const level = levelDistribution[pos][0];
-          //const level = 3;
+          //const level = 4;
           const params = calculateParameter(level);
       
           return {
