@@ -76,7 +76,7 @@ const level1 = (): Params => {
 
     
 ////////////////////////////////////////
-//   LEVEL 2 (50%)
+//   LEVEL 2 (30%)
 //
 //   sqrt(c1 x + d1) +- sqrt(c2 x + d2) = rb
 //
@@ -133,7 +133,7 @@ const level2 = (): Params => {
     };
   };
 ////////////////////////////////////////
-//   LEVEL 3 (20%)
+//   LEVEL 3 (30%)
 //
 //    a1 * sqrt(c1 x + d1) - a1 sqrt(c2 x + d2) = ra x
 //
@@ -286,7 +286,123 @@ const level4 = (): Params => {
   };
 };
 
+/////////////////////////////////////////////////////////////////////////
+//   LEVEL 5 (5%)
+//
+//     sqrt(c1 x + d1) + sqrt(c2 x + d2) - sqrt(c1 x + d3)  - sqrt(c2 x + d4) = 0
+//
+/////////////////////////////////////////////////////////////////////////
 
+const level5 = (): Params => {
+
+
+  const a1 = 1; const a2 = 1; const a3 = -1; const a4 = -1;
+  const c1 = randomInt(-9,10,exclude(0));
+  const c2 = randomInt(-9,10,exclude(0,c1));  
+  const d1 = randomInt(-9,10,exclude(0));
+  const d2 = randomInt(-9,10,exclude(0,d1));
+  const k = randomInt(-9,10, exclude(0,d2-d1));
+  const c3 = c1; const c4 = c2;
+  const d3 = d1 + k; const d4 = d2 - k;
+
+  const above = d2 - d1 - k;
+  const below = c1 - c2;
+  const sol = above / below;
+  const number1 = c1 * sol + d1;
+  const number2 = c2 * sol + d2;
+  const number3 = c3 * sol + d3;
+  const number4 = c4 * sol + d4;
+
+  const sol1 =
+   Math.min(number1 , number2, number3 , number4) > 0
+   ? sol
+   : undefined;
+    
+  return {
+      terms: [
+          { a: a1, b: 0, c: c1, d: d1},
+          { a: a2, b: 0, c: c2, d: d2},
+          { a: a3, b: 0, c: c3, d: d3},
+          { a: a4, b: 0, c: c4, d: d4},
+        ],
+      solutions:
+        sol1 === sol
+        ? [{a: above, b: below }]
+        : undefined,
+      pseudos: 
+        sol1 === undefined
+        ? [{a: above, b: below }]
+        : undefined,
+    rightTerm: 
+      {a: 0, b: 0},
+  };
+};
+
+/////////////////////////////////////////////////////////////////////////
+//   LEVEL 6 (5%)
+//
+//     sqrt(c1 x + d1) + sqrt(c2 x + d2) - sqrt(c3 x + d1)  - sqrt(c4 x + d2) = 0
+//
+/////////////////////////////////////////////////////////////////////////
+
+const level6 = (): Params => {
+
+
+  const a1 = 1; const a2 = 1; const a3 = -1; const a4 = -1;
+  const c1 = randomInt(-9,10,exclude(0));
+  const c2 = randomInt(-9,10,exclude(0,c1));  
+  const d1 = randomInt(-9,10,exclude(0));
+  const d2 = randomInt(-9,10,exclude(0,d1));
+  const k = randomInt(-9,10, exclude(0,c2-c1,-c1,c2));
+  const d3 = d1; const d4 = d2;
+  const c3 = c1 + k; const c4 = c2 - k;
+
+  const above = d2 - d1;
+  const below = k + c1 - c2;
+  const sol = above / below;
+  const number1 = c1 * sol + d1;
+  const number2 = c2 * sol + d2;
+  const number3 = c3 * sol + d3;
+  const number4 = c4 * sol + d4;
+
+  const sol1 =
+    Math.min(d1 , d2) > 0
+    ? 0
+    : undefined;
+
+
+  const sol2 =
+    Math.min(number1 , number2, number3 , number4) > 0
+    ? sol
+    : undefined;
+    
+  return {
+      terms: [
+          { a: a1, b: 0, c: c1, d: d1},
+          { a: a2, b: 0, c: c2, d: d2},
+          { a: a3, b: 0, c: c3, d: d3},
+          { a: a4, b: 0, c: c4, d: d4},
+        ],
+      solutions:
+        sol1 === undefined
+          ? sol2 === undefined
+            ? undefined
+            : [{a: above, b: below }]  
+          : sol2 === undefined
+            ? [{a: 0, b: 1 }]
+            : [{a: 0, b: 1 },{a: above, b: below }],
+      pseudos: 
+        sol1 === undefined
+          ? sol2 === undefined
+            ? [{a: 0, b: 1 },{a: above, b: below }]
+            : [{a: 0, b: 1 }]  
+          : sol2 === undefined
+            ? [{a: above, b: below }]
+            : undefined,
+    rightTerm: 
+      {a: 0, b: 0},
+  };
+};
 
   export const calculateParameter = (level: number): Params => {
         switch (level) {
@@ -301,16 +417,15 @@ const level4 = (): Params => {
       
           case 4:
             return level4();
-      /*    
+          
           case 5:
             return level5();
         
           case 6:
             return level6();
-            
-        */     
+               
           default:
-            return level2();
+            return level1();
         }
       };
       
@@ -355,7 +470,7 @@ const level4 = (): Params => {
           ?`\\{`+ [...Array.from(
             new Set(params.solutions.map((sol) => fracTex(sol.a, sol.b)))
             ),].join(";") + `\\}`
-          : `\\mathbb{R} - \\{${pseudos}\\}`;   
+          : `\\{\\}`;  
 
       
         return `
@@ -371,10 +486,10 @@ const level4 = (): Params => {
         key: "square-equation",
         generate: () => {
           
-          let levelDistribution = [[1,10],[2,60],[3,80],[4,100]];
+          let levelDistribution = [[1,10],[2,40],[3,70],[4,90],[5,95],[6,100]];
           const pos = randomdist(levelDistribution);
           const level = levelDistribution[pos][0];
-          //const level = 4;
+          //const level = 6;
           const params = calculateParameter(level);
       
           return {
