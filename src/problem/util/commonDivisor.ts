@@ -53,3 +53,18 @@ export const calculateBinome = (sum: number,sol:number,nosol:number): Binome => 
 export const calculategcd=(arr:any[]):number=>{
   return multigcd(arr)[0];
 }
+
+
+export const rootDivisor = (p: number):Binome =>{
+  var a = 1; var b = p;
+  var div = 1; 
+  while (a < b) {
+    div = div + 1;
+    if (p % div === 0) {
+      a = div;
+      b = p / div;
+    }
+  }
+  
+  return { a: a, b: b};
+};
