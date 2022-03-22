@@ -42,6 +42,14 @@
       "name": "Wurzelgleichung ",
       "description": "Bestimme die Lösungsmenge [[\\mathbb{L}]] und die Scheinlösungen [[\\mathbb{S}]]."
     },
+    "linear-system": {
+      "name": "Gleichungssysteme ",
+      "description": "Bestimme die Lösungsmenge.",
+      "problem": {
+        "INFINITY1": "Unendlich viele Lösungen ( dim(Ker) = 1). ",
+        "INFINITY2": "Unendlich viele Lösungen ( dim(Ker) = 2). ",
+        "INFINITY3": "Unendlich viele Lösungen ( dim(Ker) = 3). "}
+    },
     "arithmetic-series": {
       "name": "Arithmetische Reihe",
       "description": "Bestimme die Werte der arithmetischen Reihe [[S_n=\\sum_{i=1}^n a_i]] und der zugehörigen Folge [[a_i=a_{i-1}+d]]."
