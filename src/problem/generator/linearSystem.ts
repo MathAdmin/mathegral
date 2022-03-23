@@ -20,10 +20,7 @@ type Params = {
     };
 
 
-const INFINITY1 = "\\text{Unendlich viele Lösungen: \\ dim(Ker) = 1}";
-const INFINITY2 = "\\text{Unendlich viele Lösungen: \\ dim(Ker) = 2}";
-const INFINITY3 = "\\text{Unendlich viele Lösungen: \\ dim(Ker) = 3}";
-
+const INFINITY1 = "INFINITY1";
 
 
 ////////////////////////////////////////////////////
@@ -135,10 +132,10 @@ const level1 = (): Params => {
   
   
   
-  export const renderSolution = (params: Params) => {
+  export const renderSolution = (params: Params, translate: (key: string) => string) => {
 
     const sols = params.problem
-        ? params.problem 
+        ? `\\text{${translate(`generator.linear-system.problem.${params.problem}`)}}`
         : `\\mathbb{L}=\\{(`
         + [...Array.from(
             new Set(params.solutions.map((sol) => fracTex(sol.a, sol.b)))
@@ -149,7 +146,7 @@ const level1 = (): Params => {
   
   const linearSystem: ProblemGenerator = {
     key: "linear-system",
-    generate: () => {
+    generate: (translate) => {
       
       //let levelDistribution = [[1,10],[2,40],[3,70],[4,90],[5,95],[6,100]];
       //const pos = randomdist(levelDistribution);
@@ -159,7 +156,7 @@ const level1 = (): Params => {
       
       return {
         description: renderEquation(params),
-        solution: renderSolution(params),
+        solution: renderSolution(params, translate),
       };
     },
   };
