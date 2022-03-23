@@ -46,9 +46,8 @@
       "name": "Système d'équation",
       "description": "Résolvez le système suivant:.",
       "problem": {
-        "INFINITY1": "Nombre infini de solutions ( dim(Ker) = 1). ",
-        "INFINITY2": "Nombre infini de solutions ( dim(Ker) = 2). ",
-        "INFINITY3": "Nombre infini de solutions ( dim(Ker) = 3). "}
+        "INFINITY": "Nombre infini de solutions. ",
+        "NONE": "Pas de solutions."}
     },
     "arithmetic-series": {
       "name": "Suites arithmetiques",
