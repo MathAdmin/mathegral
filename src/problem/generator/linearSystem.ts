@@ -1,15 +1,8 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
-import { calculategcd } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
-import { randomdist } from "../util/randomDistribution";
 import { exclude } from "../util/predicates";
 import { fracTex } from "../util/texGenerator";
-import { calculateBinome } from "../util/commonDivisor";
-import { Binome } from "../util/commonDivisor";
 import { Fraction } from "../util/commonDivisor";
-import { rootDivisor } from "../util/commonDivisor";
-import { SystemSecurityUpdate } from "@mui/icons-material";
-
 
 type EquationTerm = {
     a: number;
