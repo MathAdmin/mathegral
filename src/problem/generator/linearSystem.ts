@@ -1,5 +1,5 @@
 import { ProblemGenerator } from "../ProblemGeneratorSpi";
-import { randomInt } from "../util/randomizer";
+import { randomInts } from "../util/randomizer";
 import { exclude } from "../util/predicates";
 import { fracTex } from "../util/texGenerator";
 import { Fraction } from "../util/commonDivisor";
@@ -34,12 +34,8 @@ const INFINITY1 = "INFINITY1";
 const level1 = (): Params => {
 
 
-    const x = randomInt(-9, 10, exclude(0));
-    const y = randomInt(-9, 10, exclude(0));
-    const b1 = randomInt(-6,7,exclude(0));
-    const b2 = randomInt(-6,7,exclude(0));
-    const c1 = randomInt(-6,7,exclude(0));
-    const c2 = randomInt(-6,7,exclude(0));
+    const [x, y] = randomInts(2, -9, 10, exclude(0));
+    const [b1, b2, c1, c2] = randomInts(4, -6, 7, exclude(0));
     const e1 = b1 * x + c1 * y;
     const e2 = b2 * x + c2 * y;
         
