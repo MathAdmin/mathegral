@@ -46,9 +46,8 @@
       "name": "System of linear Equation ",
       "description": "Determine the solutions.",
       "problem": {
-        "INFINITY1": "Infinitly many solutions ( dim(Ker) = 1). ",
-        "INFINITY2": "Infinitly many solutions ( dim(Ker) = 2). ",
-        "INFINITY3": "Infinitly many solutions ( dim(Ker) = 3). "}
+        "INFINITY": "Infinitly many solutions. ",
+        "NONE": "No Solution."}
     },
     "arithmetic-series": {
       "name": "Arithmetic Series",

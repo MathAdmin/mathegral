@@ -46,9 +46,9 @@
       "name": "Gleichungssysteme ",
       "description": "Bestimme die Lösungsmenge.",
       "problem": {
-        "INFINITY1": "Unendlich viele Lösungen ( dim(Ker) = 1). ",
-        "INFINITY2": "Unendlich viele Lösungen ( dim(Ker) = 2). ",
-        "INFINITY3": "Unendlich viele Lösungen ( dim(Ker) = 3). "}
+        "INFINITY": "Unendlich viele Lösungen. ",
+        "NONE": "Keine Lösung. "}
+      }
     },
     "arithmetic-series": {
       "name": "Arithmetische Reihe",
@@ -65,7 +65,6 @@
     "sin-triangle": {
       "name": "Sinussatz & Kosinussatz",
       "description": "Berechne die fehlenden Werte."
-    }
   },
   "action": {
       "home": "Home",

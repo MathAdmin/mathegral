@@ -3,6 +3,7 @@ import { calculategcd } from "../util/commonDivisor";
 import { Fraction } from "../util/commonDivisor";
 import { Binome } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
+import { randomInts } from "../util/randomizer";
 import { exclude } from "../util/predicates";
 import { randomdist } from "../util/randomDistribution";
 import { fracTex } from "../util/texGenerator";
@@ -34,9 +35,7 @@ type Params = {
 ////////////////////////////////////////
 
 const level1 = (): Params => {
-  const c1 = randomInt(-6, 7, exclude(0));
-  const d1 = randomInt(-6, 7, exclude(0));
-  const c2 = randomInt(-6, 7, exclude(0));
+  const [c1, c2, d1] = randomInts(3, -6, 7, exclude(0));
   const d2 = randomInt(-6, 7, exclude(0,d1));
   const sol1 = randomInt(-6, 7,exclude(0, -d2 / c2, -d1 / c1));
 
@@ -76,11 +75,10 @@ const level1 = (): Params => {
 ////////////////////////////////////////
 
 const level2 = (): Params => {
-  const c1 = randomInt(-4, 5, exclude(0));
+  
+  const [c1, c2, c3] = randomInts(3, -4, 5, exclude(0));
   const d1 = randomInt(-5, 6, exclude(0));
-  const c2 = randomInt(-4, 5, exclude(0));
   const d2 = randomInt(-5, 6, exclude(0, d1));
-  const c3 = randomInt(-4, 5, exclude(0));
   const d3 = randomInt(-5, 6, exclude(0, d1, d2));
 
   const sol1 = randomInt(-6, 7,exclude(0,-d1 / c1,-d2 / c2,-d3 / c3,
@@ -160,17 +158,14 @@ const level2 = (): Params => {
 
 const level3 = (): Params => {
 
-  const c1 = randomInt(-6, 7, exclude(0));
-  const d1 = randomInt(-6, 7, exclude(0));
-  const c2 = randomInt(-6, 7, exclude(0));
+  const [c1, c2, d1, factor1, factor2] = randomInts(5, -6, 7, exclude(0));
+ 
   const d2 = randomInt(-6, 7, exclude(0, d1));
-
   const sol1 = randomInt(-6, 7,exclude(0, -d2 / c2, -d1 / c1));
 
   const below1 = c1 * sol1 + d1;
   const below2 = c2 * sol1 + d2;
-  const factor1 = randomInt(-6, 7, exclude(0));
-  const factor2 = randomInt(-6, 7, exclude(0));
+
   const b1 = (below1 * factor1);
   const b2 = (below2 * factor2);
 
