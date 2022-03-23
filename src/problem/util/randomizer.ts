@@ -12,6 +12,19 @@ export const randomInt = (
   return value;
 };
 
+export const randomInts = (
+  times: number,
+  minInclusive: number,
+  maxExclusive: number,
+  accept?: (value: number) => boolean
+): number[] => {
+  const result = [];
+  for (var i = 0; i < times; i++) {
+    result.push(randomInt(minInclusive, maxExclusive, accept));
+  }
+  return result;
+};
+
 export function randomEnum<T>(
   anEnum: T,
   accept?: (value: T[keyof T]) => boolean
