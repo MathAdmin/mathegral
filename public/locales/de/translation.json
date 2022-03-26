@@ -47,7 +47,7 @@
       "description": "Bestimme die Lösungsmenge.",
       "problem": {
         "INFINITY": "Unendlich viele Lösungen. ",
-        "NONE": "Keine Lösung. "}
+        "NONE": "Keine Lösung. "
       }
     },
     "arithmetic-series": {
