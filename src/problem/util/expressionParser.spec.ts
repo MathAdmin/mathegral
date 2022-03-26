@@ -27,6 +27,11 @@ it("eliminates factor 1", () => {
   expect(parse("x^2*1").toString()).toEqual("x ^ 2");
 });
 
+it("eliminates divisor 1", () => {
+  expect(parse("x/1").toString()).toEqual("x");
+  expect(parse("x^2/1").toString()).toEqual("x ^ 2");
+});
+
 it("eliminates 0", () => {
   expect(parse("3+0 x").toString()).toEqual("3");
   expect(parse("3-0*x").toString()).toEqual("3");
