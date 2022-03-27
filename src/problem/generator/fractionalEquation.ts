@@ -1,4 +1,4 @@
-import { ProblemGenerator } from "../ProblemGeneratorSpi";
+import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
 import { calculategcd } from "../util/commonDivisor";
 import { Fraction } from "../util/commonDivisor";
 import { Binome } from "../util/commonDivisor";
@@ -693,7 +693,7 @@ export const renderSolution = (params: Params) => {
   `;
 };
 
-const fractionalEquation: ProblemGenerator = {
+const fractionalEquation: ProblemGeneratorNg<Params> = {
   key: "fractional-equation",
   generate: () => {
     
@@ -701,12 +701,12 @@ const fractionalEquation: ProblemGenerator = {
       [1,10],[2,20],[3,40],[4,50],[5,70],[6,85],[7,95],[8,100]];
     const pos = randomdist(levelDistribution);
     const level = levelDistribution[pos][0];
-    //const level = 1;
-    const params = calculateParameter(level);
-
+    return calculateParameter(level);
+  },
+  render: (input) => {
     return {
-      description: renderEquation(params),
-      solution: renderSolution(params),
+      description: renderEquation(input.seed),
+      solution: renderSolution(input.seed),
     };
   },
 };
