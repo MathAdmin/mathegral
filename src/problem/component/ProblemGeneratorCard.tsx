@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import {
   Card,
@@ -17,26 +17,36 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import TeX from "@matejmazur/react-katex";
-import { Problem, ProblemGenerator } from "../ProblemGeneratorSpi";
+import { Generator, isNg } from "../ProblemGeneratorSpi";
 import MathText from "./MathText";
+import { decode, encode } from "../util/encoder";
 
 interface ProblemGeneratorCardProps {
-  generator: ProblemGenerator;
+  generator: Generator;
 }
 
 const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const generator = props.generator;
+  const { seed } = useParams();
 
-  const [problem, setProblem] = React.useState<Problem>(() =>
-    generator.generate(t)
-  );
   const [solutionVisible, setSolutionVisible] = React.useState(false);
+
+  useEffect(() => {
+    if (isNg(generator) && !seed) {
+      refresh();
+    }
+  });
 
   const refresh = () => {
     setSolutionVisible(false);
-    setProblem(generator.generate(t));
+    if (isNg(generator)) {
+      const seed = encode(generator.generate());
+      navigate(`/problems/${generator.key}/${seed}`);
+    } else {
+      navigate("");
+    }
   };
 
   const toggleSolution = () => {
@@ -47,6 +57,16 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const closeText = t("action.close");
   const regenerateText = t("action.regenerate");
   const toggleSolutionText = t("action.toggle-solution");
+
+  const problem = isNg(generator)
+    ? seed
+      ? generator.render({ translate: t, seed: decode(seed) })
+      : undefined
+    : generator.generate(t);
+
+  if (!problem) {
+    return null;
+  }
 
   return (
     <Card>

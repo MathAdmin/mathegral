@@ -42,8 +42,16 @@ function App() {
               <Route
                 key={`problems.${generator.key}`}
                 path={`/problems/${generator.key}`}
-                element={<ProblemGeneratorCard generator={generator} />}
-              />
+              >
+                <Route
+                  path=":seed"
+                  element={<ProblemGeneratorCard generator={generator} />}
+                />
+                <Route
+                  path=""
+                  element={<ProblemGeneratorCard generator={generator} />}
+                />
+              </Route>
             ))}
           </Routes>
         </Container>
