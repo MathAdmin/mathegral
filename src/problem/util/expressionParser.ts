@@ -2,7 +2,11 @@ import { MathNode, simplify, OperatorNode } from "mathjs";
 
 const unaryMinusWithOpNode = (root: MathNode) => {
   return root.transform((node) => {
-    if (node.type === "OperatorNode" && ["+", "-"].includes(node.op)) {
+    if (
+      node.type === "OperatorNode" &&
+      node.isBinary() &&
+      ["+", "-"].includes(node.op)
+    ) {
       const rhs = node.args[1];
       if (rhs.type === "OperatorNode" && ["*", "/"].includes(rhs.op)) {
         const lhsOfRhs = rhs.args[0];
@@ -28,6 +32,7 @@ const rules = [
   { s: "n+0/n1 -> n" },
   { s: "n-0/n1 -> n" },
   { s: "1*n -> n" },
+  { s: "n/1 -> n" },
   { s: "n+-n1 -> n-n1" },
   { s: "n--n1 -> n+n1" },
   unaryMinusWithOpNode, // e.g. n+-n1*n2 -> n-n1*n2
