@@ -1,4 +1,4 @@
-import { ProblemGenerator } from "../ProblemGeneratorSpi";
+import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
 import { randomInts } from "../util/randomizer";
 import { randomInt } from "../util/randomizer";
 import { exclude } from "../util/predicates";
@@ -381,18 +381,19 @@ const level3b = (): Params => {
       return sols;
   };
   
-  const linearSystem: ProblemGenerator = {
+  const linearSystem: ProblemGeneratorNg<Params> = {
     key: "linear-system",
-    generate: (translate) => {
+    generate: () => {
       
       let levelDistribution = [[1,20],[2,80],[3,90],[4,94],[5,98],[6,100]];
       const pos = randomdist(levelDistribution);
       const level = levelDistribution[pos][0];
-      const params = calculateParameter(level);
-      
+      return calculateParameter(level);
+    },
+    render: (input) => {
       return {
-        description: renderEquation(params),
-        solution: renderSolution(params, translate),
+        description: renderEquation(input.seed),
+        solution: renderSolution(input.seed, input.translate),
       };
     },
   };
