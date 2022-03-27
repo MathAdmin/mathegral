@@ -1,4 +1,4 @@
-import { ProblemGenerator } from "../ProblemGeneratorSpi";
+import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
 import { calculategcd } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
 import { randomdist } from "../util/randomDistribution";
@@ -482,19 +482,19 @@ const level6 = (): Params => {
         `;
       };
       
-      const squareEquation: ProblemGenerator = {
+      const squareEquation: ProblemGeneratorNg<Params> = {
         key: "square-equation",
         generate: () => {
           
           let levelDistribution = [[1,10],[2,40],[3,70],[4,90],[5,95],[6,100]];
           const pos = randomdist(levelDistribution);
           const level = levelDistribution[pos][0];
-          //const level = 6;
-          const params = calculateParameter(level);
-      
+          return calculateParameter(level);
+        },
+        render: (input) => {
           return {
-            description: renderEquation(params),
-            solution: renderSolution(params),
+            description: renderEquation(input.seed),
+            solution: renderSolution(input.seed),
           };
         },
       };
