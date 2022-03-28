@@ -65,6 +65,7 @@
     "sin-triangle": {
       "name": "Sinussatz & Kosinussatz",
       "description": "Berechne die fehlenden Werte."
+    }
   },
   "action": {
       "home": "Home",
