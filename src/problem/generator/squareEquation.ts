@@ -1,7 +1,7 @@
 import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
 import { calculategcd } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
-import { randomdist } from "../util/randomDistribution";
+import weighted from "weighted";
 import { exclude } from "../util/predicates";
 import { fracTex } from "../util/texGenerator";
 import { calculateBinome } from "../util/commonDivisor";
@@ -485,10 +485,7 @@ const level6 = (): Problem => {
       const squareEquation: ProblemGeneratorNg<Problem> = {
         key: "square-equation",
         generate: () => {
-          
-          let levelDistribution = [[1,10],[2,40],[3,70],[4,90],[5,95],[6,100]];
-          const pos = randomdist(levelDistribution);
-          const level = levelDistribution[pos][0];
+          const level = weighted([1, 2, 3, 4, 5, 6], [10, 30, 30, 10, 5, 5]);
           return generateProblem(level);
         },
         format: (problem) => {

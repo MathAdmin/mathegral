@@ -4,7 +4,7 @@ import { randomInt } from "../util/randomizer";
 import { exclude } from "../util/predicates";
 import { fracTex } from "../util/texGenerator";
 import { Fraction } from "../util/commonDivisor";
-import { randomdist } from "../util/randomDistribution";
+import weighted from "weighted";
 
 type EquationTerm = {
     a: number;
@@ -384,9 +384,7 @@ const level3b = (): Problem => {
   const linearSystem: ProblemGeneratorNg<Problem> = {
     key: "linear-system",
     generate: () => {
-      let levelDistribution = [[1,20],[2,80],[3,90],[4,94],[5,98],[6,100]];
-      const pos = randomdist(levelDistribution);
-      const level = levelDistribution[pos][0];
+      const level = weighted([1, 2, 3, 4, 5, 6], [20, 60, 10, 4, 4, 2]);
       return generateProblem(level);
     },
     format: (problem, translate) => {

@@ -5,7 +5,7 @@ import { Binome } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
 import { randomInts } from "../util/randomizer";
 import { exclude } from "../util/predicates";
-import { randomdist } from "../util/randomDistribution";
+import weighted from "weighted";
 import { fracTex } from "../util/texGenerator";
 
 
@@ -696,11 +696,7 @@ export const formatSolution = (problem: Problem) => {
 const fractionalEquation: ProblemGeneratorNg<Problem> = {
   key: "fractional-equation",
   generate: () => {
-    
-    let levelDistribution = [
-      [1,10],[2,20],[3,40],[4,50],[5,70],[6,85],[7,95],[8,100]];
-    const pos = randomdist(levelDistribution);
-    const level = levelDistribution[pos][0];
+    const level = weighted([1, 2, 3, 4, 5, 6, 7, 8], [10, 10, 20, 10, 20, 15, 10, 5]);
     return generateProblem(level);
   },
   format: (problem) => {
