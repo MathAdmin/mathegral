@@ -29,12 +29,12 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const generator = props.generator;
-  const { seed } = useParams();
+  const { problem } = useParams();
 
   const [solutionVisible, setSolutionVisible] = React.useState(false);
 
   useEffect(() => {
-    if (isNg(generator) && !seed) {
+    if (isNg(generator) && !problem) {
       refresh();
     }
   });
@@ -42,8 +42,8 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const refresh = () => {
     setSolutionVisible(false);
     if (isNg(generator)) {
-      const seed = encode(generator.generate());
-      navigate(`/problems/${generator.key}/${seed}`);
+      const problem = encode(generator.generate());
+      navigate(`/problems/${generator.key}/${problem}`);
     } else {
       navigate("");
     }
@@ -58,13 +58,13 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const regenerateText = t("action.regenerate");
   const toggleSolutionText = t("action.toggle-solution");
 
-  const problem = isNg(generator)
-    ? seed
-      ? generator.render({ translate: t, seed: decode(seed) })
+  const formattedProblem = isNg(generator)
+    ? problem
+      ? generator.format(decode(problem), t)
       : undefined
     : generator.generate(t);
 
-  if (!problem) {
+  if (!formattedProblem) {
     return null;
   }
 
@@ -100,7 +100,7 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
             strict: (errorCode: string) =>
               "newLineInDisplayMode" === errorCode ? "ignore" : "warn",
           }}
-          math={problem.description}
+          math={formattedProblem.description}
           block
         />
       </CardContent>
@@ -119,7 +119,7 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
       <Collapse in={solutionVisible} timeout="auto" unmountOnExit>
         <CardContent>
           <Box sx={{ visibility: solutionVisible ? "visible" : "hidden" }}>
-            <TeX math={problem.solution} block />
+            <TeX math={formattedProblem.solution} block />
           </Box>
         </CardContent>
       </Collapse>

@@ -3,28 +3,26 @@ export type Generator = ProblemGenerator | ProblemGeneratorNg<any>;
 export const isNg = (
   generator: Generator
 ): generator is ProblemGeneratorNg<any> => {
-  return (generator as ProblemGeneratorNg<any>).render !== undefined;
+  return (generator as ProblemGeneratorNg<any>).format !== undefined;
 };
 
+/**
+ * @deprecated To be replaced by ProblemGeneratorNg
+ */
 export interface ProblemGenerator {
   key: string;
   image?: string;
-  generate: (translate: (key: string) => string) => Problem;
+  generate: (translate: (key: string) => string) => FormattedProblem;
 }
 
-export interface ProblemGeneratorNg<T> {
+export interface ProblemGeneratorNg<Problem> {
   key: string;
   image?: string;
-  generate: () => T;
-  render: (input: RenderInput<T>) => Problem;
+  generate: () => Problem;
+  format: (problem: Problem, translate: (key: string) => string) => FormattedProblem;
 }
 
-export interface RenderInput<T> {
-  translate: (key: string) => string;
-  seed: T;
-}
-
-export type Problem = {
+export type FormattedProblem = {
   description: string;
   solution: string;
 };
