@@ -42,10 +42,11 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const refresh = () => {
     setSolutionVisible(false);
     if (isNg(generator)) {
-      const problem = encode(generator.generate());
-      navigate(`/problems/${generator.key}/${problem}`);
+      navigate(`/problems/${generator.key}/${encode(generator.generate())}`, {
+        replace: !problem,
+      });
     } else {
-      navigate("");
+      navigate("", { replace: true });
     }
   };
 
