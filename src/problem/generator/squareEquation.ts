@@ -485,7 +485,7 @@ const level6 = (): Problem => {
       const squareEquation: ProblemGeneratorNg<Problem> = {
         key: "square-equation",
         generate: () => {
-          const level = weighted([1, 2, 3, 4, 5, 6], [10, 30, 30, 10, 5, 5]);
+          const level = weighted([1, 2, 3, 4, 5, 6], [10, 30, 30, 20, 5, 5]);
           return generateProblem(level);
         },
         format: (problem) => {
