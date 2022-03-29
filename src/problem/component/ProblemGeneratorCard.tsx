@@ -17,7 +17,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import TeX from "@matejmazur/react-katex";
-import { Generator, isNg } from "../ProblemGeneratorSpi";
+import { Generator, isNg, FormattedProblem } from "../ProblemGeneratorSpi";
 import MathText from "./MathText";
 import { decode, encode } from "../util/encoder";
 
@@ -32,12 +32,21 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const { problem } = useParams();
 
   const [solutionVisible, setSolutionVisible] = React.useState(false);
+  const [formattedProblem, setFormattedProblem] =
+    React.useState<FormattedProblem>();
 
   useEffect(() => {
-    if (isNg(generator) && !problem) {
-      refresh();
+    if (isNg(generator)) {
+      if (!problem) {
+        refresh();
+      } else {
+        setSolutionVisible(false);
+        setFormattedProblem(generator.format(decode(problem), t));
+      }
+    } else {
+      setFormattedProblem(generator.generate(t));
     }
-  });
+  }, [generator, problem, t]);
 
   const refresh = () => {
     setSolutionVisible(false);
@@ -46,7 +55,7 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
         replace: !problem,
       });
     } else {
-      navigate("", { replace: true });
+      setFormattedProblem(generator.generate(t));
     }
   };
 
@@ -58,12 +67,6 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const closeText = t("action.close");
   const regenerateText = t("action.regenerate");
   const toggleSolutionText = t("action.toggle-solution");
-
-  const formattedProblem = isNg(generator)
-    ? problem
-      ? generator.format(decode(problem), t)
-      : undefined
-    : generator.generate(t);
 
   if (!formattedProblem) {
     return null;
