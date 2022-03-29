@@ -6,5 +6,5 @@ export const randomdist = (distribution:any[]):number=>{
   while (distribution[pos][1] < randomvalue){
     pos = pos + 1
   }
-  return pos
+  return distribution[pos][0]
 };

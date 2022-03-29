@@ -1,47 +1,47 @@
-import { ProblemGenerator } from "../ProblemGeneratorSpi";
-import { randomdist } from "../util/randomDistribution";
+import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
+import weighted from "weighted";
 
+const MIN_PRODUCT = 200;
+const MAX_PRODUCT = 1500;
 
-let primedistribution = [
-  [2,30],[3,60],[5,70],[7,77],[11,83],[13,88],
-  [17,90],[19,92],[23,94],[29,96],[31,98],[37,100]
-];
+const PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37];
+const WEIGHTS = [30, 30, 10, 7, 6, 5, 2, 2, 2, 2, 2, 2];
 
-const primeFactor: ProblemGenerator = {
+type PrimeFactors = number[];
+
+const formatSolution = (factors: PrimeFactors) => {
+  var formattedFactors: string[] = [];
+  factors
+    .reduce(
+      (counts, factor) => counts.set(factor, (counts.get(factor) || 0) + 1),
+      new Map()
+    )
+    .forEach((exponent, factor) =>
+      formattedFactors.push(
+        exponent > 1 ? `${factor}^${exponent}` : `${factor}`
+      )
+    );
+  return formattedFactors.join("\\cdot");
+};
+
+const primeFactor: ProblemGeneratorNg<PrimeFactors> = {
   key: "prime-factor",
   generate: () => {
-
-    let primelist = [
-      [2,0],[3,0],[5,0],[7,0],[11,0],[13,0],
-      [17,0],[19,0],[23,0],[29,0],[31,0],[37,0]
-    ];
-  
-    const minnumber = 200;
-    const maxnumber = 1500;
-    var factornumber = 1;
-    const maxliste = primelist.length;
-    var pos = 0;
-    while (factornumber < minnumber){
-        pos = randomdist(primedistribution);
-        if (factornumber * primelist[pos][0]<maxnumber){
-          primelist[pos][1] = primelist[pos][1] + 1;
-          factornumber = factornumber * primelist[pos][0];
-        }
-        
-    }
-  
-    pos = 0;
-    var factorstring = ``;
-    while (pos < maxliste){
-      if (primelist[pos][1]>0){
-        factorstring = factorstring + ` \\cdot ${primelist[pos][0]}^${primelist[pos][1]}` 
+    const factors: PrimeFactors = [];
+    var product = 1;
+    while (product < MIN_PRODUCT) {
+      const prime = weighted(PRIMES, WEIGHTS);
+      if (product * prime < MAX_PRODUCT) {
+        factors.push(prime);
+        product = product * prime;
       }
-      pos = pos + 1;
     }
-
+    return factors.sort((a, b) => a - b);
+  },
+  format: (factors) => {
     return {
-      description: `${factornumber}`,
-      solution: `${factorstring.substring(6)}`,
+      description: `${factors.reduce((a, b) => a * b)}`,
+      solution: `${formatSolution(factors)}`,
     };
   },
 };
