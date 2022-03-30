@@ -5,7 +5,7 @@ import { Binome } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
 import { randomInts } from "../util/randomizer";
 import { exclude } from "../util/predicates";
-import { randomdist } from "../util/randomDistribution";
+import weighted from "weighted";
 import { fracTex } from "../util/texGenerator";
 
 
@@ -19,7 +19,7 @@ type FractionalTerm = {
   };
 
 
-type Params = {
+type Problem = {
   terms: FractionalTerm[];
   solutions: Fraction[] | undefined;
   pols: Fraction[];
@@ -34,7 +34,7 @@ type Params = {
 //   c1 x + d1     c2 x + d2
 ////////////////////////////////////////
 
-const level1 = (): Params => {
+const level1 = (): Problem => {
   const [c1, c2, d1] = randomInts(3, -6, 7, exclude(0));
   const d2 = randomInt(-6, 7, exclude(0,d1));
   const sol1 = randomInt(-6, 7,exclude(0, -d2 / c2, -d1 / c1));
@@ -74,7 +74,7 @@ const level1 = (): Params => {
 //   c1 x + d1     c2 x + d2     c3 x + d3
 ////////////////////////////////////////
 
-const level2 = (): Params => {
+const level2 = (): Problem => {
   
   const [c1, c2, c3] = randomInts(3, -4, 5, exclude(0));
   const d1 = randomInt(-5, 6, exclude(0));
@@ -156,7 +156,7 @@ const level2 = (): Params => {
 //   c1 x + d1     c2 x + d2
 ////////////////////////////////////////
 
-const level3 = (): Params => {
+const level3 = (): Problem => {
 
   const [c1, c2, d1, factor1, factor2] = randomInts(5, -6, 7, exclude(0));
  
@@ -213,7 +213,7 @@ const level3 = (): Params => {
 //   c1 x + d1     c2 x + d2
 ////////////////////////////////////////
 
-const level4 = (): Params => {
+const level4 = (): Problem => {
 
   const sol1 = randomInt(-10, 9,exclude(0));
 
@@ -289,7 +289,7 @@ const level4 = (): Params => {
 //   c1 x + d1     c2 x + d2
 ////////////////////////////////////////
 
-const level5 = (): Params => {
+const level5 = (): Problem => {
 
   const factor = randomInt(1,6);
   const below = randomInt(2,20);
@@ -377,7 +377,7 @@ const level5 = (): Params => {
 //   c1 x + d1     c2 x + d2      (c1 x + d1)(c2 x + d2)
 //////////////////////////////////////////////////////////////
 
-const level6 = (): Params => {
+const level6 = (): Problem => {
 
   const above1 = randomInt(-9, 10, exclude(0));
   const below1 = randomInt(-9, 10, exclude(0, 1, -1));
@@ -456,7 +456,7 @@ const level6 = (): Params => {
 //
 //////////////////////////////////////////////////////////
 
-const level7 = (): Params => {
+const level7 = (): Problem => {
 
   const sol1 = randomInt(-10, 9, exclude(0));
 
@@ -545,7 +545,7 @@ const level7 = (): Params => {
 //
 //////////////////////////////////////////////////////////
 
-const level8 = (): Params => {
+const level8 = (): Problem => {
 
   const factor1 = randomInt(-5, 6,exclude(0));
   const factor2 = randomInt(-5, 6,exclude(0,factor1));
@@ -618,7 +618,7 @@ export const calculateBinome = (sum: number,sol:number,nosol:number): Binome => 
 
 };
 
-export const calculateParameter = (level: number): Params => {
+export const generateProblem = (level: number): Problem => {
   switch (level) {
     case 1:
       return level1();
@@ -649,12 +649,12 @@ export const calculateParameter = (level: number): Params => {
   }
 };
 
-export const renderEquation = (params: Params) => {
+export const formatEquation = (problem: Problem) => {
   const textEquation =
-    params.terms
+    problem.terms
       .map((term) => `\\frac{${term.e}x^2+${term.a}x+${term.b}}{${term.f}x^2+${term.c}x+${term.d}}`)
     //  .map((term) => `\\frac{${term.b}}{${term.c}x+${term.d}}`)
-      .join("+") + `= ${params.rightnumber}`;
+      .join("+") + `= ${problem.rightnumber}`;
 
   return textEquation
     .replaceAll("+-", "-")
@@ -672,16 +672,16 @@ export const renderEquation = (params: Params) => {
 
 
 
-export const renderSolution = (params: Params) => {
+export const formatSolution = (problem: Problem) => {
   // create unique array of pols and join them
   const pols = [
     ...Array.from(
-      new Set(params.pols.map((pol) => fracTex(pol.a, pol.b)))
+      new Set(problem.pols.map((pol) => fracTex(pol.a, pol.b)))
     ),
   ].join(";");
 
-  const sols = params.solutions
-    ? `\\{`+ params.solutions.map((sol) => fracTex(sol.a, sol.b)).join(";") + `\\}`
+  const sols = problem.solutions
+    ? `\\{`+ problem.solutions.map((sol) => fracTex(sol.a, sol.b)).join(";") + `\\}`
     : `\\mathbb{R} - \\{${pols}\\}`;
 
   return `
@@ -693,20 +693,16 @@ export const renderSolution = (params: Params) => {
   `;
 };
 
-const fractionalEquation: ProblemGeneratorNg<Params> = {
+const fractionalEquation: ProblemGeneratorNg<Problem> = {
   key: "fractional-equation",
   generate: () => {
-    
-    let levelDistribution = [
-      [1,10],[2,20],[3,40],[4,50],[5,70],[6,85],[7,95],[8,100]];
-    const pos = randomdist(levelDistribution);
-    const level = levelDistribution[pos][0];
-    return calculateParameter(level);
+    const level = weighted([1, 2, 3, 4, 5, 6, 7, 8], [10, 10, 20, 10, 20, 15, 10, 5]);
+    return generateProblem(level);
   },
-  render: (input) => {
+  format: (problem) => {
     return {
-      description: renderEquation(input.seed),
-      solution: renderSolution(input.seed),
+      description: formatEquation(problem),
+      solution: formatSolution(problem),
     };
   },
 };

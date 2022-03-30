@@ -41,6 +41,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 - [React](https://reactjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
 - [MUI](https://mui.com/)
+- [mathjs](https://mathjs.org)
 - [KaTeX](https://katex.org)
 - [i18next](https://react.i18next.com)
 
@@ -49,7 +50,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 Main concepts can be found in [ProblemGeneratorSpi](src/problem/ProblemGeneratorSpi.ts).
 
 - A `ProblemGenerator` generates a mathematical `Problem`
-- A `Problem` consists of a `description` and a `solution` (both KaTeX strings)
+- A `Problem` can be formatted to a `FormattedProblem` by the same `ProblemGenerator`
+- A `FormattedProblem` consists of a `description` and a `solution` (both KaTeX strings)
 
 ## Cookbook
 

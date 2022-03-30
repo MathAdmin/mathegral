@@ -4,7 +4,7 @@ import { randomInt } from "../util/randomizer";
 import { exclude } from "../util/predicates";
 import { fracTex } from "../util/texGenerator";
 import { Fraction } from "../util/commonDivisor";
-import { randomdist } from "../util/randomDistribution";
+import weighted from "weighted";
 
 type EquationTerm = {
     a: number;
@@ -15,7 +15,7 @@ type EquationTerm = {
     };
 
 
-type Params = {
+type Problem = {
     terms: EquationTerm[];
     solutions: Fraction[];
     problem: string | undefined;
@@ -36,7 +36,7 @@ const NONE = "NONE";
 //
 ///////////////////////////////////////////////////
 
-const level1 = (): Params => {
+const level1 = (): Problem => {
 
 
     const [x, y] = randomInts(2, -9, 10, exclude(0));
@@ -68,7 +68,7 @@ const level1 = (): Params => {
 //
 ///////////////////////////////////////////////////
 
-const level1b = (): Params => {
+const level1b = (): Problem => {
 
   const [b1, c1, factor] = randomInts(3, -9, 10, exclude(0));
   const [e1, sum] = randomInts(2, -9, 10, exclude(0));
@@ -98,7 +98,7 @@ const level1b = (): Params => {
 //
 ///////////////////////////////////////////////////
 
-const level2 = (): Params => {
+const level2 = (): Problem => {
 
   // Lösungen
   const [x, y, z] = randomInts(3, -9, 10, exclude(0));
@@ -142,7 +142,7 @@ const level2 = (): Params => {
 //
 ///////////////////////////////////////////////////
 
-const level2b = (): Params => {
+const level2b = (): Problem => {
 
   const [b1, c1, d1, e1, b2, c2, d2, e2] = randomInts(8, -9, 10, exclude(0));
   const [factor1, factor2] = randomInts(2, -2, 3, exclude(0));
@@ -184,7 +184,7 @@ const level2b = (): Params => {
 //
 ///////////////////////////////////////////////////
 
-const level3 = (): Params => {
+const level3 = (): Problem => {
 
   // Lösungen
   const [w, x, y, z] = randomInts(4, -9, 10, exclude(0));
@@ -245,7 +245,7 @@ const level3 = (): Params => {
 //
 ///////////////////////////////////////////////////
 
-const level3b = (): Params => {
+const level3b = (): Problem => {
 
   const [a1, b1, c1, d1, e1, a2, b2, c2, d2, e2, a3, b3, c3, d3, e3] 
     = randomInts(15, -9, 10, exclude(0));
@@ -282,7 +282,7 @@ const level3b = (): Params => {
 };
 
 
-  export const calculateParameter = (level: number): Params => {
+  export const generateProblem = (level: number): Problem => {
     switch (level) {
       case 1:
         return level1();
@@ -307,11 +307,11 @@ const level3b = (): Params => {
     }
   };
   
-  export const renderEquation = (params: Params) => {
+  export const formatEquation = (problem: Problem) => {
     const textEquation =
     `\\begin{aligned}
     \\begin{cases}`
-    + params.terms
+    + problem.terms
     .map((term) => `${term.a}w+${term.b}x+${term.c}y+${term.d}z=${term.e}`)
     .join("\\\\")
     + `\\end{cases}
@@ -369,31 +369,28 @@ const level3b = (): Params => {
   
   
   
-  export const renderSolution = (params: Params, translate: (key: string) => string) => {
+  export const formatSolution = (problem: Problem, translate: (key: string) => string) => {
 
-    const sols = params.problem
-        ? `\\text{${translate(`generator.linear-system.problem.${params.problem}`)}}`
+    const sols = problem.problem
+        ? `\\text{${translate(`generator.linear-system.problem.${problem.problem}`)}}`
         : `\\mathbb{L}=\\{(`
         + [...Array.from(
-            (params.solutions.map((sol) => fracTex(sol.a, sol.b)))
+            (problem.solutions.map((sol) => fracTex(sol.a, sol.b)))
             ),].join(";") + `)\\}`;
 
       return sols;
   };
   
-  const linearSystem: ProblemGeneratorNg<Params> = {
+  const linearSystem: ProblemGeneratorNg<Problem> = {
     key: "linear-system",
     generate: () => {
-      
-      let levelDistribution = [[1,20],[2,80],[3,90],[4,94],[5,98],[6,100]];
-      const pos = randomdist(levelDistribution);
-      const level = levelDistribution[pos][0];
-      return calculateParameter(level);
+      const level = weighted([1, 2, 3, 4, 5, 6], [20, 60, 10, 4, 4, 2]);
+      return generateProblem(level);
     },
-    render: (input) => {
+    format: (problem, translate) => {
       return {
-        description: renderEquation(input.seed),
-        solution: renderSolution(input.seed, input.translate),
+        description: formatEquation(problem),
+        solution: formatSolution(problem, translate),
       };
     },
   };

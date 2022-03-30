@@ -17,7 +17,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import TeX from "@matejmazur/react-katex";
-import { Generator, isNg } from "../ProblemGeneratorSpi";
+import { Generator, isNg, FormattedProblem } from "../ProblemGeneratorSpi";
 import MathText from "./MathText";
 import { decode, encode } from "../util/encoder";
 
@@ -29,23 +29,33 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const generator = props.generator;
-  const { seed } = useParams();
+  const { problem } = useParams();
 
   const [solutionVisible, setSolutionVisible] = React.useState(false);
+  const [formattedProblem, setFormattedProblem] =
+    React.useState<FormattedProblem>();
 
   useEffect(() => {
-    if (isNg(generator) && !seed) {
-      refresh();
+    if (isNg(generator)) {
+      if (!problem) {
+        refresh();
+      } else {
+        setSolutionVisible(false);
+        setFormattedProblem(generator.format(decode(problem), t));
+      }
+    } else {
+      setFormattedProblem(generator.generate(t));
     }
-  });
+  }, [generator, problem, t]);
 
   const refresh = () => {
     setSolutionVisible(false);
     if (isNg(generator)) {
-      const seed = encode(generator.generate());
-      navigate(`/problems/${generator.key}/${seed}`);
+      navigate(`/problems/${generator.key}/${encode(generator.generate())}`, {
+        replace: !problem,
+      });
     } else {
-      navigate("");
+      setFormattedProblem(generator.generate(t));
     }
   };
 
@@ -58,13 +68,7 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
   const regenerateText = t("action.regenerate");
   const toggleSolutionText = t("action.toggle-solution");
 
-  const problem = isNg(generator)
-    ? seed
-      ? generator.render({ translate: t, seed: decode(seed) })
-      : undefined
-    : generator.generate(t);
-
-  if (!problem) {
+  if (!formattedProblem) {
     return null;
   }
 
@@ -100,7 +104,7 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
             strict: (errorCode: string) =>
               "newLineInDisplayMode" === errorCode ? "ignore" : "warn",
           }}
-          math={problem.description}
+          math={formattedProblem.description}
           block
         />
       </CardContent>
@@ -119,7 +123,7 @@ const ProblemGeneratorCard = (props: ProblemGeneratorCardProps) => {
       <Collapse in={solutionVisible} timeout="auto" unmountOnExit>
         <CardContent>
           <Box sx={{ visibility: solutionVisible ? "visible" : "hidden" }}>
-            <TeX math={problem.solution} block />
+            <TeX math={formattedProblem.solution} block />
           </Box>
         </CardContent>
       </Collapse>

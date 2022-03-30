@@ -21,10 +21,10 @@ import "katex/dist/katex.min.css";
 import ProblemGeneratorList from "./problem/component/ProblemGeneratorList";
 import ProblemGeneratorCard from "./problem/component/ProblemGeneratorCard";
 import chapters from "./problem/problemGeneratorIndex";
-import { ProblemGenerator } from "./problem/ProblemGeneratorSpi";
+import { Generator } from "./problem/ProblemGeneratorSpi";
 import { useTranslation } from "react-i18next";
 
-const index = new Set<ProblemGenerator>();
+const index = new Set<Generator>();
 chapters.forEach((chapter) => {
   chapter.generators.forEach((generator) => index.add(generator));
 });
@@ -44,7 +44,7 @@ function App() {
                 path={`/problems/${generator.key}`}
               >
                 <Route
-                  path=":seed"
+                  path=":problem"
                   element={<ProblemGeneratorCard generator={generator} />}
                 />
                 <Route

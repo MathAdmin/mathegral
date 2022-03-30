@@ -43,3 +43,16 @@ export function randomEnum<T>(
 export function randomElement<T>(array: T[]): T {
   return array[randomInt(0, array.length)];
 }
+
+export function randomElements<T>(array: T[], n: number): T[] {
+  return shuffle(array).splice(0, n);
+}
+
+export function shuffle<T>(array: T[]): T[] {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}

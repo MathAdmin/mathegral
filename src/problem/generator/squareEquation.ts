@@ -1,7 +1,7 @@
 import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
 import { calculategcd } from "../util/commonDivisor";
 import { randomInt } from "../util/randomizer";
-import { randomdist } from "../util/randomDistribution";
+import weighted from "weighted";
 import { exclude } from "../util/predicates";
 import { fracTex } from "../util/texGenerator";
 import { calculateBinome } from "../util/commonDivisor";
@@ -18,7 +18,7 @@ type SquareTerm = {
     };
 
       
-type Params = {
+type Problem = {
     terms: SquareTerm[];
     solutions: Fraction[] | undefined;
     pseudos: Fraction[] | undefined;
@@ -32,7 +32,7 @@ type Params = {
 //
 ///////////////////////////////////////////////////
 
-const level1 = (): Params => {
+const level1 = (): Problem => {
 
 
     const number1 = randomInt(1, 15);
@@ -82,7 +82,7 @@ const level1 = (): Params => {
 //
 ////////////////////////////////////////
 
-const level2 = (): Params => {
+const level2 = (): Problem => {
 
 
     const number1 = randomInt(1, 12);
@@ -139,7 +139,7 @@ const level2 = (): Params => {
 //
 ////////////////////////////////////////
 
-const level3 = (): Params => {
+const level3 = (): Problem => {
 
 
   const number1 = 2 * randomInt(0, 5) + 1;
@@ -214,7 +214,7 @@ const level3 = (): Params => {
 //
 /////////////////////////////////////////////////////////////////////////
 
-const level4 = (): Params => {
+const level4 = (): Problem => {
 
 
   const number1 = randomInt(1, 5);
@@ -293,7 +293,7 @@ const level4 = (): Params => {
 //
 /////////////////////////////////////////////////////////////////////////
 
-const level5 = (): Params => {
+const level5 = (): Problem => {
 
 
   const a1 = 1; const a2 = 1; const a3 = -1; const a4 = -1;
@@ -345,7 +345,7 @@ const level5 = (): Params => {
 //
 /////////////////////////////////////////////////////////////////////////
 
-const level6 = (): Params => {
+const level6 = (): Problem => {
 
 
   const a1 = 1; const a2 = 1; const a3 = -1; const a4 = -1;
@@ -404,7 +404,7 @@ const level6 = (): Params => {
   };
 };
 
-  export const calculateParameter = (level: number): Params => {
+  export const generateProblem = (level: number): Problem => {
         switch (level) {
           case 1:
             return level1();
@@ -429,11 +429,11 @@ const level6 = (): Params => {
         }
       };
       
-      export const renderEquation = (params: Params) => {
+      export const formatEquation = (problem: Problem) => {
         const textEquation =
-          params.terms
+          problem.terms
             .map((term) => `${term.a}\\sqrt{${term.b}x^2+${term.c}x+${term.d}}`)
-            .join("+") + `= ${params.rightTerm.a}x+${params.rightTerm.b}`;
+            .join("+") + `= ${problem.rightTerm.a}x+${problem.rightTerm.b}`;
       
         return textEquation
           .replaceAll("+-", "-")
@@ -458,17 +458,17 @@ const level6 = (): Params => {
       
       
       
-      export const renderSolution = (params: Params) => {
+      export const formatSolution = (problem: Problem) => {
 
-        const pseudos = params.pseudos
+        const pseudos = problem.pseudos
         ? `\\{`+ [...Array.from(
-          new Set(params.pseudos.map((pseudo) => fracTex(pseudo.a, pseudo.b)))
+          new Set(problem.pseudos.map((pseudo) => fracTex(pseudo.a, pseudo.b)))
           ),].join(";") + `\\}`
         : `\\{\\}`;
 
-        const sols = params.solutions 
+        const sols = problem.solutions 
           ?`\\{`+ [...Array.from(
-            new Set(params.solutions.map((sol) => fracTex(sol.a, sol.b)))
+            new Set(problem.solutions.map((sol) => fracTex(sol.a, sol.b)))
             ),].join(";") + `\\}`
           : `\\{\\}`;  
 
@@ -482,19 +482,16 @@ const level6 = (): Params => {
         `;
       };
       
-      const squareEquation: ProblemGeneratorNg<Params> = {
+      const squareEquation: ProblemGeneratorNg<Problem> = {
         key: "square-equation",
         generate: () => {
-          
-          let levelDistribution = [[1,10],[2,40],[3,70],[4,90],[5,95],[6,100]];
-          const pos = randomdist(levelDistribution);
-          const level = levelDistribution[pos][0];
-          return calculateParameter(level);
+          const level = weighted([1, 2, 3, 4, 5, 6], [10, 30, 30, 20, 5, 5]);
+          return generateProblem(level);
         },
-        render: (input) => {
+        format: (problem) => {
           return {
-            description: renderEquation(input.seed),
-            solution: renderSolution(input.seed),
+            description: formatEquation(problem),
+            solution: formatSolution(problem),
           };
         },
       };
