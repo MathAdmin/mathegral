@@ -1,14 +1,14 @@
-import { ProblemGenerator } from "../ProblemGeneratorSpi";
+import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
 import { exclude } from "../util/predicates";
 import { randomEnum, randomInt } from "../util/randomizer";
 
-interface Params {
+type Params = {
   a1: number;
   d: number;
   n: number;
   an: number;
   Sn: number;
-}
+};
 
 enum Variant {
   a1_d_n,
@@ -23,7 +23,13 @@ enum Variant {
   n_an_Sn,
 }
 
-const renderDescription = (params: Params, variant: Variant): string => {
+type Problem = {
+  params: Params;
+  variant: Variant;
+};
+
+const formatDescription = (problem: Problem) => {
+  const { params, variant } = problem;
   const hidden = "\\text{?}";
   switch (variant) {
     case Variant.a1_d_n:
@@ -129,7 +135,8 @@ const renderDescription = (params: Params, variant: Variant): string => {
   }
 };
 
-const renderSolution = (params: Params, variant: Variant): string => {
+const formatSolution = (problem: Problem) => {
+  const { params, variant } = problem;
   switch (variant) {
     case Variant.a1_d_n:
       return `
@@ -202,7 +209,7 @@ export const calculateSn = (a1: number, n: number, an: number): number => {
   return (n * (a1 + an)) / 2;
 };
 
-const arithmeticSeries: ProblemGenerator = {
+const arithmeticSeries: ProblemGeneratorNg<Problem> = {
   key: "arithmetic-series",
   generate: () => {
     const a1 = randomInt(-9, 10);
@@ -211,18 +218,21 @@ const arithmeticSeries: ProblemGenerator = {
     const an = calculateAn(a1, n, d);
     const Sn = calculateSn(a1, n, an);
 
-    const params = {
-      a1,
-      d,
-      n,
-      an,
-      Sn,
-    };
-    const variant = randomEnum(Variant);
-
     return {
-      description: renderDescription(params, variant),
-      solution: renderSolution(params, variant),
+      params: {
+        a1,
+        d,
+        n,
+        an,
+        Sn,
+      },
+      variant: randomEnum(Variant),
+    };
+  },
+  format: (problem) => {
+    return {
+      description: formatDescription(problem),
+      solution: formatSolution(problem),
     };
   },
 };
