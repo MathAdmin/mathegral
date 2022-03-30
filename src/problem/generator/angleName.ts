@@ -1,4 +1,4 @@
-import { ProblemGenerator } from "../ProblemGeneratorSpi";
+import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
 import { randomEnum } from "../util/randomizer";
 
 // prettier-ignore
@@ -66,16 +66,26 @@ const greekangle = [
   "\\varepsilon_1", "\\varepsilon_2", "\\varepsilon_3", "\\varepsilon_4",
 ];
 
-const angleName: ProblemGenerator = {
+type Problem = {
+  angle1: Angle;
+  angle2: Angle;
+};
+
+const angleName: ProblemGeneratorNg<Problem> = {
   key: "angle-name",
   image: "angle_name.svg",
-  generate: (translate) => {
+  generate: () => {
     const angle1 = randomEnum(Angle);
     const angle2 = randomEnum(Angle, (value) => value !== angle1);
-    const first = angle1 > angle2 ? angle2 : angle1;
-    const second = angle1 > angle2 ? angle1 : angle2;
     return {
-      description: `${greekangle[first]} \\text{ , } ${greekangle[second]}`,
+      angle1: angle1 > angle2 ? angle2 : angle1,
+      angle2: angle1 > angle2 ? angle1 : angle2,
+    };
+  },
+  format: (problem, translate) => {
+    const { angle1, angle2 } = problem;
+    return {
+      description: `${greekangle[angle1]} \\text{ , } ${greekangle[angle2]}`,
       solution: `\\text{${translate(
         "generator.angle-name.pair." + relation(angle1, angle2)
       )}}`,
