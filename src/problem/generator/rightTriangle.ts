@@ -1,26 +1,19 @@
-import { ProblemGenerator } from "../ProblemGeneratorSpi";
-import { randomElement, randomInt } from "../util/randomizer";
+import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
+import { randomElement, randomElements, randomInt } from "../util/randomizer";
 
-const primitiveTriples: [number, number, number][] = [
+type PrimitiveTriple = [number, number, number];
+
+const PRIMITIVE_TRIPLES: PrimitiveTriple[] = [
   [3, 4, 5],
   [5, 12, 13],
   [8, 15, 17],
   [7, 24, 25],
   [20, 21, 29],
-  /*[12, 35, 37],
-  [9, 40, 41],
-  [11, 60, 61],
-  [28, 45, 53],
-  [16, 63, 65],
-  [33, 56, 65],
-  [48, 55, 73],
-  [13, 84, 85],
-  [36, 77, 85],
-  [39, 80, 89],
-  [65, 72, 97],*/
 ];
 
-interface Params {
+const VALUES = ["a", "b", "c", "p", "q", "h"];
+
+type RightTriangle = {
   [index: string]: number;
   a: number;
   b: number;
@@ -28,11 +21,23 @@ interface Params {
   p: number;
   q: number;
   h: number;
-}
+};
 
-export const calculateParams = (triple: [number, number, number], pythfactor:number): Params => {
+type Problem = {
+  rightTriangle: RightTriangle;
+  given: string[];
+};
+
+export const generateRightTriangle = (
+  triple: PrimitiveTriple,
+  pythFactor: number
+): RightTriangle => {
   const [pi, hi, ai] = triple;
-  const [p, h, a] = [pi * pi *pythfactor, hi * pi *pythfactor, ai * pi*pythfactor];
+  const [p, h, a] = [
+    pi * pi * pythFactor,
+    hi * pi * pythFactor,
+    ai * pi * pythFactor,
+  ];
   const b = (a * h) / p;
   const q = (h * h) / p;
   const c = (p * p + h * h) / p;
@@ -56,9 +61,11 @@ const sliceIntoChunks = (arr: any[], chunkSize: number) => {
   return res;
 };
 
-const renderParams = (params: Params, keys: string[]): string => {
+const formatValues = (rightTriangle: RightTriangle, keys: string[]): string => {
   const values = sliceIntoChunks(keys, 2)
-    .map((chunk) => chunk.map((key) => `${key}&=${params[key]}`).join(" & "))
+    .map((chunk) =>
+      chunk.map((key) => `${key}&=${rightTriangle[key]}`).join(" & ")
+    )
     .join(" \\\\ ");
   return `
 \\begin{align*}
@@ -67,21 +74,26 @@ ${values}
 `;
 };
 
-const rightTriangle: ProblemGenerator = {
+const rightTriangle: ProblemGeneratorNg<Problem> = {
   key: "right-triangle",
   image: "right-triangle.svg",
   generate: () => {
-    const triple = randomElement(primitiveTriples);
-    const h =  triple[1];
-    const maxpythfactor = Math.ceil(600 /(h*h));
-    const pythfactor = randomInt(1,maxpythfactor);
-    const params = calculateParams(triple,pythfactor);
-    let remaining = ["a", "b", "c", "p", "q", "h"];
-    const [key1] = remaining.splice(randomInt(0, 6), 1);
-    const [key2] = remaining.splice(randomInt(0, 5), 1);
+    const triple = randomElement(PRIMITIVE_TRIPLES);
+    const h = triple[1];
+    const maxPythFactor = Math.ceil(600 / (h * h));
+    const pythFactor = randomInt(1, maxPythFactor);
     return {
-      description: renderParams(params, [key1, key2]),
-      solution: renderParams(params, remaining),
+      rightTriangle: generateRightTriangle(triple, pythFactor),
+      given: randomElements(VALUES, 2),
+    };
+  },
+  format: (problem) => {
+    return {
+      description: formatValues(problem.rightTriangle, problem.given),
+      solution: formatValues(
+        problem.rightTriangle,
+        VALUES.filter((k) => !problem.given.includes(k))
+      ),
     };
   },
 };

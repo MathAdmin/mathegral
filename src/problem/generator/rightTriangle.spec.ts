@@ -1,7 +1,7 @@
-import { calculateParams } from "./rightTriangle";
+import { generateRightTriangle } from "./rightTriangle";
 
 it("calculates params", () => {
-  expect(calculateParams([3, 4, 5], 1)).toEqual({
+  expect(generateRightTriangle([3, 4, 5], 1)).toEqual({
     a: 15,
     b: 20,
     c: 25,
@@ -9,7 +9,7 @@ it("calculates params", () => {
     q: 16,
     h: 12,
   });
-  expect(calculateParams([5, 12, 13], 2)).toEqual({
+  expect(generateRightTriangle([5, 12, 13], 2)).toEqual({
     a: 130,
     b: 312,
     c: 338,
