@@ -1,14 +1,14 @@
-import { ProblemGenerator } from "../ProblemGeneratorSpi";
+import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
 import { exclude } from "../util/predicates";
 import { randomEnum, randomInt } from "../util/randomizer";
 
-interface Params {
+type Params = {
   a1: number;
   q: number;
   n: number;
   an: number;
   Sn: number;
-}
+};
 
 enum Variant {
   a1_q_n,
@@ -23,7 +23,13 @@ enum Variant {
   n_an_Sn,
 }
 
-const renderDescription = (params: Params, variant: Variant): string => {
+type Problem = {
+  params: Params;
+  variant: Variant;
+};
+
+const formatDescription = (problem: Problem) => {
+  const { params, variant } = problem;
   const hidden = "\\text{?}";
   switch (variant) {
     case Variant.a1_q_n:
@@ -129,7 +135,8 @@ const renderDescription = (params: Params, variant: Variant): string => {
   }
 };
 
-const renderSolution = (params: Params, variant: Variant): string => {
+const formatSolution = (problem: Problem) => {
+  const { params, variant } = problem;
   switch (variant) {
     case Variant.a1_q_n:
       return `
@@ -195,14 +202,14 @@ const renderSolution = (params: Params, variant: Variant): string => {
 };
 
 export const calculateAn = (a1: number, n: number, q: number): number => {
-  return a1 * Math.pow(q,n - 1);
+  return a1 * Math.pow(q, n - 1);
 };
 
 export const calculateSn = (a1: number, n: number, q: number): number => {
-  return a1 * (Math.pow(q,n)-1) / (q-1);
+  return (a1 * (Math.pow(q, n) - 1)) / (q - 1);
 };
 
-const geometricSeries: ProblemGenerator = {
+const geometricSeries: ProblemGeneratorNg<Problem> = {
   key: "geometric-series",
   generate: () => {
     const a1 = randomInt(-9, 10, exclude(0));
@@ -211,18 +218,21 @@ const geometricSeries: ProblemGenerator = {
     const an = calculateAn(a1, n, q);
     const Sn = calculateSn(a1, n, q);
 
-    const params = {
-      a1,
-      q,
-      n,
-      an,
-      Sn,
-    };
-    const variant = randomEnum(Variant);
-
     return {
-      description: renderDescription(params, variant),
-      solution: renderSolution(params, variant),
+      params: {
+        a1,
+        q,
+        n,
+        an,
+        Sn,
+      },
+      variant: randomEnum(Variant),
+    };
+  },
+  format: (problem) => {
+    return {
+      description: formatDescription(problem),
+      solution: formatSolution(problem),
     };
   },
 };
