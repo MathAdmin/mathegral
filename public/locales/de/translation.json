@@ -30,6 +30,14 @@
       "name": "Quadratische Gleichung",
       "description": "Löse die Gleichung nach [[x]] auf."
     },
+    "quadratic-function": {
+      "name": "Quadratische Funktion",
+      "description": "Berechne die fehlenden Werte.",
+      "problem": {
+        "INFINITY": "Unendlich viele Lösungen.",
+        "DOUBLE": "Eine weitere Lösung ist vorhanden."
+      }
+    },
     "quadratic-equation2": {
       "name": "Quadr. Gleichung 2",
       "description": "Löse die Gleichung nach [[x]] auf."
