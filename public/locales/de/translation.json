@@ -35,7 +35,7 @@
       "description": "Berechne die fehlenden Werte.",
       "problem": {
         "INFINITY": "Unendlich viele Lösungen.",
-        "DOUBLE": "Eine weitere Lösung ist vorhanden."
+        "DOUBLE": "oder"
       }
     },
     "quadratic-equation2": {

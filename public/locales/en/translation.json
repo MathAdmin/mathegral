@@ -31,7 +31,7 @@
       "description": "Calculate the missing values.",
       "problem": {
         "INFINITY": "Infinitly many solutions. ",
-        "DOUBLE": "(There is another solution). "
+        "DOUBLE": "or"
       }
     },
 
