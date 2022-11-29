@@ -26,6 +26,15 @@
           "SUPPLEMENTARY": "Supplémentaires"
       }
     },
+    "quadratic-function": {
+      "name": "Fonction quadratique",
+      "description": "Calculez les valeurs manquantes.",
+      "problem": {
+        "INFINITY": "Nombre infini de solutions. ",
+        "DOUBLE": "ou"
+        }
+    },
+
     "quadratic-equation": {
       "name": "Equations du 2nd degré",
       "description": "Résolvez l'équation suivante:"

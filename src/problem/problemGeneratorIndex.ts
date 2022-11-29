@@ -11,6 +11,8 @@ import angleName from "./generator/angleName";
 import primeFactor from "./generator/primeFactor";
 import commonArithmetic from "./generator/commonArithmetic";
 import linearSystem from "./generator/linearSystem";
+import quadraticFunction from "./generator/quadraticFunction";
+
 
 interface Chapter {
   key: string;
@@ -34,7 +36,7 @@ const chapters: Chapter[] = [
   },
   {
     key: "4Klasse",
-    generators: [quadraticEquation2, sinTriangle],
+    generators: [quadraticEquation2, sinTriangle, quadraticFunction],
   },
   {
     key: "5Klasse",
