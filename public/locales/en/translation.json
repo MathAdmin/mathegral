@@ -34,7 +34,17 @@
         "DOUBLE": "or"
       }
     },
-
+    "tangente": {
+      "name": "Tangente",
+      "description": {
+        "variant1": "Bestimme die Tangente an f(x) im Parabelpunkt P:",
+        "variant2": "Bestimme die Tangente an f(x) im Punkt Q:",
+        "variant3": "Bestimme die fehlende Parameter so, dass f(x) und g(x) sich berühren."      
+      },      "problem": {
+        "INFINITY": "Infinitly many solutions.",
+        "DOUBLE": "or"
+      }
+    },
     "quadratic-equation": {
       "name": "Quadratic Equation",
       "description": "Solve the equation for [[x]]."

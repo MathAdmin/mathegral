@@ -26,6 +26,18 @@
           "SUPPLEMENTARY": "Supplémentaires"
       }
     },
+    "tangente": {
+      "name": "Tangente",
+      "description": {
+        "variant1": "Déterminez l'équation de la tangente au point P de f(x):",
+        "variant2": "Déterminez l'équation de la tangente à f(x) passant par Q:",
+        "variant3": "Déterminez le paramètre manquant afin que f(x) et g(x) soient tangentes."      
+      },      "problem": {
+        "INFINITY": "Nombre infini de solutions. ",
+        "DOUBLE": "ou"
+        }
+    },
+
     "quadratic-function": {
       "name": "Fonction quadratique",
       "description": "Calculez les valeurs manquantes.",

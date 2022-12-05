@@ -16,3 +16,23 @@ export const fracTex=(above:number,below:number):string=>{
   }
   
 };
+
+export const sqrtTex=(positiv:number):string=>{
+  var i = 2
+  var bevor = 1
+  var after = positiv
+  var normalform =``
+
+  while (i <Math.sqrt(after)+1 ) {
+    if (after % (i*i) === 0) {
+      bevor = bevor*i;
+      after = after / (i*i);
+    } else {
+      i=i+1
+    }
+  }
+  after===1
+    ? normalform = `${bevor}`
+    : normalform = `${bevor}\\sqrt{${after}}`
+  return normalform
+};
