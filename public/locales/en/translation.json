@@ -37,10 +37,16 @@
     "tangente": {
       "name": "Tangente",
       "description": {
-        "variant1": "Bestimme die Tangente an f(x) im Parabelpunkt P:",
-        "variant2": "Bestimme die Tangente an f(x) im Punkt Q:",
-        "variant3": "Bestimme die fehlende Parameter so, dass f(x) und g(x) sich berühren."      
-      },      "problem": {
+          "variant11": "Determine the tangent line to the function ",
+          "variant12": " through the point ",
+          "variant21": "Determine the tangent line to the function ",
+          "variant22": " through the point ",
+          "variant31": "Determine the missing parameter so that the functions ",
+          "variant32": " and ",
+          "variant33": " touch each other."      
+        },
+
+      "problem": {
         "INFINITY": "Infinitly many solutions.",
         "DOUBLE": "or"
       }

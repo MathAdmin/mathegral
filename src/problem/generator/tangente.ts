@@ -2,17 +2,10 @@ import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
 import { exclude } from "../util/predicates";
 import { randomInt, randomElement } from "../util/randomizer";
 import { fracTex,sqrtTex } from "../util/texGenerator";
+import weighted from "weighted";
 
-// 5 verschiedene Varianten
-const VARIANT = [
-  ["abci", "SINGLE","jmq"],
-  ["abcij", "DOUBLE","mq"],
-  ["bcmq", "SINGLE","a"],
-  ["acmq", "DOUBLE","b"],
-  ["abmq", "SINGLE","c"],
-  ];
 
-/* 13 verschiedene Varianten
+// 13 verschiedene Varianten
 const VARIANT = [
   ["abci", "SINGLE","jmq"],
   ["abcij", "DOUBLE","mq"],
@@ -28,7 +21,7 @@ const VARIANT = [
   ["abcAC", "DOUBLE","B"],
   ["abcAB", "SINGLE","C"],
 ];
-*/
+
 
 const INFINITY = "INFINITY";
 const DOUBLE = "DOUBLE";
@@ -61,7 +54,8 @@ export const formatEquation = (problem: Problem,translate: (key: string) => stri
   switch (given) {
     case "abci":
       textDescription = `\\begin{aligned}
-      \\text{${translate("generator.tangente.variant.variant1")}}
+      \\text{${translate("generator.tangente.variant.variant11")}} f(x)
+      \\text{${translate("generator.tangente.variant.variant12")}} P.
       \\\\
       f(x)=${a}x^2+${b}x+${c}
       \\\\
@@ -71,7 +65,8 @@ export const formatEquation = (problem: Problem,translate: (key: string) => stri
 
     case "abcij":
       textDescription = `\\begin{aligned}
-      \\text{${translate("generator.tangente.variant.variant2")}}
+      \\text{${translate("generator.tangente.variant.variant21")}} f(x)
+      \\text{${translate("generator.tangente.variant.variant22")}} Q.
       \\\\
       f(x)=${a}x^2+${b}x+${c}
       \\\\
@@ -81,7 +76,9 @@ export const formatEquation = (problem: Problem,translate: (key: string) => stri
 
     case "bcmq":
       textDescription = `\\begin{aligned}
-      \\text{${translate("generator.tangente.variant.variant3")}}
+      \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+      \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+      \\text{${translate("generator.tangente.variant.variant33")}}
       \\\\
       f(x)=ax^2+${b}x+${c}
       \\\\
@@ -91,7 +88,9 @@ export const formatEquation = (problem: Problem,translate: (key: string) => stri
 
       case "acmq":
         textDescription = `\\begin{aligned}
-        \\text{${translate("generator.tangente.variant.variant3")}}
+        \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+        \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+        \\text{${translate("generator.tangente.variant.variant33")}}
         \\\\
         f(x)=${a}x^2+bx+${c}
         \\\\
@@ -101,7 +100,9 @@ export const formatEquation = (problem: Problem,translate: (key: string) => stri
 
       case "abmq":
         textDescription = `\\begin{aligned}
-        \\text{${translate("generator.tangente.variant.variant3")}}
+        \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+        \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+        \\text{${translate("generator.tangente.variant.variant33")}}
         \\\\
         f(x)=${a}x^2+${b}x+c
         \\\\
@@ -111,7 +112,9 @@ export const formatEquation = (problem: Problem,translate: (key: string) => stri
 
       case "Nnmq":
         textDescription = `\\begin{aligned}
-        \\text{${translate("generator.tangente.variant.variant3")}}
+        \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+        \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+        \\text{${translate("generator.tangente.variant.variant33")}}
         \\\\
         f(x)=a(x-${N})(x-${n})
         \\\\
@@ -121,13 +124,88 @@ export const formatEquation = (problem: Problem,translate: (key: string) => stri
 
       case "aNmq":
         textDescription = `\\begin{aligned}
-        \\text{${translate("generator.tangente.variant.variant3")}}
+        \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+        \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+        \\text{${translate("generator.tangente.variant.variant33")}}
         \\\\
         f(x)=${fracTex(-(m*N+q),k*k)}(x-${N})(x-n)
         \\\\
         g(x)=${m}x+${q}
         \\end{aligned}`
-        break 
+        break
+
+      case "uvmq":
+        textDescription = `\\begin{aligned}
+        \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+        \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+        \\text{${translate("generator.tangente.variant.variant33")}}
+        \\\\
+        f(x)=a(x-${u})^2+${v}
+        \\\\
+        g(x)=${m}x+${q}
+        \\end{aligned}`
+        break
+
+      case "avmq":
+        textDescription = `\\begin{aligned}
+        \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+        \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+        \\text{${translate("generator.tangente.variant.variant33")}}
+        \\\\
+        f(x)=${a}(x-u)^2+${v}
+        \\\\
+        g(x)=${m}x+${q}
+        \\end{aligned}`
+        break
+
+      case "aumq":
+        textDescription = `\\begin{aligned}
+        \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+        \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+        \\text{${translate("generator.tangente.variant.variant33")}}
+        \\\\
+        f(x)=${a}(x-${u})^2+v
+        \\\\
+        g(x)=${m}x+${q}
+        \\end{aligned}`
+        break
+
+      case "abcBC":
+        textDescription = `\\begin{aligned}
+        \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+        \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+        \\text{${translate("generator.tangente.variant.variant33")}}
+        \\\\
+        f(x)=${a}x^2+${b}x+${c}
+        \\\\
+        g(x)=ax^2+${B}x+${C}
+        \\end{aligned}`
+        break
+
+      case "abcAC":
+        textDescription = `\\begin{aligned}
+        \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+        \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+        \\text{${translate("generator.tangente.variant.variant33")}}
+        \\\\
+        f(x)=${a}x^2+${b}x+${c}
+        \\\\
+        g(x)=${A}x^2+bx+${C}
+        \\end{aligned}`
+        break
+
+      case "abcAB":
+        textDescription = `\\begin{aligned}
+        \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+        \\text{${translate("generator.tangente.variant.variant32")}} g(x)
+        \\text{${translate("generator.tangente.variant.variant33")}}
+        \\\\
+        f(x)=${a}x^2+${b}x+${c}
+        \\\\
+        g(x)=${A}x^2+${B}x+c
+        \\end{aligned}`
+        break
+
 
     default:
       textDescription = `\\begin{aligned}
@@ -214,6 +292,34 @@ export const formatSolution = (problem: Problem,translate: (key: string) => stri
       \\end{aligned}`
       break
 
+    case "uvmq":
+      textSolution =`a=${fracTex(m*m,4*(v-(m*u+q)))}`
+      break
+
+    case "avmq":
+      textSolution =`u=${fracTex(4*a*v-4*a*q-m*m,4*a*m)}`
+      break
+
+    case "aumq":
+      textSolution =`v=${fracTex(4*a*u*m+m*m+4*a*q,4*a)}`
+      break
+            
+    case "abcBC":
+      textSolution =`a=${fracTex(4*a*(C-c)+(B-b)*(B-b),4*(C-c))}`
+      break
+
+    case "abcAC":
+      textSolution =`\\begin{aligned}
+      \\text{a) } b=${normalFormPlus(b,4*(A-a)*(C-c))} 
+      \\\\
+      \\text{b) } b=${normalFormMinus(b,4*(A-a)*(C-c))} 
+      \\end{aligned}`
+      break
+    
+    case "abcAB":
+      textSolution =`c=${fracTex(4*(A-a)*c+(B-b)*(B-b),4*(A-a))}`
+      break
+
     default:
       textSolution =`\\begin{aligned}
           a=${a} \\text{ , } b=${b} \\text{ , } c=${c} \\text{ , }
@@ -271,9 +377,9 @@ const tangente: ProblemGeneratorNg<Problem> = {
     var b = -a * (N + n);
     var c = a * N * n;
     var v = (4 * a * c - b * b) / (4 * a);
-    var A = randomInt(-5, 6, exclude(0,a));
-    var B = randomInt(-9, 10, exclude(0,b));
-    var C = randomInt(-19,20, exclude(0,c));
+    var A = randomInt(a+1, 7, exclude(0));
+    var B = randomInt(-5, 7, exclude(0,b));
+    var C = randomInt(c+1,c+10, exclude(0));
     var m = randomInt(-5, 6, exclude(0));
     var q = 0;
     a > 0
@@ -282,8 +388,9 @@ const tangente: ProblemGeneratorNg<Problem> = {
     var i = randomInt(-9, 10, exclude(0));
     var k = randomInt(1, 4);
     var j = a * i * i + b * i + c - k * k *a;    
-    var variant = randomElement(VARIANT);
-    //var variant = VARIANT[7];
+    //var variant = randomElement(VARIANT);
+    var variant = VARIANT[weighted([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      [30, 30, 8, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2])];
     var given = variant[0];
     var sol = variant[1];
     var param = variant[2];

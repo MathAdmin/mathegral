@@ -29,10 +29,15 @@
     "tangente": {
       "name": "Tangente",
       "description": {
-        "variant1": "Déterminez l'équation de la tangente au point P de f(x):",
-        "variant2": "Déterminez l'équation de la tangente à f(x) passant par Q:",
-        "variant3": "Déterminez le paramètre manquant afin que f(x) et g(x) soient tangentes."      
-      },      "problem": {
+        "variant11": "Déterminez l'équation de la tangente à ",
+        "variant12": " au point ",
+        "variant21": "Déterminez l'équation de la tangente à ",
+        "variant22": " passant par ",
+        "variant31": "Déterminez le paramètre manquant afin que les fonctions ",
+        "variant32": " et ",
+        "variant33": " soient tangentes."      
+      },      
+      "problem": {
         "INFINITY": "Nombre infini de solutions. ",
         "DOUBLE": "ou"
         }

@@ -42,9 +42,13 @@
       "name": "Tangentenproblem",
       "description": "",
       "variant": {
-        "variant1": "Bestimme die Tangente an f(x) im Parabelpunkt P:",
-        "variant2": "Bestimme die Tangenten an f(x) im Punkt Q:",
-        "variant3": "Bestimme den fehlenden Parameter so, dass f(x) und g(x) sich berühren."      
+        "variant11": "Bestimme die Tangente an ",
+        "variant12": " im Parabelpunkt ",
+        "variant21": "Bestimme die Tangenten an ",
+        "variant22": " im Punkt ",
+        "variant31": "Bestimme den fehlenden Parameter so, dass ",
+        "variant32": " und ",
+        "variant33": " sich berühren."      
       },
       "problem": {
         "INFINITY": "Unendlich viele Lösungen.",
