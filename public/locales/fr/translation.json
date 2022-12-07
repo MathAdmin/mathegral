@@ -28,7 +28,8 @@
     },
     "tangente": {
       "name": "Tangente",
-      "description": {
+      "description": "",
+      "variant": {
         "variant11": "Déterminez l'équation de la tangente à ",
         "variant12": " au point ",
         "variant21": "Déterminez l'équation de la tangente à ",

@@ -36,7 +36,8 @@
     },
     "tangente": {
       "name": "Tangente",
-      "description": {
+      "description": "",
+      "variant": {
           "variant11": "Determine the tangent line to the function ",
           "variant12": " through the point ",
           "variant21": "Determine the tangent line to the function ",
