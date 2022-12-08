@@ -32,9 +32,6 @@ const VARIANT = [
   ["muv", "SINGLE"],
 ];
 
-const INFINITY = "INFINITY";
-const DOUBLE = "DOUBLE";
-
 type Problem = {
   a: number;
   b: number;
@@ -59,7 +56,6 @@ export const formatSolution = (
   const u = problem.u;
   const v = problem.v;
   const given = problem.given;
-  const sol = problem.sol;
 
   switch (given) {
     case "acv":
@@ -159,7 +155,7 @@ const quadraticFunction: ProblemGeneratorNg<Problem> = {
     return { a, b, c, m, n, u, v, given, sol };
   },
   format: (problem, translate) => {
-    const { a, b, c, m, n, u, v, given, sol } = problem;
+    const { given } = problem;
     return {
       description: `${given[0]}=${eval(given[0])} \\text{ , } ${
         given[1]
