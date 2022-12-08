@@ -12,6 +12,7 @@ import primeFactor from "./generator/primeFactor";
 import commonArithmetic from "./generator/commonArithmetic";
 import linearSystem from "./generator/linearSystem";
 import quadraticFunction from "./generator/quadraticFunction";
+import tangente from "./generator/tangente";
 
 interface Chapter {
   key: string;
@@ -35,7 +36,7 @@ const chapters: Chapter[] = [
   },
   {
     key: "4Klasse",
-    generators: [quadraticEquation2, sinTriangle, quadraticFunction],
+    generators: [quadraticEquation2, sinTriangle, quadraticFunction, tangente],
   },
   {
     key: "5Klasse",

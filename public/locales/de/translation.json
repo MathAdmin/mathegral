@@ -38,6 +38,23 @@
         "DOUBLE": "oder"
       }
     },
+    "tangente": {
+      "name": "Tangentenproblem",
+      "description": "",
+      "variant": {
+        "variant11": "Bestimme die Tangente an ",
+        "variant12": " im Parabelpunkt ",
+        "variant21": "Bestimme die Tangenten an ",
+        "variant22": " im Punkt ",
+        "variant31": "Bestimme den fehlenden Parameter so, dass ",
+        "variant32": " und ",
+        "variant33": " sich berühren."      
+      },
+      "problem": {
+        "INFINITY": "Unendlich viele Lösungen.",
+        "DOUBLE": "oder"
+      }
+    },
     "quadratic-equation2": {
       "name": "Quadr. Gleichung 2",
       "description": "Löse die Gleichung nach [[x]] auf."
