@@ -34,7 +34,24 @@
         "DOUBLE": "or"
       }
     },
+    "tangente": {
+      "name": "Tangente",
+      "description": "",
+      "variant": {
+          "variant11": "Determine the tangent line to the function ",
+          "variant12": " through the point ",
+          "variant21": "Determine the tangent line to the function ",
+          "variant22": " through the point ",
+          "variant31": "Determine the missing parameter so that the functions ",
+          "variant32": " and ",
+          "variant33": " touch each other."      
+        },
 
+      "problem": {
+        "INFINITY": "Infinitly many solutions.",
+        "DOUBLE": "or"
+      }
+    },
     "quadratic-equation": {
       "name": "Quadratic Equation",
       "description": "Solve the equation for [[x]]."
