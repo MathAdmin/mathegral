@@ -7,6 +7,8 @@ it("renders markup with single inline math expression", () => {
 });
 
 it("renders markup with multiple inline math expressions", () => {
-  const { container } = render(<MathText markup="Solve for [[x]] and [[y]]." />);
+  const { container } = render(
+    <MathText markup="Solve for [[x]] and [[y]]." />
+  );
   expect(container.getElementsByClassName("katex").length).toEqual(2);
 });

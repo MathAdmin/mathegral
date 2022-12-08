@@ -17,5 +17,4 @@ it("calculates params", () => {
     q: 288,
     h: 120,
   });
-
 });

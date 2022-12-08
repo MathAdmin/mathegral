@@ -47,7 +47,10 @@ type Problem = {
   sol: string;
 };
 
-export const formatSolution = (problem: Problem,translate: (key: string) => string): string => {
+export const formatSolution = (
+  problem: Problem,
+  translate: (key: string) => string
+): string => {
   const a = problem.a;
   const b = problem.b;
   const c = problem.c;
@@ -98,7 +101,7 @@ export const formatSolution = (problem: Problem,translate: (key: string) => stri
       } \\text{ , }
   \\\\
   m=${m} \\text{ , } n=${fracTex(b * m * m - m * (v - c), v - c)} 
-      \\text{ , } u=${fracTex(b * m * m,2 * (v - c))} \\text{ , } v=${v}
+      \\text{ , } u=${fracTex(b * m * m, 2 * (v - c))} \\text{ , } v=${v}
   \\end{aligned}`;
 
     case "cmv":
@@ -108,26 +111,32 @@ export const formatSolution = (problem: Problem,translate: (key: string) => stri
       m=${m} \\text{ , } n=${n} \\text{ , } u=${u} \\text{ , } v=${v}
       \\\\
       \\text{b) } a=${fracTex(2 * c - 4 * v - a * m * m, m * m)} \\text{ , }
-      b=${fracTex(4 * (v - c) - b * m,m)} \\text{ , } c=${c} \\text{ , }
+      b=${fracTex(4 * (v - c) - b * m, m)} \\text{ , } c=${c} \\text{ , }
       \\\\
       m=${m} \\text{ , } n=${fracTex(a * m * m * n, 2 * c - 4 * v - a * m * m)}
-      \\text{ , } u=${fracTex(a * m * m * n + m * (2 * c - 4 * v - a * m * m) , 2 *(2 * c - 4 * v - a * m * m)) }
+      \\text{ , } u=${fracTex(
+        a * m * m * n + m * (2 * c - 4 * v - a * m * m),
+        2 * (2 * c - 4 * v - a * m * m)
+      )}
       \\text{ , } v=${v}
   \\end{aligned}`;
 
-  case "abu":
-    return `\\text{${translate(`generator.quadratic-function.problem.${problem.sol}`)}}`
+    case "abu":
+      return `\\text{${translate(
+        `generator.quadratic-function.problem.${problem.sol}`
+      )}}`;
 
-  case "mnu":
-    return `\\text{${translate(`generator.quadratic-function.problem.${problem.sol}`)}}`
+    case "mnu":
+      return `\\text{${translate(
+        `generator.quadratic-function.problem.${problem.sol}`
+      )}}`;
 
     default:
       return `\\begin{aligned}
           a=${a} \\text{ , } b=${b} \\text{ , } c=${c} \\text{ , }
           \\\\
           m=${m} \\text{ , } n=${n} \\text{ , } u=${u} \\text{ , } v=${v}
-          \\end{aligned}`
-
+          \\end{aligned}`;
   }
 };
 
@@ -137,13 +146,12 @@ const quadraticFunction: ProblemGeneratorNg<Problem> = {
   generate: () => {
     var a = randomInt(-9, 10, exclude(0));
     var m = randomInt(-9, 5, exclude(0));
-    var u = randomInt(m + 1, 8, exclude(0,m/2));
+    var u = randomInt(m + 1, 8, exclude(0, m / 2));
     var n = 2 * u - m;
     var b = -a * (m + n);
     var c = a * m * n;
     var v = (4 * a * c - b * b) / (4 * a);
 
-  
     var variant = randomElement(VARIANT);
     var given = variant[0];
     var sol = variant[1];
@@ -156,7 +164,7 @@ const quadraticFunction: ProblemGeneratorNg<Problem> = {
       description: `${given[0]}=${eval(given[0])} \\text{ , } ${
         given[1]
       }=${eval(given[1])} \\text{ , } ${given[2]}=${eval(given[2])}`,
-      solution: formatSolution(problem,translate),
+      solution: formatSolution(problem, translate),
     };
   },
 };

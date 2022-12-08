@@ -19,7 +19,10 @@ export interface ProblemGeneratorNg<Problem> {
   key: string;
   image?: string;
   generate: () => Problem;
-  format: (problem: Problem, translate: (key: string) => string) => FormattedProblem;
+  format: (
+    problem: Problem,
+    translate: (key: string) => string
+  ) => FormattedProblem;
 }
 
 export type FormattedProblem = {

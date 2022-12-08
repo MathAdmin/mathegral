@@ -41,7 +41,8 @@ const ProblemGeneratorList = () => {
                       <SchoolIcon />
                     </ListItemIcon>
                     <ListItemText>
-                      {i + 1}.&nbsp;<MathText markup={t(`generator.${generator.key}.name`)} />
+                      {i + 1}.&nbsp;
+                      <MathText markup={t(`generator.${generator.key}.name`)} />
                     </ListItemText>
                   </ListItemButton>
                 </ListItem>

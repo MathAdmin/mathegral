@@ -13,7 +13,6 @@ import commonArithmetic from "./generator/commonArithmetic";
 import linearSystem from "./generator/linearSystem";
 import quadraticFunction from "./generator/quadraticFunction";
 
-
 interface Chapter {
   key: string;
   generators: Generator[];
