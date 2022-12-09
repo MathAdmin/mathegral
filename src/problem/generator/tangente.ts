@@ -76,7 +76,7 @@ export const formatEquation = (problem: Problem,translate: (key: string) => stri
 
     case "bcmq":
       textDescription = `\\begin{aligned}
-      \\text{${translate("generator.tangente.variant.variant31")}} f(x)
+      \\text{${translate("generator.tangente.variant.variant31")}}f(x)
       \\text{${translate("generator.tangente.variant.variant32")}} g(x)
       \\text{${translate("generator.tangente.variant.variant33")}}
       \\\\
@@ -388,7 +388,6 @@ const tangente: ProblemGeneratorNg<Problem> = {
     var i = randomInt(-9, 10, exclude(0));
     var k = randomInt(1, 4);
     var j = a * i * i + b * i + c - k * k *a;    
-    //var variant = randomElement(VARIANT);
     var variant = VARIANT[weighted([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       [30, 30, 8, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2])];
     var given = variant[0];
