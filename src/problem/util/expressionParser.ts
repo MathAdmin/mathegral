@@ -1,18 +1,18 @@
-import { MathNode, simplify, OperatorNode } from "mathjs";
+import { MathNode, simplify, OperatorNode, isOperatorNode } from "mathjs";
 
 const unaryMinusWithOpNode = (root: MathNode) => {
   return root.transform((node) => {
     if (
-      node.type === "OperatorNode" &&
+      isOperatorNode(node) &&
       node.isBinary() &&
       ["+", "-"].includes(node.op)
     ) {
       const rhs = node.args[1];
-      if (rhs.type === "OperatorNode" && ["*", "/"].includes(rhs.op)) {
+      if (isOperatorNode(rhs) && ["*", "/"].includes(rhs.op)) {
         const lhsOfRhs = rhs.args[0];
         if (
-          lhsOfRhs.type === "OperatorNode" &&
-          lhsOfRhs.isUnary &&
+          isOperatorNode(lhsOfRhs) &&
+          lhsOfRhs.isUnary() &&
           lhsOfRhs.op === "-"
         ) {
           rhs.args[0] = lhsOfRhs.args[0];

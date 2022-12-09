@@ -25,7 +25,7 @@ export const randomInts = (
   return result;
 };
 
-export function randomEnum<T>(
+export function randomEnum<T extends object>(
   anEnum: T,
   accept?: (value: T[keyof T]) => boolean
 ): T[keyof T] {

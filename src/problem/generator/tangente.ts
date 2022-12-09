@@ -1,6 +1,6 @@
 import { ProblemGeneratorNg } from "../ProblemGeneratorSpi";
 import { exclude } from "../util/predicates";
-import { randomInt, randomElement } from "../util/randomizer";
+import { randomInt } from "../util/randomizer";
 import { fracTex,sqrtTex } from "../util/texGenerator";
 import weighted from "weighted";
 
@@ -21,10 +21,6 @@ const VARIANT = [
   ["abcAC", "DOUBLE","B"],
   ["abcAB", "SINGLE","C"],
 ];
-
-
-const INFINITY = "INFINITY";
-const DOUBLE = "DOUBLE";
 
 type Problem = {
   a: number;
@@ -48,7 +44,7 @@ type Problem = {
 };
 
 export const formatEquation = (problem: Problem,translate: (key: string) => string): string => {
-  const {a, b, c, N, n, u, v, m , q, A, B, C, i, j, k, given, sol, param} = problem;
+  const {a, b, c, N, n, u, v, m , q, A, B, C, i, j, k, given} = problem;
   var textDescription : string
 
   switch (given) {
@@ -241,8 +237,8 @@ export const formatEquation = (problem: Problem,translate: (key: string) => stri
 };
 
 
-export const formatSolution = (problem: Problem,translate: (key: string) => string): string => {
-  const {a, b, c, N, n, u, v, m , q, A, B, C, i, j, k, given, sol,param} = problem;
+export const formatSolution = (problem: Problem): string => {
+  const {a, b, c, N, n, u, v, m , q, A, B, C, i, j, k, given} = problem;
   var textSolution : string
 
   switch (given) {
@@ -352,7 +348,7 @@ export const formatSolution = (problem: Problem,translate: (key: string) => stri
 
 export const normalFormPlus=(a:number,b:number):string=>{
   var summe: string
-  Math.sqrt(b)%1==0
+  Math.sqrt(b)%1===0
     ? summe = `${a+Math.sqrt(b)}`
     : summe = `${a}+${sqrtTex(b)}`
   return summe
@@ -360,7 +356,7 @@ export const normalFormPlus=(a:number,b:number):string=>{
 
 export const normalFormMinus=(a:number,b:number):string=>{
   var summe: string
-  Math.sqrt(b)%1==0
+  Math.sqrt(b)%1===0
     ? summe = `${a-Math.sqrt(b)}`
     : summe = `${a}-${sqrtTex(b)}`
   return summe
@@ -400,7 +396,7 @@ const tangente: ProblemGeneratorNg<Problem> = {
   format: (problem, translate) => {
     return {
       description: formatEquation(problem,translate),      
-      solution: formatSolution(problem,translate),
+      solution: formatSolution(problem),
     };
   },
 };
