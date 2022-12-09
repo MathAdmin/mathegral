@@ -398,9 +398,14 @@ const tangente: ProblemGeneratorNg<Problem> = {
       : (q = randomInt(c + 1, c + 10, exclude(0, c, v - m * u, -m * N)));
     var i = randomInt(-9, 10, exclude(0));
     var k = randomInt(1, 4);
-    var j = a * i * i + b * i + c - k * k *a;    
-    var variant = VARIANT[weighted([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      [30, 30, 8, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2])];
+    var j = a * i * i + b * i + c - k * k * a;
+    var variant =
+      VARIANT[
+        weighted(
+          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+          [30, 30, 8, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2]
+        )
+      ];
     var given = variant[0];
     var sol = variant[1];
     var param = variant[2];
