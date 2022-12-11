@@ -9,7 +9,9 @@ type Problem = {
 };
 
 export const equationTree = (problem: Problem) => {
-  return parse(`x^2+${-problem.s1 - problem.s2}x+${problem.s1 * problem.s2}==0`);
+  return parse(
+    `x^2+${-problem.s1 - problem.s2}x+${problem.s1 * problem.s2}==0`
+  );
 };
 
 export const factorizationTree = (problem: Problem) => {
