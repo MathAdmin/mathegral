@@ -23,28 +23,34 @@ const chapters: Chapter[] = [
   {
     key: "3Klasse",
     generators: [
-      primeFactor,
-      commonArithmetic,
-      angleName,
+      //primeFactor,
+      //commonArithmetic,
+      //angleName,
       rightTriangle,
       quadraticEquation,
-      quadraticEquation2,
-      fractionalEquation,
-      squareEquation,
-      linearSystem,
+      //quadraticEquation2,
+      //fractionalEquation,
+      //squareEquation,
+      //linearSystem,
     ],
   },
   {
     key: "4Klasse",
-    generators: [quadraticEquation2, sinTriangle, quadraticFunction, tangente],
+    generators: [
+      //quadraticEquation2, sinTriangle, quadraticFunction, tangente
+    ],
   },
   {
     key: "5Klasse",
-    generators: [arithmeticSeries, geometricSeries],
+    generators: [arithmeticSeries,
+      //geometricSeries
+    ],
   },
   {
     key: "6Klasse",
-    generators: [arithmeticSeries, geometricSeries],
+    generators: [arithmeticSeries, 
+      //geometricSeries
+    ],
   },
 ];
 
