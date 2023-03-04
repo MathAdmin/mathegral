@@ -155,7 +155,7 @@ const quadraticFunction: ProblemGeneratorNg<Problem> = {
     return { a, b, c, m, n, u, v, given, sol };
   },
   format: (problem, translate) => {
-    const { given } = problem;
+    const { a, b, c, m, n, u, v, given } = problem;
     return {
       description: `${given[0]}=${eval(given[0])} \\text{ , } ${
         given[1]
